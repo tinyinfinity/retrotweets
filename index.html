@@ -28,7 +28,7 @@
     header h1 {
       margin: 0;
       font-size: 3.5rem;
-      font-family: 'Bungee Shade', cursive;
+      font-family: 'Bungee+Shade', cursive;
     }
     header p {
       margin: 0.5rem 0 0;
@@ -87,8 +87,8 @@
       font-size: 0.9rem;
       color: #666;
       text-align: right;
+      display: block;
     }
-    /* Why Section Styling */
     .why-section .why-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -111,7 +111,6 @@
       font-size: 0.9rem;
       color: #666;
     }
-    /* FAQ Section Styling */
     .faq-section .faq-item {
       margin-bottom: 1rem;
     }
@@ -131,9 +130,7 @@
       padding: 1rem;
       background-color: #f8f9fa;
       border-radius: 0 0 5px 5px;
-      transition: all 0.3s ease;
     }
-    /* Button Styling */
     button {
       background-color: #007bff;
       color: white;
@@ -151,7 +148,6 @@
     button:hover {
       background-color: #0056b3;
     }
-    /* Modal Styling */
     .modal, .help-modal, .warning-modal {
       display: none;
       position: fixed;
@@ -186,7 +182,6 @@
       color: #007bff;
       cursor: pointer;
     }
-    /* Footer Styling */
     footer {
       text-align: center;
       padding: 1rem;
@@ -201,7 +196,6 @@
     footer a:hover {
       text-decoration: underline;
     }
-    /* Responsive Design */
     @media (max-width: 600px) {
       header h1 {
         font-size: 2.5rem;
@@ -228,22 +222,18 @@
       <h2>Compose Your Postcard</h2>
       <form id="noteForm">
         <div class="form-group">
-          <i class="fas fa-pen"></i>
-          <textarea name="message" placeholder="Your message to the CEO..." maxlength="200" required oninput="updateCounter(this)"></textarea>
+          <i class="fas fa-feather-alt"></i>
+          <textarea name="message" placeholder="Your message..." maxlength="200" required oninput="updateCounter(this)"></textarea>
           <span id="charCounter" class="char-counter">0/200</span>
         </div>
         <div class="form-group">
-          <i class="fas fa-building"></i>
-          <input type="text" id="company" list="companyList" placeholder="Company Name" />
-          <datalist id="companyList"></datalist>
-        </div>
-        <div class="form-group">
-          <i class="fas fa-user"></i>
-          <input type="text" id="to_name" placeholder="CEO’s Name" required>
+          <i class="fas fa-address-card"></i>
+          <input type="text" id="to_name" list="nameList" placeholder="Recipient’s Name" required>
+          <datalist id="nameList"></datalist>
         </div>
         <div class="form-group">
           <i class="fas fa-map-marker-alt"></i>
-          <input type="text" id="to_address_line1" placeholder="Corporate Address" required>
+          <input type="text" id="to_address_line1" placeholder="Address" required>
         </div>
         <div class="form-group">
           <i class="fas fa-city"></i>
@@ -265,12 +255,12 @@
 
     <!-- Why Section -->
     <section class="why-section">
-      <h2>Why Wall Street Postcards?</h2>
+      <h2>Why Retro Tweets?</h2>
       <div class="why-grid">
         <div class="why-card">
           <i class="fas fa-briefcase"></i>
-          <h3>Connect with Leaders</h3>
-          <p>Reach out directly to top executives in the industry.</p>
+          <h3>Connect with Influential People</h3>
+          <p>Reach out directly to governors, celebrities, athletes, and business leaders.</p>
         </div>
         <div class="why-card">
           <i class="fas fa-envelope"></i>
@@ -279,8 +269,8 @@
         </div>
         <div class="why-card">
           <i class="fas fa-handshake"></i>
-          <h3>Build Relationships</h3>
-          <p>Foster meaningful connections with key decision-makers.</p>
+          <h3>Build Connections</h3>
+          <p>Foster meaningful connections with influential individuals.</p>
         </div>
       </div>
     </section>
@@ -289,24 +279,24 @@
     <section class="faq-section">
       <h2>Frequently Asked Questions</h2>
       <div class="faq-item">
-        <div class="faq-question">What is Wall Street Postcards?</div>
-        <div class="faq-answer">Wall Street Postcards is a service that allows you to send professional postcards to CEOs of top companies. It’s a unique way to connect with industry leaders.</div>
+        <div class="faq-question">What is Retro Tweets?</div>
+        <div class="faq-answer">Retro Tweets is a service that allows you to send professional postcards to influential individuals, including governors, celebrities, athletes, and CEOs. It’s a unique way to connect with notable figures.</div>
       </div>
       <div class="faq-item">
         <div class="faq-question">How does the service work?</div>
-        <div class="faq-answer">Compose your message, select a company, and we’ll autopopulate the CEO’s name and address. After payment, your postcard will be printed and mailed.</div>
+        <div class="faq-answer">Compose your message, select or enter the recipient’s name, and we’ll autopopulate the address if available. After payment, your postcard will be printed and mailed.</div>
       </div>
       <div class="faq-item">
-        <div class="faq-question">What companies are supported?</div>
-        <div class="faq-answer">We support the top 100 FinTwit companies, including Tesla, NVIDIA, and more. You can also manually enter details for other companies.</div>
+        <div class="faq-question">Who can I send postcards to?</div>
+        <div class="faq-answer">You can send postcards to a variety of influential individuals, including governors, celebrities, athletes, and CEOs. Our database includes many notable figures, and you can also manually enter details for others.</div>
       </div>
       <div class="faq-item">
         <div class="faq-question">How is my payment information handled?</div>
         <div class="faq-answer">We use Stripe for secure payment processing. Your details are encrypted and never stored on our servers.</div>
       </div>
       <div class="faq-item">
-        <div class="faq-question">Can I send postcards to companies not listed?</div>
-        <div class="faq-answer">Yes! You can manually enter the CEO’s name and address for any company.</div>
+        <div class="faq-question">Can I send postcards to individuals not listed?</div>
+        <div class="faq-answer">Yes! You can manually enter the recipient’s name and address for anyone.</div>
       </div>
     </section>
   </div>
@@ -358,7 +348,7 @@
       <img src="https://via.placeholder.com/300x200/ADD8E6/000000?text=Postcard+Front+(Your+Message)" alt="Postcard Front Preview">
       <p>Your professional message, printed bold and bright!</p>
       <img src="https://via.placeholder.com/300x200/87CEFA/000000?text=Postcard+Back" alt="Postcard Back Preview">
-      <p>The back, with regards from Wall Street Postcards.</p>
+      <p>The back, with regards from Retro Tweets.</p>
     </div>
   </div>
 
@@ -372,71 +362,43 @@
   </div>
 
   <footer>
-    <p>© 2025 Wall Street Postcards | <a href="/contact">Contact Us</a></p>
+    <p>© 2025 Retro Tweets | <a href="/contact">Contact Us</a></p>
   </footer>
 
   <!-- Stripe.js -->
   <script src="https://js.stripe.com/v3/"></script>
-  <script id="companiesData" type="application/json">
-    {
-      "companies": [
-        {
-          "name": "Tesla",
-          "ceo": "Elon Musk",
-          "address_line1": "3500 Deer Creek Road",
-          "city": "Palo Alto",
-          "state": "CA",
-          "zip": "94304"
-        },
-        {
-          "name": "NVIDIA",
-          "ceo": "Jensen Huang",
-          "address_line1": "2788 San Tomas Expressway",
-          "city": "Santa Clara",
-          "state": "CA",
-          "zip": "95051"
-        },
-        {
-          "name": "Palantir",
-          "ceo": "Alexander Karp",
-          "address_line1": "1200 17th Street",
-          "city": "Denver",
-          "state": "CO",
-          "zip": "80202"
-        },
-        {
-          "name": "Robinhood",
-          "ceo": "Vlad Tenev",
-          "address_line1": "85 Willow Road",
-          "city": "Menlo Park",
-          "state": "CA",
-          "zip": "94025"
-        }
-      ]
-    }
-  </script>
   <script>
-    // Companies Data
-    const companiesData = JSON.parse(document.getElementById('companiesData').textContent);
-    const companyList = document.getElementById('companyList');
-    companiesData.companies.forEach(company => {
-      const option = document.createElement('option');
-      option.value = company.name;
-      companyList.appendChild(option);
-    });
+    // Fetch addresses data from JSON file
+    let addressesData = [];
+    fetch('addresses.json')
+      .then(response => response.json())
+      .then(data => {
+        addressesData = data;
+        populateNameList();
+      })
+      .catch(error => console.error('Error loading addresses:', error));
 
-    // Auto-populate CEO and address fields based on company selection
-    const companyInput = document.getElementById('company');
-    companyInput.addEventListener('input', () => {
-      const selectedCompany = companiesData.companies.find(c => c.name.toLowerCase() === companyInput.value.toLowerCase());
-      if (selectedCompany) {
-        document.getElementById('to_name').value = selectedCompany.ceo;
-        document.getElementById('to_address_line1').value = selectedCompany.address_line1;
-        document.getElementById('to_city').value = selectedCompany.city;
-        document.getElementById('to_state').value = selectedCompany.state;
-        document.getElementById('to_zip').value = selectedCompany.zip;
+    // Populate the name datalist
+    function populateNameList() {
+      const nameList = document.getElementById('nameList');
+      addressesData.forEach(person => {
+        const option = document.createElement('option');
+        option.value = person.name;
+        nameList.appendChild(option);
+      });
+    }
+
+    // Auto-populate address fields based on name selection
+    const nameInput = document.getElementById('to_name');
+    nameInput.addEventListener('change', () => {
+      const selectedName = nameInput.value;
+      const selectedPerson = addressesData.find(p => p.name === selectedName);
+      if (selectedPerson) {
+        document.getElementById('to_address_line1').value = selectedPerson.address_line1;
+        document.getElementById('to_city').value = selectedPerson.city;
+        document.getElementById('to_state').value = selectedPerson.state;
+        document.getElementById('to_zip').value = selectedPerson.zip;
       } else {
-        document.getElementById('to_name').value = '';
         document.getElementById('to_address_line1').value = '';
         document.getElementById('to_city').value = '';
         document.getElementById('to_state').value = '';
@@ -461,7 +423,6 @@
     const helpIcon = document.getElementById('helpIcon');
     const closeBtns = document.querySelectorAll('.close-btn');
 
-    // Event listener for "Send Postcard" button with message filter
     paymentBtn.addEventListener('click', () => {
       if (checkMessage()) {
         warningModal.style.display = 'flex';
@@ -470,12 +431,10 @@
       }
     });
 
-    // Help icon click event
     helpIcon.addEventListener('click', () => {
       helpModal.style.display = 'flex';
     });
 
-    // Close modals when clicking close button or outside
     closeBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         btn.parentElement.parentElement.style.display = 'none';
@@ -508,7 +467,7 @@
     const card = elements.create('card', {
       style: {
         base: {
-          fontFamily: 'Poppins, sans-serif',
+          fontFamily: 'Poppins', sans-serif,
           fontSize: '16px',
           color: '#333',
           '::placeholder': { color: '#999' },
