@@ -14,5 +14,21 @@
     "state": "CA",
     "zip": "95814",
     "category": "Governor"
+  },
+  {
+    "name": "LeBron James",
+    "address_line1": "123 Basketball Ave",
+    "city": "Los Angeles",
+    "state": "CA",
+    "zip": "90001",
+    "category": "Athlete"
+  },
+  {
+    "name": "Beyoncé Knowles",
+    "address_line1": "456 Music Lane",
+    "city": "Houston",
+    "state": "TX",
+    "zip": "77001",
+    "category": "Celebrity"
   }
 ]
