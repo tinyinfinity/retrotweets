@@ -1,0 +1,18 @@
+[
+  {
+    "name": "Elon Musk",
+    "address_line1": "3500 Deer Creek Road",
+    "city": "Palo Alto",
+    "state": "CA",
+    "zip": "94304",
+    "category": "CEO"
+  },
+  {
+    "name": "Gavin Newsom",
+    "address_line1": "1303 10th Street",
+    "city": "Sacramento",
+    "state": "CA",
+    "zip": "95814",
+    "category": "Governor"
+  }
+]
