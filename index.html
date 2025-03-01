@@ -19,16 +19,18 @@
       line-height: 1.6;
     }
     header {
-      background-color: #002D62;
+      background-color: #0f6aa1; /* Purple */
       color: white;
       text-align: center;
-      padding: 2rem 1rem;
+      padding: 3rem 1rem 4rem; /* Extra bottom padding for angle */
       position: relative;
+      clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%); /* Angled bottom */
     }
     header h1 {
       margin: 0;
       font-size: 3.5rem;
       font-family: 'Bungee Shade', cursive;
+      color: #f9c646; /* Yellow */
     }
     header p {
       margin: 0.5rem 0 0;
@@ -39,7 +41,7 @@
       top: 10px;
       right: 10px;
       font-size: 1.5rem;
-      color: white;
+      color: #1fb9bb; /* Teal */
       cursor: pointer;
     }
     .container {
@@ -55,7 +57,7 @@
       margin-bottom: 2rem;
     }
     .note-form h2, .why-section h2, .faq-section h2 {
-      color: #007bff;
+      color: #f9c646; /* Yellow */
       margin-top: 0;
       font-size: 1.5rem;
       font-weight: 500;
@@ -69,7 +71,7 @@
       left: 10px;
       top: 50%;
       transform: translateY(-50%);
-      color: #007bff;
+      color: #1fb9bb; /* Teal */
     }
     textarea, input {
       width: 100%;
@@ -100,7 +102,7 @@
     }
     .why-section .why-card i {
       font-size: 2.5rem;
-      color: #007bff;
+      color: #1fb9bb; /* Teal */
       margin-bottom: 1rem;
     }
     .why-section .why-card h3 {
@@ -132,8 +134,8 @@
       border-radius: 0 0 5px 5px;
     }
     button {
-      background-color: #007bff;
-      color: white;
+      background-color: #f9c646; /* Yellow */
+      color: #333;
       border: none;
       padding: 1rem 2rem;
       border-radius: 5px;
@@ -146,7 +148,8 @@
       margin: 1rem auto;
     }
     button:hover {
-      background-color: #0056b3;
+      background-color: #ef6040; /* Orange */
+      color: white;
     }
     .modal, .help-modal, .warning-modal, .contact-modal {
       display: none;
@@ -170,30 +173,38 @@
       text-align: center;
     }
     .modal-content h2, .help-modal-content h2, .warning-modal-content h2, .contact-modal-content h2 {
-      color: #007bff;
+      color: #f9c646; /* Yellow */
       font-size: 1.5rem;
       margin-top: 0;
+    }
+    .warning-modal-content {
+      background-color: #ed4b5a; /* Red */
+      color: white;
+    }
+    .warning-modal-content h2 {
+      color: white;
     }
     .close-btn {
       position: absolute;
       top: 10px;
       right: 10px;
       font-size: 1.5rem;
-      color: #007bff;
+      color: #1fb9bb; /* Teal */
       cursor: pointer;
     }
     footer {
       text-align: center;
       padding: 1rem;
-      background-color: #002D62;
+      background-color: #0f6aa1; /* Blue */
       color: white;
     }
     footer a {
-      color: white;
+      color: #f9c646; /* Yellow */
       text-decoration: none;
       margin: 0 0.5rem;
     }
     footer a:hover {
+      color: #ef6040; /* Orange */
       text-decoration: underline;
     }
     /* Contact Form Styling */
@@ -216,8 +227,8 @@
       width: 100%;
       padding: 10px;
       border: none;
-      background-color: #007bff;
-      color: white;
+      background-color: #f9c646; /* Yellow */
+      color: #333;
       font-size: 1rem;
       border-radius: 5px;
       cursor: pointer;
@@ -225,7 +236,8 @@
       margin: 10px auto;
     }
     .contact-modal-content form button:hover {
-      background-color: #0056b3;
+      background-color: #ef6040; /* Orange */
+      color: white;
     }
     #contact-close-btn {
       display: block;
@@ -331,11 +343,11 @@
       </div>
       <div class="faq-item">
         <div class="faq-question">How does the service work?</div>
-        <div class="faq-answer">Compose your message, select or enter the recipient’s name, and we’ll autopopulate the address if available.  After payment, your postcard will be automatically printed and mailed.</div>
+        <div class="faq-answer">Compose your message, select or enter the recipient’s name, and we’ll autopopulate the address if available. After payment, your postcard will be automatically printed and mailed.</div>
       </div>
       <div class="faq-item">
         <div class="faq-question">Who can I send postcards to?</div>
-        <div class="faq-answer">You can send postcards to anybody you want.  We have an address book that includes many notable figures or you can manually enter details.</div>
+        <div class="faq-answer">You can send postcards to anybody you want. We have an address book that includes many notable figures or you can manually enter details.</div>
       </div>
       <div class="faq-item">
         <div class="faq-question">How is my payment information handled?</div>
@@ -424,7 +436,7 @@
   </div>
 
   <footer>
-    <p>© 2025 Retro Tweets.  All Rights Reserved.  |  <a href="#" id="contactLink">Contact Us</a></p>
+    <p>© 2025 Retro Tweets. All Rights Reserved. | <a href="#" id="contactLink">Contact Us</a></p>
   </footer>
 
   <!-- Stripe.js -->
