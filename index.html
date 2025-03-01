@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Poppins:wght@400;500&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet" />
   <style>
     body {
       font-family: 'Poppins', sans-serif;
@@ -28,7 +28,7 @@
     header h1 {
       margin: 0;
       font-size: 3.5rem;
-      font-family: 'Bungee+Shade', cursive;
+      font-family: 'Bungee Shade', cursive; /* Fixed font name */
     }
     header p {
       margin: 0.5rem 0 0;
@@ -368,15 +368,41 @@
   <!-- Stripe.js -->
   <script src="https://js.stripe.com/v3/"></script>
   <script>
-    // Fetch addresses data from JSON file
-    let addressesData = [];
-    fetch('addresses.json')
-      .then(response => response.json())
-      .then(data => {
-        addressesData = data;
-        populateNameList();
-      })
-      .catch(error => console.error('Error loading addresses:', error));
+    // Inline addresses data (replace with fetch if using external file)
+    const addressesData = [
+      {
+        name: "Elon Musk",
+        address_line1: "3500 Deer Creek Road",
+        city: "Palo Alto",
+        state: "CA",
+        zip: "94304",
+        category: "CEO"
+      },
+      {
+        name: "Gavin Newsom",
+        address_line1: "1303 10th Street",
+        city: "Sacramento",
+        state: "CA",
+        zip: "95814",
+        category: "Governor"
+      },
+      {
+        name: "LeBron James",
+        address_line1: "123 Basketball Ave",
+        city: "Los Angeles",
+        state: "CA",
+        zip: "90001",
+        category: "Athlete"
+      },
+      {
+        name: "Beyoncé Knowles",
+        address_line1: "456 Music Lane",
+        city: "Houston",
+        state: "TX",
+        zip: "77001",
+        category: "Celebrity"
+      }
+    ];
 
     // Populate the name datalist
     function populateNameList() {
@@ -386,19 +412,26 @@
         option.value = person.name;
         nameList.appendChild(option);
       });
+      console.log('Datalist populated with', addressesData.length, 'names');
     }
+
+    // Call populateNameList immediately since data is inline
+    populateNameList();
 
     // Auto-populate address fields based on name selection
     const nameInput = document.getElementById('to_name');
     nameInput.addEventListener('change', () => {
-      const selectedName = nameInput.value;
-      const selectedPerson = addressesData.find(p => p.name === selectedName);
+      const selectedName = nameInput.value.trim();
+      console.log('Selected name:', selectedName);
+      const selectedPerson = addressesData.find(p => p.name.toLowerCase() === selectedName.toLowerCase());
       if (selectedPerson) {
+        console.log('Found person:', selectedPerson);
         document.getElementById('to_address_line1').value = selectedPerson.address_line1;
         document.getElementById('to_city').value = selectedPerson.city;
         document.getElementById('to_state').value = selectedPerson.state;
         document.getElementById('to_zip').value = selectedPerson.zip;
       } else {
+        console.log('No matching person found');
         document.getElementById('to_address_line1').value = '';
         document.getElementById('to_city').value = '';
         document.getElementById('to_state').value = '';
@@ -467,7 +500,7 @@
     const card = elements.create('card', {
       style: {
         base: {
-          fontFamily: 'Poppins', sans-serif,
+          fontFamily: 'Poppins, sans-serif',
           fontSize: '16px',
           color: '#333',
           '::placeholder': { color: '#999' },
@@ -520,6 +553,9 @@
         alert('Network error: ' + err.message);
       }
     });
+
+    // Log to confirm script is running
+    console.log('JavaScript loaded successfully');
   </script>
 </body>
 </html>
