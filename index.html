@@ -28,7 +28,7 @@
     header h1 {
       margin: 0;
       font-size: 3.5rem;
-      font-family: 'Bungee Shade', cursive; /* Fixed font name */
+      font-family: 'Bungee Shade', cursive;
     }
     header p {
       margin: 0.5rem 0 0;
@@ -148,7 +148,7 @@
     button:hover {
       background-color: #0056b3;
     }
-    .modal, .help-modal, .warning-modal {
+    .modal, .help-modal, .warning-modal, .contact-modal {
       display: none;
       position: fixed;
       top: 0;
@@ -159,7 +159,7 @@
       justify-content: center;
       align-items: center;
     }
-    .modal-content, .help-modal-content, .warning-modal-content {
+    .modal-content, .help-modal-content, .warning-modal-content, .contact-modal-content {
       background-color: white;
       padding: 2rem;
       border-radius: 10px;
@@ -169,7 +169,7 @@
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
       text-align: center;
     }
-    .modal-content h2, .help-modal-content h2, .warning-modal-content h2 {
+    .modal-content h2, .help-modal-content h2, .warning-modal-content h2, .contact-modal-content h2 {
       color: #007bff;
       font-size: 1.5rem;
       margin-top: 0;
@@ -195,6 +195,53 @@
     }
     footer a:hover {
       text-decoration: underline;
+    }
+    /* Contact Form Styling */
+    .contact-modal-content form input[type="text"],
+    .contact-modal-content form input[type="email"],
+    .contact-modal-content form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+    .contact-modal-content form textarea {
+      resize: vertical;
+      height: 100px;
+    }
+    .contact-modal-content form button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      margin: 10px auto;
+    }
+    .contact-modal-content form button:hover {
+      background-color: #0056b3;
+    }
+    #contact-close-btn {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      border: none;
+      background-color: #ddd;
+      color: #333;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      margin: 10px auto;
+    }
+    #contact-close-btn:hover {
+      background-color: #ccc;
     }
     @media (max-width: 600px) {
       header h1 {
@@ -361,48 +408,41 @@
     </div>
   </div>
 
+  <!-- Contact Us Modal -->
+  <div id="contactModal" class="contact-modal">
+    <div class="contact-modal-content">
+      <span class="close-btn">×</span>
+      <h2>Contact Us</h2>
+      <form id="contactForm" action="https://formspree.io/f/xovjgvvq" method="POST">
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="email" name="_replyto" placeholder="Email" required>
+        <textarea name="message" placeholder="Message (max 500 characters)" maxlength="500" required></textarea>
+        <button type="submit">Send</button>
+      </form>
+      <button id="contact-close-btn">Close</button>
+    </div>
+  </div>
+
   <footer>
-    <p>© 2025 Retro Tweets | <a href="/contact">Contact Us</a></p>
+    <p>© 2025 Retro Tweets | <a href="#" id="contactLink">Contact Us</a></p>
   </footer>
 
   <!-- Stripe.js -->
   <script src="https://js.stripe.com/v3/"></script>
   <script>
-    // Inline addresses data (replace with fetch if using external file)
-    const addressesData = [
-      {
-        name: "Elon Musk",
-        address_line1: "3500 Deer Creek Road",
-        city: "Palo Alto",
-        state: "CA",
-        zip: "94304",
-        category: "CEO"
-      },
-      {
-        name: "Gavin Newsom",
-        address_line1: "1303 10th Street",
-        city: "Sacramento",
-        state: "CA",
-        zip: "95814",
-        category: "Governor"
-      },
-      {
-        name: "LeBron James",
-        address_line1: "123 Basketball Ave",
-        city: "Los Angeles",
-        state: "CA",
-        zip: "90001",
-        category: "Athlete"
-      },
-      {
-        name: "Beyoncé Knowles",
-        address_line1: "456 Music Lane",
-        city: "Houston",
-        state: "TX",
-        zip: "77001",
-        category: "Celebrity"
-      }
-    ];
+    // Fetch addresses data with cache busting
+    let addressesData = [];
+    fetch(`addresses.json?t=${Date.now()}`)
+      .then(response => {
+        if (!response.ok) throw new Error('Network response was not ok');
+        return response.json();
+      })
+      .then(data => {
+        addressesData = data;
+        console.log('Addresses data loaded:', addressesData);
+        populateNameList();
+      })
+      .catch(error => console.error('Error loading addresses:', error));
 
     // Populate the name datalist
     function populateNameList() {
@@ -414,9 +454,6 @@
       });
       console.log('Datalist populated with', addressesData.length, 'names');
     }
-
-    // Call populateNameList immediately since data is inline
-    populateNameList();
 
     // Auto-populate address fields based on name selection
     const nameInput = document.getElementById('to_name');
@@ -452,8 +489,10 @@
     const paymentModal = document.getElementById('paymentModal');
     const helpModal = document.getElementById('helpModal');
     const warningModal = document.getElementById('warningModal');
+    const contactModal = document.getElementById('contactModal');
     const paymentBtn = document.querySelector('.payment-btn');
     const helpIcon = document.getElementById('helpIcon');
+    const contactLink = document.getElementById('contactLink');
     const closeBtns = document.querySelectorAll('.close-btn');
 
     paymentBtn.addEventListener('click', () => {
@@ -468,6 +507,11 @@
       helpModal.style.display = 'flex';
     });
 
+    contactLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      contactModal.style.display = 'flex';
+    });
+
     closeBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         btn.parentElement.parentElement.style.display = 'none';
@@ -478,6 +522,11 @@
       if (e.target === paymentModal) paymentModal.style.display = 'none';
       if (e.target === helpModal) helpModal.style.display = 'none';
       if (e.target === warningModal) warningModal.style.display = 'none';
+      if (e.target === contactModal) contactModal.style.display = 'none';
+    });
+
+    document.getElementById('contact-close-btn').addEventListener('click', () => {
+      contactModal.style.display = 'none';
     });
 
     // FAQ Accordion Functionality
@@ -552,6 +601,12 @@
       } catch (err) {
         alert('Network error: ' + err.message);
       }
+    });
+
+    // Disable right-click
+    document.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+      alert('Right-click is disabled on this page.');
     });
 
     // Log to confirm script is running
