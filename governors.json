@@ -1,426 +1,402 @@
 [
   {
-    "name": "Elon Musk",
-    "address_line1": "3500 Deer Creek Road",
-    "city": "Palo Alto",
     "state": "CA",
-    "zip": "94304",
-    "category": "CEO"
-  },
-  {
     "name": "Gavin Newsom",
     "address_line1": "1303 10th Street",
     "city": "Sacramento",
     "state": "CA",
-    "zip": "95814",
-    "category": "Governor"
+    "zip": "95814"
   },
   {
-    "name": "LeBron James",
-    "address_line1": "123 Basketball Ave",
-    "city": "Los Angeles",
-    "state": "CA",
-    "zip": "90001",
-    "category": "Athlete"
-  },
-  {
-    "name": "Beyoncé Knowles",
-    "address_line1": "456 Music Lane",
-    "city": "Houston",
-    "state": "TX",
-    "zip": "77001",
-    "category": "Celebrity"
-  },
-  {
+    "state": "AL",
     "name": "Kay Ivey",
     "address_line1": "600 Dexter Avenue",
     "city": "Montgomery",
     "state": "AL",
-    "zip": "36130",
-    "category": "Governor"
+    "zip": "36130"
   },
   {
+    "state": "AK",
     "name": "Mike Dunleavy",
     "address_line1": "PO Box 110001",
     "city": "Juneau",
     "state": "AK",
-    "zip": "99811-0001",
-    "category": "Governor"
+    "zip": "99811-0001"
   },
   {
+    "state": "AZ",
     "name": "Katie Hobbs",
     "address_line1": "1700 West Washington Street",
     "city": "Phoenix",
     "state": "AZ",
-    "zip": "85007",
-    "category": "Governor"
+    "zip": "85007"
   },
   {
+    "state": "AR",
     "name": "Sarah Huckabee Sanders",
     "address_line1": "500 Woodlane Street",
     "city": "Little Rock",
     "state": "AR",
-    "zip": "72201",
-    "category": "Governor"
+    "zip": "72201"
   },
   {
+    "state": "CO",
     "name": "Jared Polis",
     "address_line1": "200 E. Colfax Avenue",
     "city": "Denver",
     "state": "CO",
-    "zip": "80203",
-    "category": "Governor"
+    "zip": "80203"
   },
   {
+    "state": "CT",
     "name": "Ned Lamont",
     "address_line1": "210 Capitol Avenue",
     "city": "Hartford",
     "state": "CT",
-    "zip": "06106",
-    "category": "Governor"
+    "zip": "06106"
   },
   {
+    "state": "DE",
     "name": "John Carney",
     "address_line1": "820 N. French Street",
     "city": "Wilmington",
     "state": "DE",
-    "zip": "19801",
-    "category": "Governor"
+    "zip": "19801"
   },
   {
+    "state": "FL",
     "name": "Ron DeSantis",
     "address_line1": "400 S. Monroe Street",
     "city": "Tallahassee",
     "state": "FL",
-    "zip": "32399",
-    "category": "Governor"
+    "zip": "32399"
   },
   {
+    "state": "GA",
     "name": "Brian Kemp",
     "address_line1": "206 Washington Street",
     "city": "Atlanta",
     "state": "GA",
-    "zip": "30334",
-    "category": "Governor"
+    "zip": "30334"
   },
   {
+    "state": "HI",
     "name": "Josh Green",
     "address_line1": "415 S. Beretania Street",
     "city": "Honolulu",
     "state": "HI",
-    "zip": "96813",
-    "category": "Governor"
+    "zip": "96813"
   },
   {
+    "state": "ID",
     "name": "Brad Little",
     "address_line1": "700 W. Jefferson Street",
     "city": "Boise",
     "state": "ID",
-    "zip": "83720",
-    "category": "Governor"
+    "zip": "83720"
   },
   {
+    "state": "IL",
     "name": "JB Pritzker",
     "address_line1": "207 State House",
     "city": "Springfield",
     "state": "IL",
-    "zip": "62706",
-    "category": "Governor"
+    "zip": "62706"
   },
   {
+    "state": "IN",
     "name": "Eric Holcomb",
     "address_line1": "200 W. Washington Street",
     "city": "Indianapolis",
     "state": "IN",
-    "zip": "46204",
-    "category": "Governor"
+    "zip": "46204"
   },
   {
+    "state": "IA",
     "name": "Kim Reynolds",
     "address_line1": "1007 E. Grand Avenue",
     "city": "Des Moines",
     "state": "IA",
-    "zip": "50319",
-    "category": "Governor"
+    "zip": "50319"
   },
   {
+    "state": "KS",
     "name": "Laura Kelly",
     "address_line1": "300 SW 10th Avenue",
     "city": "Topeka",
     "state": "KS",
-    "zip": "66612",
-    "category": "Governor"
+    "zip": "66612"
   },
   {
+    "state": "KY",
     "name": "Andy Beshear",
     "address_line1": "700 Capitol Avenue",
     "city": "Frankfort",
     "state": "KY",
-    "zip": "40601",
-    "category": "Governor"
+    "zip": "40601"
   },
   {
+    "state": "LA",
     "name": "Jeff Landry",
     "address_line1": "900 N. 3rd Street",
     "city": "Baton Rouge",
     "state": "LA",
-    "zip": "70802",
-    "category": "Governor"
+    "zip": "70802"
   },
   {
+    "state": "ME",
     "name": "Janet Mills",
     "address_line1": "1 State House Station",
     "city": "Augusta",
     "state": "ME",
-    "zip": "04333",
-    "category": "Governor"
+    "zip": "04333"
   },
   {
+    "state": "MD",
     "name": "Wes Moore",
     "address_line1": "100 State Circle",
     "city": "Annapolis",
     "state": "MD",
-    "zip": "21401",
-    "category": "Governor"
+    "zip": "21401"
   },
   {
+    "state": "MA",
     "name": "Maura Healey",
     "address_line1": "24 Beacon Street",
     "city": "Boston",
     "state": "MA",
-    "zip": "02133",
-    "category": "Governor"
+    "zip": "02133"
   },
   {
+    "state": "MI",
     "name": "Gretchen Whitmer",
     "address_line1": "111 S. Capitol Avenue",
     "city": "Lansing",
     "state": "MI",
-    "zip": "48933",
-    "category": "Governor"
+    "zip": "48933"
   },
   {
+    "state": "MN",
     "name": "Tim Walz",
     "address_line1": "130 State Capitol",
     "city": "St. Paul",
     "state": "MN",
-    "zip": "55155",
-    "category": "Governor"
+    "zip": "55155"
   },
   {
+    "state": "MS",
     "name": "Tate Reeves",
     "address_line1": "550 High Street",
     "city": "Jackson",
     "state": "MS",
-    "zip": "39201",
-    "category": "Governor"
+    "zip": "39201"
   },
   {
+    "state": "MO",
     "name": "Mike Parson",
     "address_line1": "201 W. Capitol Avenue",
     "city": "Jefferson City",
     "state": "MO",
-    "zip": "65101",
-    "category": "Governor"
+    "zip": "65101"
   },
   {
+    "state": "MT",
     "name": "Greg Gianforte",
     "address_line1": "PO Box 200801",
     "city": "Helena",
     "state": "MT",
-    "zip": "59620-0801",
-    "category": "Governor"
+    "zip": "59620-0801"
   },
   {
+    "state": "NE",
     "name": "Jim Pillen",
     "address_line1": "PO Box 94848",
     "city": "Lincoln",
     "state": "NE",
-    "zip": "68509-4848",
-    "category": "Governor"
+    "zip": "68509-4848"
   },
   {
+    "state": "NV",
     "name": "Joe Lombardo",
     "address_line1": "101 N. Carson Street",
     "city": "Carson City",
     "state": "NV",
-    "zip": "89701",
-    "category": "Governor"
+    "zip": "89701"
   },
   {
+    "state": "NH",
     "name": "Chris Sununu",
     "address_line1": "107 N. Main Street",
     "city": "Concord",
     "state": "NH",
-    "zip": "03301",
-    "category": "Governor"
+    "zip": "03301"
   },
   {
+    "state": "NJ",
     "name": "Phil Murphy",
     "address_line1": "125 W. State Street",
     "city": "Trenton",
     "state": "NJ",
-    "zip": "08625",
-    "category": "Governor"
+    "zip": "08625"
   },
   {
+    "state": "NM",
     "name": "Michelle Lujan Grisham",
     "address_line1": "490 Old Santa Fe Trail",
     "city": "Santa Fe",
     "state": "NM",
-    "zip": "87501",
-    "category": "Governor"
+    "zip": "87501"
   },
   {
+    "state": "NY",
     "name": "Kathy Hochul",
     "address_line1": "NYS State Capitol Building",
     "city": "Albany",
     "state": "NY",
-    "zip": "12224",
-    "category": "Governor"
+    "zip": "12224"
   },
   {
+    "state": "NC",
     "name": "Roy Cooper",
     "address_line1": "20301 Mail Service Center",
     "city": "Raleigh",
     "state": "NC",
-    "zip": "27699-0301",
-    "category": "Governor"
+    "zip": "27699-0301"
   },
   {
+    "state": "ND",
     "name": "Doug Burgum",
     "address_line1": "600 E. Boulevard Avenue",
     "city": "Bismarck",
     "state": "ND",
-    "zip": "58505-0001",
-    "category": "Governor"
+    "zip": "58505-0001"
   },
   {
+    "state": "OH",
     "name": "Mike DeWine",
     "address_line1": "77 S. High Street",
     "city": "Columbus",
     "state": "OH",
-    "zip": "43215",
-    "category": "Governor"
+    "zip": "43215"
   },
   {
+    "state": "OK",
     "name": "Kevin Stitt",
     "address_line1": "2300 N. Lincoln Boulevard",
     "city": "Oklahoma City",
     "state": "OK",
-    "zip": "73105",
-    "category": "Governor"
+    "zip": "73105"
   },
   {
+    "state": "OR",
     "name": "Tina Kotek",
     "address_line1": "900 Court Street NE",
     "city": "Salem",
     "state": "OR",
-    "zip": "97301",
-    "category": "Governor"
+    "zip": "97301"
   },
   {
+    "state": "PA",
     "name": "Josh Shapiro",
     "address_line1": "508 Main Capitol Building",
     "city": "Harrisburg",
     "state": "PA",
-    "zip": "17120",
-    "category": "Governor"
+    "zip": "17120"
   },
   {
+    "state": "RI",
     "name": "Dan McKee",
     "address_line1": "82 Smith Street",
     "city": "Providence",
     "state": "RI",
-    "zip": "02903",
-    "category": "Governor"
+    "zip": "02903"
   },
   {
+    "state": "SC",
     "name": "Henry McMaster",
     "address_line1": "1100 Gervais Street",
     "city": "Columbia",
     "state": "SC",
-    "zip": "29201",
-    "category": "Governor"
+    "zip": "29201"
   },
   {
+    "state": "SD",
     "name": "Kristi Noem",
     "address_line1": "500 E. Capitol Avenue",
     "city": "Pierre",
     "state": "SD",
-    "zip": "57501",
-    "category": "Governor"
+    "zip": "57501"
   },
   {
+    "state": "TN",
     "name": "Bill Lee",
     "address_line1": "600 Dr. Martin L. King Jr. Boulevard",
     "city": "Nashville",
     "state": "TN",
-    "zip": "37243",
-    "category": "Governor"
+    "zip": "37243"
   },
   {
+    "state": "TX",
     "name": "Greg Abbott",
     "address_line1": "1100 San Jacinto Boulevard",
     "city": "Austin",
     "state": "TX",
-    "zip": "78701",
-    "category": "Governor"
+    "zip": "78701"
   },
   {
+    "state": "UT",
     "name": "Spencer Cox",
     "address_line1": "350 N. State Street",
     "city": "Salt Lake City",
     "state": "UT",
-    "zip": "84114",
-    "category": "Governor"
+    "zip": "84114"
   },
   {
+    "state": "VT",
     "name": "Phil Scott",
     "address_line1": "109 State Street",
     "city": "Montpelier",
     "state": "VT",
-    "zip": "05609",
-    "category": "Governor"
+    "zip": "05609"
   },
   {
+    "state": "VA",
     "name": "Glenn Youngkin",
     "address_line1": "1111 E. Broad Street",
     "city": "Richmond",
     "state": "VA",
-    "zip": "23219",
-    "category": "Governor"
+    "zip": "23219"
   },
   {
+    "state": "WA",
     "name": "Jay Inslee",
     "address_line1": "416 Sid Snyder Avenue SW",
     "city": "Olympia",
     "state": "WA",
-    "zip": "98504",
-    "category": "Governor"
+    "zip": "98504"
   },
   {
+    "state": "WV",
     "name": "Jim Justice",
     "address_line1": "1900 Kanawha Boulevard E",
     "city": "Charleston",
     "state": "WV",
-    "zip": "25305",
-    "category": "Governor"
+    "zip": "25305"
   },
   {
+    "state": "WI",
     "name": "Tony Evers",
     "address_line1": "115 E. State Capitol",
     "city": "Madison",
     "state": "WI",
-    "zip": "53702",
-    "category": "Governor"
+    "zip": "53702"
   },
   {
+    "state": "WY",
     "name": "Mark Gordon",
     "address_line1": "200 W. 24th Street",
     "city": "Cheyenne",
     "state": "WY",
-    "zip": "82002",
-    "category": "Governor"
+    "zip": "82002"
   }
 ]
