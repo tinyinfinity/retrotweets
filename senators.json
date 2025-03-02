@@ -1,0 +1,26 @@
+[
+  {
+    "state": "CA",
+    "name": "Alex Padilla",
+    "address_line1": "112 Hart Senate Office Building",
+    "city": "Washington",
+    "state": "DC",
+    "zip": "20510"
+  },
+  {
+    "state": "NY",
+    "name": "Chuck Schumer",
+    "address_line1": "322 Hart Senate Office Building",
+    "city": "Washington",
+    "state": "DC",
+    "zip": "20510"
+  },
+  {
+    "state": "TX",
+    "name": "John Cornyn",
+    "address_line1": "517 Hart Senate Office Building",
+    "city": "Washington",
+    "state": "DC",
+    "zip": "20510"
+  }
+]
