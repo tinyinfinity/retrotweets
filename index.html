@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Retro Tweets</title>
+  <title>Write The Leaders</title>
   <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <!-- Google Fonts -->
@@ -14,35 +14,35 @@
       font-family: 'Poppins', sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #f8f9fa;
-      color: #333;
+      background-color: #ecf0f1; /* Light Gray */
+      color: #34495e; /* Dark Blue-Gray */
       line-height: 1.6;
     }
     header {
-      background-color: #f9c646; /* Yellow */
+      background-color: #2c3e50; /* Navy Blue */
       color: white;
       text-align: center;
-      padding: 3rem 1rem 4rem; /* Extra bottom padding for angle */
+      padding: 3rem 1rem 4rem;
       position: relative;
-      clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%); /* Angled bottom */
+      clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);
     }
     header h1 {
       margin: 0;
       font-size: 3.5rem;
       font-family: 'Bungee Shade', cursive;
-      color: #345c9d; /* Blue */
+      color: #f1c40f; /* Gold */
     }
     header p {
       margin: 0.5rem 0 0;
       font-size: 1.2rem;
-      color: #345c9d; /* Blue */
+      color: #f1c40f; /* Gold */
     }
     .help-icon {
       position: absolute;
       top: 10px;
       right: 10px;
       font-size: 1.5rem;
-      color: #345c9d; /* Blue */
+      color: #f1c40f; /* Gold */
       cursor: pointer;
     }
     .container {
@@ -58,7 +58,7 @@
       margin-bottom: 2rem;
     }
     .note-form h2, .why-section h2, .faq-section h2 {
-      color: #345c9d; /* Navy */
+      color: #2c3e50; /* Navy Blue */
       margin-top: 0;
       font-size: 1.5rem;
       font-weight: 500;
@@ -72,19 +72,23 @@
       left: 10px;
       top: 50%;
       transform: translateY(-50%);
-      color: #1fb9bb; /* Teal */
+      color: #c0392b; /* Deep Red */
     }
-    textarea, input {
+    select, textarea, input {
       width: 100%;
-      padding: 0.8rem 0.8rem 0.8rem 2.5rem;
+      padding: 0.8rem;
       border: 1px solid #ddd;
       border-radius: 5px;
       font-family: 'Poppins', sans-serif;
       box-sizing: border-box;
     }
     textarea {
+      padding-left: 2.5rem;
       height: 100px;
       resize: vertical;
+    }
+    input[type="text"] {
+      padding-left: 2.5rem;
     }
     .char-counter {
       font-size: 0.9rem;
@@ -103,7 +107,7 @@
     }
     .why-section .why-card i {
       font-size: 2.5rem;
-      color: #ef6040; /* Orange */
+      color: #c0392b; /* Deep Red */
       margin-bottom: 1rem;
     }
     .why-section .why-card h3 {
@@ -135,7 +139,7 @@
       border-radius: 0 0 5px 5px;
     }
     button {
-      background-color: #345c9d; /* Blue */ 
+      background-color: #2c3e50; /* Navy Blue */
       color: white;
       border: none;
       padding: 1rem 2rem;
@@ -149,8 +153,7 @@
       margin: 1rem auto;
     }
     button:hover {
-      background-color: #1fb9bb; /* Teal */
-      color: black;
+      background-color: #c0392b; /* Deep Red */
     }
     .modal, .help-modal, .warning-modal, .contact-modal {
       display: none;
@@ -174,12 +177,12 @@
       text-align: center;
     }
     .modal-content h2, .help-modal-content h2, .warning-modal-content h2, .contact-modal-content h2 {
-      color: #345c9d; /* Navy */
+      color: #2c3e50; /* Navy Blue */
       font-size: 1.5rem;
       margin-top: 0;
     }
     .warning-modal-content {
-      background-color: #ed4b5a; /* Red */
+      background-color: #c0392b; /* Deep Red */
       color: white;
     }
     .warning-modal-content h2 {
@@ -190,25 +193,24 @@
       top: 10px;
       right: 10px;
       font-size: 1.5rem;
-      color: #1fb9bb; /* Teal */
+      color: #c0392b; /* Deep Red */
       cursor: pointer;
     }
     footer {
       text-align: center;
       padding: 1rem;
-      background-color: #f9c646; /* Yellow */
-      color: black;
+      background-color: #2c3e50; /* Navy Blue */
+      color: white;
     }
     footer a {
-      color: #345c9d; /* Blue */
+      color: #f1c40f; /* Gold */
       text-decoration: none;
       margin: 0 0.5rem;
     }
     footer a:hover {
-      color: #0f6aa1; /* Blue */
+      color: #c0392b; /* Deep Red */
       text-decoration: underline;
     }
-    /* Contact Form Styling */
     .contact-modal-content form input[type="text"],
     .contact-modal-content form input[type="email"],
     .contact-modal-content form textarea {
@@ -228,8 +230,8 @@
       width: 100%;
       padding: 10px;
       border: none;
-      background-color: #f9c646; /* Yellow */
-      color: #333;
+      background-color: #2c3e50; /* Navy Blue */
+      color: white;
       font-size: 1rem;
       border-radius: 5px;
       cursor: pointer;
@@ -237,8 +239,7 @@
       margin: 10px auto;
     }
     .contact-modal-content form button:hover {
-      background-color: #ef6040; /* Orange */
-      color: white;
+      background-color: #c0392b; /* Deep Red */
     }
     #contact-close-btn {
       display: block;
@@ -271,25 +272,34 @@
 </head>
 <body>
   <header>
-    <h1>Retro Tweets</h1>
-    <p>Get noticed with old school mail.</p>
+    <h1>Write The Leaders</h1>
+    <p>Send postcards to government and business leaders</p>
     <i class="fas fa-question-circle help-icon" id="helpIcon"></i>
   </header>
 
   <div class="container">
-    <!-- Note Writing Form -->
     <section class="note-form">
       <h2>Compose Your Postcard</h2>
       <form id="noteForm">
+        <div class="form-group">
+          <label for="leaderType">Select Leader Type:</label>
+          <select id="leaderType" name="leaderType">
+            <option value="">--Select--</option>
+            <option value="business">Business Leader</option>
+            <option value="governor">Governor</option>
+            <option value="senator">Senate Committee</option>
+            <option value="committee">Senior Senator</option>
+          </select>
+        </div>
+        <div id="dynamicInput" class="form-group" style="display: none;"></div>
         <div class="form-group">
           <i class="fas fa-feather-alt"></i>
           <textarea name="message" placeholder="Your message..." maxlength="200" required oninput="updateCounter(this)"></textarea>
           <span id="charCounter" class="char-counter">0/200</span>
         </div>
         <div class="form-group">
-          <i class="fas fa-address-card"></i>
-          <input type="text" id="to_name" list="nameList" placeholder="Recipient’s Name" required>
-          <datalist id="nameList"></datalist>
+          <i class="fas fa-user"></i>
+          <input type="text" id="to_name" placeholder="Recipient’s Name" required>
         </div>
         <div class="form-group">
           <i class="fas fa-map-marker-alt"></i>
@@ -310,58 +320,50 @@
       </form>
     </section>
 
-    <!-- Payment Button -->
     <button class="payment-btn">Send Postcard <i class="fas fa-paper-plane"></i></button>
 
-    <!-- Why Section -->
     <section class="why-section">
-      <h2>Why Retro Tweets?</h2>
+      <h2>Why Write The Leaders?</h2>
       <div class="why-grid">
         <div class="why-card">
           <i class="fas fa-envelope"></i>
-          <h3>Make Real Impact</h3>
-          <p>Send your message directly to government officials, celebrities, and business leaders</p>
+          <h3>Influence Policy</h3>
+          <p>Send your message directly to government and business leaders</p>
         </div>
         <div class="why-card">
           <i class="fas fa-star"></i>
           <h3>Stand Out</h3>
-          <p>Make a real impression with a personalized comment</p>
+          <p>Make a real impression with a personalized postcard</p>
         </div>
         <div class="why-card">
           <i class="fas fa-handshake"></i>
           <h3>Build Connections</h3>
-          <p>Old school mail is a novel way to foster meaningful connections</p>
+          <p>Foster meaningful connections with leaders</p>
         </div>
       </div>
     </section>
 
-    <!-- FAQ Section -->
     <section class="faq-section">
       <h2>Frequently Asked Questions</h2>
       <div class="faq-item">
-        <div class="faq-question">What is Retro Tweets?</div>
-        <div class="faq-answer">Retro Tweets is a service that allows you to send personalized postcards to your friends or influential individuals (e.g. governors, celebrities, athletes, and CEOs). It’s a unique way to connect.</div>
+        <div class="faq-question">What is Write The Leaders?</div>
+        <div class="faq-answer">Write The Leaders is a service that allows you to send personalized postcards to government and business leaders. It’s a unique way to connect and make your voice heard.</div>
       </div>
       <div class="faq-item">
         <div class="faq-question">How does the service work?</div>
-        <div class="faq-answer">Compose your message, select or enter the recipient’s name, and we’ll autopopulate the address if available. After payment, your postcard will be automatically printed and mailed.</div>
+        <div class="faq-answer">Select the type of leader, enter the required information, and compose your message. We’ll autopopulate the address if available. After payment, your postcard will be printed and mailed.</div>
       </div>
       <div class="faq-item">
         <div class="faq-question">Who can I send postcards to?</div>
-        <div class="faq-answer">You can send postcards to anybody you want. We have an address book that includes many notable figures or you can manually enter details.</div>
+        <div class="faq-answer">You can send postcards to business leaders, governors, senior senators, and senate committees. We provide addresses for many notable figures, or you can enter details manually.</div>
       </div>
       <div class="faq-item">
         <div class="faq-question">How is my payment information handled?</div>
         <div class="faq-answer">We use Stripe for secure payment processing. Your details are encrypted and never stored on our servers.</div>
       </div>
-      <div class="faq-item">
-        <div class="faq-question">What is the history of postcards?</div>  
-        <div class="faq-answer">The invention of the postcard is credited to Rudolf and Franz von Sacher-Masoch, who introduced the idea in 1869 in Austria.  Original postcards were simple, without pictures, and were just blank cards for communication.  The first picture postcard was created in 1891, and it featured an image of the Vienna State Opera.</div>
-      </div>
     </section>
   </div>
 
-  <!-- Payment Modal -->
   <div id="paymentModal" class="modal">
     <div class="modal-content">
       <span class="close-btn">×</span>
@@ -391,16 +393,13 @@
           <i class="fas fa-envelope"></i>
           <input type="email" name="email" placeholder="Your Email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Enter a valid email address">
         </div>
-        <div id="card-element" class="form-group">
-          <!-- Stripe.js injects the card element here -->
-        </div>
+        <div id="card-element" class="form-group"></div>
         <p>Cost: $4.99 per postcard <i class="fas fa-building"></i></p>
         <button type="submit" id="submitPayment">Send Postcard <i class="fas fa-paper-plane"></i></button>
       </form>
     </div>
   </div>
 
-  <!-- Help Modal -->
   <div id="helpModal" class="help-modal">
     <div class="help-modal-content">
       <span class="close-btn">×</span>
@@ -408,11 +407,10 @@
       <img src="https://via.placeholder.com/300x200/ADD8E6/000000?text=Postcard+Front+(Your+Message)" alt="Postcard Front Preview">
       <p>Your professional message, printed bold and bright!</p>
       <img src="https://via.placeholder.com/300x200/87CEFA/000000?text=Postcard+Back" alt="Postcard Back Preview">
-      <p>The back, with regards from Retro Tweets.</p>
+      <p>The back, with regards from Write The Leaders.</p>
     </div>
   </div>
 
-  <!-- Warning Modal for Curse Words -->
   <div id="warningModal" class="warning-modal">
     <div class="warning-modal-content">
       <span class="close-btn">×</span>
@@ -421,7 +419,6 @@
     </div>
   </div>
 
-  <!-- Contact Us Modal -->
   <div id="contactModal" class="contact-modal">
     <div class="contact-modal-content">
       <span class="close-btn">×</span>
@@ -437,68 +434,111 @@
   </div>
 
   <footer>
-    <p>© 2025 Retro Tweets. All Rights Reserved. | <a href="#" id="contactLink">Contact Us</a></p>
+    <p>© 2025 Write The Leaders. All Rights Reserved. | <a href="#" id="contactLink">Contact Us</a></p>
   </footer>
 
-  <!-- Stripe.js -->
   <script src="https://js.stripe.com/v3/"></script>
   <script>
-    // Fetch addresses data with cache busting
-    let addressesData = [];
-    fetch(`addresses.json?t=${Date.now()}`)
-      .then(response => {
-        if (!response.ok) throw new Error('Network response was not ok');
-        return response.json();
-      })
-      .then(data => {
-        addressesData = data;
-        console.log('Addresses data loaded:', addressesData);
-        populateNameList();
-      })
-      .catch(error => console.error('Error loading addresses:', error));
+    let currentData = [];
+    let currentType = '';
 
-    // Populate the name datalist
-    function populateNameList() {
-      const nameList = document.getElementById('nameList');
-      addressesData.forEach(person => {
-        const option = document.createElement('option');
-        option.value = person.name;
-        nameList.appendChild(option);
-      });
-      console.log('Datalist populated with', addressesData.length, 'names');
-    }
-
-    // Auto-populate address fields based on name selection
-    const nameInput = document.getElementById('to_name');
-    nameInput.addEventListener('change', () => {
-      const selectedName = nameInput.value.trim();
-      console.log('Selected name:', selectedName);
-      const selectedPerson = addressesData.find(p => p.name.toLowerCase() === selectedName.toLowerCase());
-      if (selectedPerson) {
-        console.log('Found person:', selectedPerson);
-        document.getElementById('to_address_line1').value = selectedPerson.address_line1;
-        document.getElementById('to_city').value = selectedPerson.city;
-        document.getElementById('to_state').value = selectedPerson.state;
-        document.getElementById('to_zip').value = selectedPerson.zip;
+    document.getElementById('leaderType').addEventListener('change', (e) => {
+      const type = e.target.value;
+      if (type) {
+        currentType = type;
+        showDynamicInput(type);
+        fetchData(type);
       } else {
-        console.log('No matching person found');
-        document.getElementById('to_address_line1').value = '';
-        document.getElementById('to_city').value = '';
-        document.getElementById('to_state').value = '';
-        document.getElementById('to_zip').value = '';
+        hideDynamicInput();
       }
     });
 
-    // Prohibited words list (update with actual curse words for production)
+    function showDynamicInput(type) {
+      const dynamicInput = document.getElementById('dynamicInput');
+      dynamicInput.innerHTML = '';
+      let labelText = '';
+      let inputId = '';
+      switch (type) {
+        case 'business':
+          labelText = 'Company Name:';
+          inputId = 'companyName';
+          break;
+        case 'governor':
+        case 'senator':
+          labelText = 'State:';
+          inputId = 'stateName';
+          break;
+        case 'committee':
+          labelText = 'Committee Name:';
+          inputId = 'committeeName';
+          break;
+      }
+      const label = document.createElement('label');
+      label.textContent = labelText;
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.id = inputId;
+      input.placeholder = labelText;
+      dynamicInput.appendChild(label);
+      dynamicInput.appendChild(input);
+      dynamicInput.style.display = 'block';
+
+      input.addEventListener('change', () => {
+        const value = input.value.trim().toLowerCase();
+        const leader = currentData.find(item => {
+          if (type === 'business') return item.company.toLowerCase() === value;
+          if (type === 'governor' || type === 'senator') return item.state.toLowerCase() === value;
+          if (type === 'committee') return item.committee.toLowerCase() === value;
+        });
+        if (leader) {
+          document.getElementById('to_name').value = leader.name;
+          document.getElementById('to_address_line1').value = leader.address_line1;
+          document.getElementById('to_city').value = leader.city;
+          document.getElementById('to_state').value = leader.state;
+          document.getElementById('to_zip').value = leader.zip;
+        } else {
+          document.getElementById('to_name').value = '';
+          document.getElementById('to_address_line1').value = '';
+          document.getElementById('to_city').value = '';
+          document.getElementById('to_state').value = '';
+          document.getElementById('to_zip').value = '';
+        }
+      });
+    }
+
+    function hideDynamicInput() {
+      const dynamicInput = document.getElementById('dynamicInput');
+      dynamicInput.innerHTML = '';
+      dynamicInput.style.display = 'none';
+    }
+
+    function fetchData(type) {
+      let url = '';
+      switch (type) {
+        case 'business': url = 'businessLeaders.json'; break;
+        case 'governor': url = 'governors.json'; break;
+        case 'committee': url = 'committees.json'; break;
+        case 'senator': url = 'senators.json'; break;
+      }
+      fetch(`${url}?t=${Date.now()}`)
+        .then(response => {
+          if (!response.ok) throw new Error('Network response was not ok');
+          return response.json();
+        })
+        .then(data => {
+          currentData = data;
+          console.log(`${type} data loaded:`, currentData);
+        })
+        .catch(error => console.error(`Error loading ${type} data:`, error));
+    }
+
     const prohibitedWords = ['curseword1', 'curseword2', 'derogatoryphrase1'];
 
-    // Function to check the message for prohibited words
     function checkMessage() {
       const message = document.querySelector('#noteForm textarea[name="message"]').value.toLowerCase();
       return prohibitedWords.some(word => message.includes(word.toLowerCase()));
     }
 
-    // Modal functionality
     const paymentModal = document.getElementById('paymentModal');
     const helpModal = document.getElementById('helpModal');
     const warningModal = document.getElementById('warningModal');
@@ -542,7 +582,6 @@
       contactModal.style.display = 'none';
     });
 
-    // FAQ Accordion Functionality
     const faqQuestions = document.querySelectorAll('.faq-question');
     faqQuestions.forEach(question => {
       question.addEventListener('click', () => {
@@ -551,12 +590,10 @@
       });
     });
 
-    // Character counter
     function updateCounter(textarea) {
       document.getElementById('charCounter').textContent = `${textarea.value.length}/200`;
     }
 
-    // Stripe Setup (replace with your actual Stripe key for production)
     const stripe = Stripe('pk_test_YOUR_PUBLISHABLE_KEY');
     const elements = stripe.elements();
     const card = elements.create('card', {
@@ -616,13 +653,11 @@
       }
     });
 
-    // Disable right-click
     document.addEventListener('contextmenu', (e) => {
       e.preventDefault();
       alert('Right-click is disabled on this page.');
     });
 
-    // Log to confirm script is running
     console.log('JavaScript loaded successfully');
   </script>
 </body>
