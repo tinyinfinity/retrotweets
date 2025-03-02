@@ -1,0 +1,26 @@
+[
+  {
+    "committee": "Finance",
+    "name": "Ron Wyden",
+    "address_line1": "221 Dirksen Senate Office Building",
+    "city": "Washington",
+    "state": "DC",
+    "zip": "20510"
+  },
+  {
+    "committee": "Foreign Relations",
+    "name": "Bob Menendez",
+    "address_line1": "528 Hart Senate Office Building",
+    "city": "Washington",
+    "state": "DC",
+    "zip": "20510"
+  },
+  {
+    "committee": "Judiciary",
+    "name": "Dick Durbin",
+    "address_line1": "711 Hart Senate Office Building",
+    "city": "Washington",
+    "state": "DC",
+    "zip": "20510"
+  }
+]
