@@ -1,0 +1,26 @@
+[
+  {
+    "company": "Apple",
+    "name": "Tim Cook",
+    "address_line1": "1 Apple Park Way",
+    "city": "Cupertino",
+    "state": "CA",
+    "zip": "95014"
+  },
+  {
+    "company": "Microsoft",
+    "name": "Satya Nadella",
+    "address_line1": "1 Microsoft Way",
+    "city": "Redmond",
+    "state": "WA",
+    "zip": "98052"
+  },
+  {
+    "company": "Amazon",
+    "name": "Andy Jassy",
+    "address_line1": "410 Terry Avenue North",
+    "city": "Seattle",
+    "state": "WA",
+    "zip": "98109"
+  }
+]
