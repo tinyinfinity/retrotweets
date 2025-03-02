@@ -287,8 +287,8 @@
             <option value="">--Select--</option>
             <option value="business">Business Leader</option>
             <option value="governor">Governor</option>
-            <option value="senator">Senate Committee</option>
-            <option value="committee">Senior Senator</option>
+            <option value="senator">Senior Senator</option>
+            <option value="committee">Senate Committee</option>
           </select>
         </div>
         <div id="dynamicInput" class="form-group" style="display: none;"></div>
@@ -439,9 +439,18 @@
 
   <script src="https://js.stripe.com/v3/"></script>
   <script>
+    // Define field mappings for each leader type
+    const fieldMap = {
+      business: 'company',
+      governor: 'state',
+      senator: 'state',
+      committee: 'committee'
+    };
+
     let currentData = [];
     let currentType = '';
 
+    // Handle leader type selection
     document.getElementById('leaderType').addEventListener('change', (e) => {
       const type = e.target.value;
       if (type) {
@@ -453,50 +462,47 @@
       }
     });
 
+    // Show the dynamic dropdown based on leader type
     function showDynamicInput(type) {
       const dynamicInput = document.getElementById('dynamicInput');
       dynamicInput.innerHTML = '';
       let labelText = '';
-      let inputId = '';
       switch (type) {
         case 'business':
-          labelText = 'Company Name:';
-          inputId = 'companyName';
+          labelText = 'Select Company:';
           break;
         case 'governor':
+          labelText = 'Select State:';
+          break;
         case 'senator':
-          labelText = 'State:';
-          inputId = 'stateName';
+          labelText = 'Select State:';
           break;
         case 'committee':
-          labelText = 'Committee Name:';
-          inputId = 'committeeName';
+          labelText = 'Select Committee:';
           break;
       }
       const label = document.createElement('label');
       label.textContent = labelText;
-      const input = document.createElement('input');
-      input.type = 'text';
-      input.id = inputId;
-      input.placeholder = labelText;
+      const select = document.createElement('select');
+      select.id = 'dynamicSelect';
+      select.innerHTML = '<option value="">--Select--</option>';
       dynamicInput.appendChild(label);
-      dynamicInput.appendChild(input);
+      dynamicInput.appendChild(select);
       dynamicInput.style.display = 'block';
 
-      input.addEventListener('change', () => {
-        const value = input.value.trim().toLowerCase();
-        const leader = currentData.find(item => {
-          if (type === 'business') return item.company.toLowerCase() === value;
-          if (type === 'governor' || type === 'senator') return item.state.toLowerCase() === value;
-          if (type === 'committee') return item.committee.toLowerCase() === value;
-        });
+      // Handle selection from the dropdown
+      select.addEventListener('change', () => {
+        const value = select.value;
+        const field = fieldMap[type];
+        const leader = currentData.find(item => item[field] === value);
         if (leader) {
           document.getElementById('to_name').value = leader.name;
           document.getElementById('to_address_line1').value = leader.address_line1;
           document.getElementById('to_city').value = leader.city;
-          document.getElementById('to_state').value = leader.state;
+          document.getElementById('to_state').value = leader.address_state || leader.state; // Use address_state if available
           document.getElementById('to_zip').value = leader.zip;
         } else {
+          // Clear fields if no leader is found
           document.getElementById('to_name').value = '';
           document.getElementById('to_address_line1').value = '';
           document.getElementById('to_city').value = '';
@@ -506,19 +512,29 @@
       });
     }
 
+    // Hide the dynamic dropdown
     function hideDynamicInput() {
       const dynamicInput = document.getElementById('dynamicInput');
       dynamicInput.innerHTML = '';
       dynamicInput.style.display = 'none';
     }
 
+    // Fetch the appropriate JSON file
     function fetchData(type) {
       let url = '';
       switch (type) {
-        case 'business': url = 'businessLeaders.json'; break;
-        case 'governor': url = 'governors.json'; break;
-        case 'committee': url = 'committees.json'; break;
-        case 'senator': url = 'senators.json'; break;
+        case 'business':
+          url = 'businessLeaders.json';
+          break;
+        case 'governor':
+          url = 'governors.json';
+          break;
+        case 'senator':
+          url = 'senators.json';
+          break;
+        case 'committee':
+          url = 'committees.json';
+          break;
       }
       fetch(`${url}?t=${Date.now()}`)
         .then(response => {
@@ -528,8 +544,28 @@
         .then(data => {
           currentData = data;
           console.log(`${type} data loaded:`, currentData);
+          populateDynamicDropdown(type, data);
         })
         .catch(error => console.error(`Error loading ${type} data:`, error));
+    }
+
+    // Populate the dropdown with options from the JSON data
+    function populateDynamicDropdown(type, data) {
+      const select = document.getElementById('dynamicSelect');
+      if (!select) return;
+      const field = fieldMap[type];
+      // Clear existing options except the default
+      while (select.options.length > 1) {
+        select.remove(1);
+      }
+      // Sort options alphabetically
+      const options = data.map(item => item[field]).sort();
+      options.forEach(value => {
+        const option = document.createElement('option');
+        option.value = value;
+        option.textContent = value;
+        select.appendChild(option);
+      });
     }
 
     const prohibitedWords = ['curseword1', 'curseword2', 'derogatoryphrase1'];
