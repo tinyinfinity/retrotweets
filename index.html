@@ -153,14 +153,12 @@
       gap: 0.5rem;
       margin: 1rem auto;
       text-decoration: none;
-      
-      /* Optional: force both buttons to be the same fixed width */
-      width: 250px;
-      justify-content: center;
     }
-    
     button:hover, .support-btn:hover {
       background-color: #C1121F; /* Red */
+    }
+    .support-section {
+      text-align: center;
     }
     .modal, .help-modal, .warning-modal, .contact-modal {
       display: none;
@@ -204,20 +202,18 @@
       cursor: pointer;
     }
     footer {
-      width: 100%;
-      margin: 0;
-      padding: 1rem;
-      background-color: #669bbc;
-      color: #FDF0D5; /* White */
       text-align: center;
+      padding: 1rem;
+      background-color: #003049; /* Navy Blue */
+      color: white;
     }
     footer a {
-      color: #FDF0D5; /* White */
+      color: #669bbc; /* Light Blue */
       text-decoration: none;
       margin: 0 0.5rem;
     }
     footer a:hover {
-      color: #003049; /* Navy Blue */
+      color: #C1121F; /* Red */
       text-decoration: underline;
     }
     .contact-modal-content form input[type="text"],
@@ -372,7 +368,11 @@
       </div>
     </section>
 
-  <a href="store.html" class="support-btn">Support This Site</a>
+    <!-- Support Section -->
+    <section class="support-section">
+      <a href="store.html" class="support-btn">Support This Site</a>
+    </section>
+  </div>
 
   <!-- Payment Modal -->
   <div id="paymentModal" class="modal">
@@ -448,7 +448,7 @@
   </div>
 
   <footer>
-    <p>© 2025 Write The Leaders. All Rights Reserved.<a href="#" id="contactLink">Contact Us</a></p>
+    <p>© 2025 Write The Leaders. All Rights Reserved. | <a href="#" id="contactLink">Contact Us</a></p>
   </footer>
 
   <script src="https://js.stripe.com/v3/"></script>
