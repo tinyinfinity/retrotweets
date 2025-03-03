@@ -10,6 +10,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Poppins:wght@400;500&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet" />
   <style>
+    * {
+      box-sizing: border-box; /* Ensure consistent sizing across all elements */
+    }
     body {
       font-family: 'Poppins', sans-serif;
       margin: 0;
@@ -103,7 +106,7 @@
       color: #003049; /* Navy Blue */
       text-decoration: underline;
     }
-    .modal {
+    .modal.contact-modal {
       display: none;
       position: fixed;
       top: 0;
@@ -114,7 +117,7 @@
       justify-content: center;
       align-items: center;
     }
-    .modal-content {
+    .contact-modal-content {
       background-color: white;
       padding: 2rem;
       border-radius: 10px;
@@ -124,7 +127,7 @@
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
       text-align: center;
     }
-    .modal-content h2 {
+    .contact-modal-content h2 {
       color: #003049; /* Navy Blue */
       font-size: 1.5rem;
       margin-top: 0;
@@ -165,7 +168,7 @@
       margin: 10px auto;
     }
     .contact-modal-content form button:hover {
-      background-color: #c1121F; /* Red */
+      background-color: #C1121F; /* Red */
     }
     #contact-close-btn {
       display: block;
@@ -228,7 +231,7 @@
   </footer>
 
   <!-- Contact Us Modal -->
-  <div id="contactModal" class="contact-modal">
+  <div id="contactModal" class="modal contact-modal">
     <div class="contact-modal-content">
       <span class="close-btn">×</span>
       <h2>Contact Us</h2>
@@ -243,7 +246,7 @@
   </div>
 
   <script>
-    // Contact Modal Logic
+    // Contact Modal Logic (matching index.html)
     const contactModal = document.getElementById('contactModal');
     const contactLink = document.getElementById('contactLink');
     const closeBtn = document.querySelector('.close-btn');
