@@ -50,7 +50,7 @@
       margin: 0 auto;
       padding: 2rem;
     }
-    .note-form, .why-section, .faq-section {
+    .note-form, .why-section, .faq-section, .support-section {
       background-color: white;
       padding: 2rem;
       border-radius: 10px;
@@ -87,7 +87,8 @@
       height: 100px;
       resize: vertical;
     }
-    input[type="text"] {
+    input[type="text"],
+    input[type="email"] {
       padding-left: 2.5rem;
     }
     .char-counter {
@@ -138,7 +139,7 @@
       background-color: #f8f9fa;
       border-radius: 0 0 5px 5px;
     }
-    button {
+    button, .support-btn {
       background-color: #003049; /* Navy Blue */
       color: white;
       border: none;
@@ -151,8 +152,14 @@
       align-items: center;
       gap: 0.5rem;
       margin: 1rem auto;
+      text-decoration: none;
+      
+      /* Optional: force both buttons to be the same fixed width */
+      width: 250px;
+      justify-content: center;
     }
-    button:hover {
+    
+    button:hover, .support-btn:hover {
       background-color: #C1121F; /* Red */
     }
     .modal, .help-modal, .warning-modal, .contact-modal {
@@ -199,11 +206,11 @@
     footer {
       text-align: center;
       padding: 1rem;
-      background-color: #003049; /* Navy Blue */
-      color: white;
+      background-color: #669bbc; /* air blue */
+      color: #003049; /* Navy Blue */
     }
     footer a {
-      color: #669bbc; /* Light Blue */
+      color: #003049; /* Navy Blue */
       text-decoration: none;
       margin: 0 0.5rem;
     }
@@ -362,8 +369,10 @@
         <div class="faq-answer">We use Stripe for secure payment processing. Your details are encrypted and never stored on our servers.</div>
       </div>
     </section>
-  </div>
 
+  <a href="store.html" class="support-btn">Support This Site</a>
+
+  <!-- Payment Modal -->
   <div id="paymentModal" class="modal">
     <div class="modal-content">
       <span class="close-btn">×</span>
@@ -400,6 +409,7 @@
     </div>
   </div>
 
+  <!-- Help Modal -->
   <div id="helpModal" class="help-modal">
     <div class="help-modal-content">
       <span class="close-btn">×</span>
@@ -411,6 +421,7 @@
     </div>
   </div>
 
+  <!-- Warning Modal -->
   <div id="warningModal" class="warning-modal">
     <div class="warning-modal-content">
       <span class="close-btn">×</span>
@@ -419,6 +430,7 @@
     </div>
   </div>
 
+  <!-- Contact Us Modal -->
   <div id="contactModal" class="contact-modal">
     <div class="contact-modal-content">
       <span class="close-btn">×</span>
@@ -627,7 +639,7 @@
     });
 
     function updateCounter(textarea) {
-      document.getElementById('charCounter').textContent = `${textarea.value.length}/200`;
+      document.getElementById('charCounter').textContent = `${textarea.value.length}/250`;
     }
 
     const stripe = Stripe('pk_test_YOUR_PUBLISHABLE_KEY');
