@@ -1,11 +1,11 @@
 const express = require('express');
 const Stripe = require('stripe');
-const Lob = require('lob');
+const Lob = require('lob'); // Corrected from @lob/lob
 const escapeHtml = require('escape-html');
 
 const app = express();
-const stripe = Stripe('sk_test_51R0cpQBtQhrXA4fednR9bKxQzQDlHOaW0NpLBEyG1QbXaZ2eT8nPEvQfOJDpA2sE2oN8zWxZJpF8i5oY4M0XhB8J00KtfN8i5e'); // Replace with your Stripe secret key
-const lob = Lob('test_acee9c86a75e1e48b854cf274cef2dcf085'); // Replace with your Lob test API key
+const stripe = Stripe('sk_test_51R0cpQBtQhrXA4feAE2o1sSYkve1iTgRBnjtUOgWn2H77kma5CxMzBvib2ms0zwxYCnCfZqi4vPoDcpx6SUr7R2q00K64eMCiN');
+const lob = Lob('test_acee9c86a75e1e48b854cf274cef2dcf085'); // Replace with your actual Lob Test API key
 
 app.use(express.static('public'));
 app.use(express.json());
@@ -13,22 +13,19 @@ app.use(express.json());
 app.post('/send-note', async (req, res) => {
   const { noteData, paymentData, paymentMethodId } = req.body;
 
-  // Log incoming data
   console.log('Received request body:', req.body);
   console.log('noteData:', noteData);
   console.log('paymentData:', paymentData);
   console.log('paymentMethodId:', paymentMethodId);
 
-  // Validate noteData structure
   if (!noteData || typeof noteData !== 'object') {
     console.error('noteData is missing or invalid');
     return res.status(400).json({ success: false, error: 'noteData is required' });
   }
 
   try {
-    // Process payment with Stripe
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: 499, // $4.99 in cents
+      amount: 499,
       currency: 'usd',
       payment_method: paymentMethodId,
       payment_method_types: ['card'],
@@ -37,19 +34,16 @@ app.post('/send-note', async (req, res) => {
     });
 
     if (paymentIntent.status === 'succeeded') {
-      // Construct toAddress from noteData
       const toAddress = {
         name: noteData.to_name || 'Unknown Recipient',
-        address_line1: noteData.to_address_line1 || noteData.address || 'N/A', // Fallback to 'address' if used
+        address_line1: noteData.to_address_line1 || noteData.address || 'N/A',
         address_city: noteData.to_city || noteData.city || 'N/A',
         address_state: noteData.to_state || noteData.state || 'N/A',
         address_zip: noteData.to_zip || noteData.zip || 'N/A'
       };
 
-      // Log the constructed toAddress
       console.log('Constructed toAddress:', toAddress);
 
-      // Validate required fields
       const requiredFields = ['address_line1', 'address_city', 'address_state', 'address_zip'];
       for (const field of requiredFields) {
         if (!toAddress[field] || toAddress[field] === 'N/A') {
@@ -58,7 +52,6 @@ app.post('/send-note', async (req, res) => {
         }
       }
 
-      // Construct fromAddress from paymentData
       const fromAddress = {
         name: paymentData.from_name || 'Unknown Sender',
         address_line1: paymentData.from_address_line1 || 'N/A',
@@ -69,7 +62,6 @@ app.post('/send-note', async (req, res) => {
 
       console.log('Constructed fromAddress:', fromAddress);
 
-      // Validate fromAddress required fields
       for (const field of requiredFields) {
         if (!fromAddress[field] || fromAddress[field] === 'N/A') {
           console.error(`Validation failed: ${field} is missing in fromAddress`);
@@ -77,7 +69,6 @@ app.post('/send-note', async (req, res) => {
         }
       }
 
-      // Send postcard via Lob
       const postcard = await lob.postcards.create({
         description: 'Postcard from Write The Leaders',
         to: toAddress,
