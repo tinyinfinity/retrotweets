@@ -1,6 +1,6 @@
 const express = require('express');
 const Stripe = require('stripe');
-const Lob = require('@lob/lob');
+const Lob = require('lob');
 const escapeHtml = require('escape-html');
 
 const app = express();
