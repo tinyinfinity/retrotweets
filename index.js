@@ -23,23 +23,34 @@ app.post('/send-note', async (req, res) => {
   console.log('paymentMethodId:', paymentMethodId);
 
   try {
-    // Payment processing...
+    // Create a PaymentIntent with explicit card payment method
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: 499,
+      amount: 499, // $4.99 in cents
       currency: 'usd',
       payment_method: paymentMethodId,
+      payment_method_types: ['card'], // Restrict to card payments only
       confirmation_method: 'manual',
       confirm: true,
     });
 
     if (paymentIntent.status === 'succeeded') {
+      // Payment successful, send postcard with Lob
       const toAddress = {
-        name: noteData.to_name,
+        name: noteData.to_name || 'Unknown Recipient',
         address_line1: noteData.to_address_line1,
         address_city: noteData.to_city,
         address_state: noteData.to_state,
         address_zip: noteData.to_zip,
       };
+
+      // Validate required fields
+      const requiredFields = ['address_line1', 'address_city', 'address_state', 'address_zip'];
+      for (const field of requiredFields) {
+        if (!toAddress[field]) {
+          return res.json({ success: false, error: `${field} is required` });
+        }
+      }
+
       console.log('Sending to Lob with toAddress:', toAddress);
 
       const postcard = await lob.postcards.create({
@@ -61,7 +72,7 @@ app.post('/send-note', async (req, res) => {
       res.json({ success: false, error: 'Payment failed' });
     }
   } catch (error) {
-    console.error('Lob Error:', error);
+    console.error('Error:', error);
     res.json({ success: false, error: error.message });
   }
 });
