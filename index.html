@@ -10,271 +10,55 @@
   <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Poppins:wght@400;500&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet" />
   <!-- Google Maps API Script -->
-  <!-- NOTE: Enable the Geocoding API in your Google Cloud Console project. -->
-  <!-- To secure your API key, restrict it to your website's domain in the Google Cloud Console (APIs & Services > Credentials). -->
+  <!-- NOTE: Restrict this key to your domain in Google Cloud Console for security -->
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAHg9fkoWcKcue1by5vnqUUtivQLYdQfcM&libraries=places"></script>
   <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #ecf0f1; /* Light Gray */
-      color: #34495e; /* Dark Blue-Gray */
-      line-height: 1.6;
-    }
-    header {
-      background-color: #023E8A; /* Deep Azure */
-      color: white;
-      text-align: center;
-      padding: 3rem 1rem 4rem;
-      position: relative;
-    }
-    header h1 {
-      margin: 0;
-      font-size: 3.5rem;
-      font-family: 'Bungee Shade', cursive;
-      color: #fff; /* White */
-    }
-    header p {
-      margin: 0.5rem 0 0;
-      font-size: 1.2rem;
-      color: #fff; /* White */
-    }
-    .help-icon {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      font-size: 1.5rem;
-      color: #F8E9A1;
-      cursor: pointer;
-    }
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 2rem;
-    }
-    .note-form, .why-section, .faq-section, .support-section {
-      background-color: white;
-      padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      margin-bottom: 2rem;
-    }
-    .note-form h2, .why-section h2, .faq-section h2 {
-      color: #023E8A; /* Deep Azure */
-      margin-top: 0;
-      font-size: 1.5rem;
-      font-weight: 500;
-    }
-    .form-group {
-      position: relative;
-      margin-bottom: 1rem;
-    }
-    .form-group i {
-      position: absolute;
-      left: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #C1121F; /* Red */
-    }
-    select, textarea, input {
-      width: 100%;
-      padding: 0.8rem;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      font-family: 'Poppins', sans-serif;
-      box-sizing: border-box;
-    }
-    textarea {
-      padding-left: 2.5rem;
-      height: 100px;
-      resize: vertical;
-    }
-    input[type="text"],
-    input[type="email"] {
-      padding-left: 2.5rem;
-    }
-    .char-counter {
-      font-size: 0.9rem;
-      color: #666;
-      text-align: right;
-      display: block;
-    }
-    .why-section .why-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1.5rem;
-    }
-    .why-section .why-card {
-      text-align: center;
-      padding: 1rem;
-    }
-    .why-section .why-card i {
-      font-size: 2.5rem;
-      color: #C1121F; /* Red */
-      margin-bottom: 1rem;
-    }
-    .why-section .why-card h3 {
-      font-size: 1.2rem;
-      margin-bottom: 0.5rem;
-    }
-    .why-section .why-card p {
-      font-size: 0.9rem;
-      color: #666;
-    }
-    .faq-section .faq-item {
-      margin-bottom: 1rem;
-    }
-    .faq-section .faq-question {
-      background-color: #e3eaf1;
-      padding: 1rem;
-      cursor: pointer;
-      border-radius: 5px;
-      font-weight: 500;
-      transition: background-color 0.3s;
-    }
-    .faq-section .faq-question:hover {
-      background-color: #d1dbe5;
-    }
-    .faq-section .faq-answer {
-      display: none;
-      padding: 1rem;
-      background-color: #f8f9fa;
-      border-radius: 0 0 5px 5px;
-    }
-    button, .support-btn {
-      background-color: #023E8A; /* Deep Azure */
-      color: white;
-      border: none;
-      padding: 1rem 2rem;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 1.1rem;
-      font-family: 'Poppins', sans-serif;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      margin: 1rem auto;
-      text-decoration: none;
-    }
-    button:hover, .support-btn:hover {
-      background-color: #C1121F; /* Red */
-    }
-    .support-section {
-      text-align: center;
-    }
-    .modal, .help-modal, .warning-modal, .contact-modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-      justify-content: center;
-      align-items: center;
-    }
-    .modal-content, .help-modal-content, .warning-modal-content, .contact-modal-content {
-      background-color: white;
-      padding: 2rem;
-      border-radius: 10px;
-      width: 90%;
-      max-width: 400px;
-      position: relative;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-      text-align: center;
-    }
-    .modal-content h2, .help-modal-content h2, .warning-modal-content h2, .contact-modal-content h2 {
-      color: #023E8A; /* Navy Blue */
-      font-size: 1.5rem;
-      margin-top: 0;
-    }
-    .warning-modal-content {
-      background-color: #C1121F; /* Red */
-      color: white;
-    }
-    .warning-modal-content h2 {
-      color: white;
-    }
-    .close-btn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      font-size: 1.5rem;
-      color: #c1121F; /* Red */
-      cursor: pointer;
-    }
-    footer {
-      text-align: center;
-      padding: 1rem;
-      background-color: #0077B6; /* Evening Blue */
-      color: #fff; /* White */
-    }
-    footer a {
-      color: #fff; /* White */
-      text-decoration: none;
-      margin: 0 0.5rem;
-    }
-    footer a:hover {
-      color: #F8E9A1; /* Sunset Glow */ 
-      text-decoration: underline;
-    }
-    .contact-modal-content form input[type="text"],
-    .contact-modal-content form input[type="email"],
-    .contact-modal-content form textarea {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 15px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      font-size: 1rem;
-    }
-    .contact-modal-content form textarea {
-      resize: vertical;
-      height: 100px;
-    }
-    .contact-modal-content form button {
-      display: block;
-      width: 100%;
-      padding: 10px;
-      border: none;
-      background-color: #023E8A; /* Navy Blue */
-      color: white;
-      font-size: 1rem;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.2s ease;
-      margin: 10px auto;
-    }
-    .contact-modal-content form button:hover {
-      background-color: #c1121F; /* Red */
-    }
-    #contact-close-btn {
-      display: block;
-      width: 100%;
-      padding: 10px;
-      border: none;
-      background-color: #ddd;
-      color: #333;
-      font-size: 1rem;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.2s ease;
-      margin: 10px auto;
-    }
-    #contact-close-btn:hover {
-      background-color: #ccc;
-    }
+    /* Your existing styles remain unchanged */
+    body { font-family: 'Poppins', sans-serif; margin: 0; padding: 0; background-color: #ecf0f1; color: #34495e; line-height: 1.6; }
+    header { background-color: #023E8A; color: white; text-align: center; padding: 3rem 1rem 4rem; position: relative; }
+    header h1 { margin: 0; font-size: 3.5rem; font-family: 'Bungee Shade', cursive; color: #fff; }
+    header p { margin: 0.5rem 0 0; font-size: 1.2rem; color: #fff; }
+    .help-icon { position: absolute; top: 10px; right: 10px; font-size: 1.5rem; color: #F8E9A1; cursor: pointer; }
+    .container { max-width: 800px; margin: 0 auto; padding: 2rem; }
+    .note-form, .why-section, .faq-section, .support-section { background-color: white; padding: 2rem; border-radius: 10px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); margin-bottom: 2rem; }
+    .note-form h2, .why-section h2, .faq-section h2 { color: #023E8A; margin-top: 0; font-size: 1.5rem; font-weight: 500; }
+    .form-group { position: relative; margin-bottom: 1rem; }
+    .form-group i { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #C1121F; }
+    select, textarea, input { width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 5px; font-family: 'Poppins', sans-serif; box-sizing: border-box; }
+    textarea { padding-left: 2.5rem; height: 100px; resize: vertical; }
+    input[type="text"], input[type="email"] { padding-left: 2.5rem; }
+    .char-counter { font-size: 0.9rem; color: #666; text-align: right; display: block; }
+    .why-section .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
+    .why-section .why-card { text-align: center; padding: 1rem; }
+    .why-section .why-card i { font-size: 2.5rem; color: #C1121F; margin-bottom: 1rem; }
+    .why-section .why-card h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+    .why-section .why-card p { font-size: 0.9rem; color: #666; }
+    .faq-section .faq-item { margin-bottom: 1rem; }
+    .faq-section .faq-question { background-color: #e3eaf1; padding: 1rem; cursor: pointer; border-radius: 5px; font-weight: 500; transition: background-color 0.3s; }
+    .faq-section .faq-question:hover { background-color: #d1dbe5; }
+    .faq-section .faq-answer { display: none; padding: 1rem; background-color: #f8f9fa; border-radius: 0 0 5px 5px; }
+    button, .support-btn { background-color: #023E8A; color: white; border: none; padding: 1rem 2rem; border-radius: 5px; cursor: pointer; font-size: 1.1rem; font-family: 'Poppins', sans-serif; display: flex; align-items: center; gap: 0.5rem; margin: 1rem auto; text-decoration: none; }
+    button:hover, .support-btn:hover { background-color: #C1121F; }
+    .support-section { text-align: center; }
+    .modal, .help-modal, .warning-modal, .contact-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); justify-content: center; align-items: center; }
+    .modal-content, .help-modal-content, .warning-modal-content, .contact-modal-content { background-color: white; padding: 2rem; border-radius: 10px; width: 90%; max-width: 400px; position: relative; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); text-align: center; }
+    .modal-content h2, .help-modal-content h2, .warning-modal-content h2, .contact-modal-content h2 { color: #023E8A; font-size: 1.5rem; margin-top: 0; }
+    .warning-modal-content { background-color: #C1121F; color: white; }
+    .warning-modal-content h2 { color: white; }
+    .close-btn { position: absolute; top: 10px; right: 10px; font-size: 1.5rem; color: #c1121F; cursor: pointer; }
+    footer { text-align: center; padding: 1rem; background-color: #0077B6; color: #fff; }
+    footer a { color: #fff; text-decoration: none; margin: 0 0.5rem; }
+    footer a:hover { color: #F8E9A1; text-decoration: underline; }
+    .contact-modal-content form input[type="text"], .contact-modal-content form input[type="email"], .contact-modal-content form textarea { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem; }
+    .contact-modal-content form textarea { resize: vertical; height: 100px; }
+    .contact-modal-content form button { display: block; width: 100%; padding: 10px; border: none; background-color: #023E8A; color: white; font-size: 1rem; border-radius: 5px; cursor: pointer; transition: background-color 0.2s ease; margin: 10px auto; }
+    .contact-modal-content form button:hover { background-color: #c1121F; }
+    #contact-close-btn { display: block; width: 100%; padding: 10px; border: none; background-color: #ddd; color: #333; font-size: 1rem; border-radius: 5px; cursor: pointer; transition: background-color 0.2s ease; margin: 10px auto; }
+    #contact-close-btn:hover { background-color: #ccc; }
     @media (max-width: 600px) {
-      header h1 {
-        font-size: 2.5rem;
-      }
-      .why-section .why-grid {
-        grid-template-columns: 1fr;
-      }
-      .container {
-        padding: 1rem;
-      }
+      header h1 { font-size: 2.5rem; }
+      .why-section .why-grid { grid-template-columns: 1fr; }
+      .container { padding: 1rem; }
     }
   </style>
 </head>
@@ -375,13 +159,11 @@
       </div>
     </section>
 
-    <!-- Support Section -->
     <section class="support-section">
       <a href="store.html" class="support-btn">Support This Site</a>
     </section>
   </div>
 
-  <!-- Payment Modal -->
   <div id="paymentModal" class="modal">
     <div class="modal-content">
       <span class="close-btn">×</span>
@@ -418,7 +200,6 @@
     </div>
   </div>
 
-  <!-- Help Modal -->
   <div id="helpModal" class="help-modal">
     <div class="help-modal-content">
       <span class="close-btn">×</span>
@@ -430,7 +211,6 @@
     </div>
   </div>
 
-  <!-- Warning Modal (Updated for dynamic messages) -->
   <div id="warningModal" class="warning-modal">
     <div class="warning-modal-content">
       <span class="close-btn">×</span>
@@ -439,7 +219,6 @@
     </div>
   </div>
 
-  <!-- Contact Us Modal -->
   <div id="contactModal" class="contact-modal">
     <div class="contact-modal-content">
       <span class="close-btn">×</span>
@@ -460,7 +239,6 @@
 
   <script src="https://js.stripe.com/v3/"></script>
   <script>
-    // Define field mappings for each leader type
     const fieldMap = {
       business_leader: 'company',
       governor: 'state',
@@ -475,7 +253,6 @@
     let currentData = [];
     let currentType = '';
 
-    // Handle leader type selection
     document.getElementById('leaderType').addEventListener('change', (e) => {
       const type = e.target.value;
       if (type) {
@@ -487,36 +264,19 @@
       }
     });
 
-    // Show the dynamic dropdown based on leader type
     function showDynamicInput(type) {
       const dynamicInput = document.getElementById('dynamicInput');
       dynamicInput.innerHTML = '';
       let labelText = '';
       switch (type) {
-        case 'business_leader':
-          labelText = 'Select Company:';
-          break;
-        case 'governor':
-          labelText = 'Select State:';
-          break;
-        case 'senior_senator':
-          labelText = 'Select State:';
-          break;
-        case 'junior_senator':
-          labelText = 'Select State:';
-          break;
-        case 'senate_committee':
-          labelText = 'Select Senate Committee:';
-          break;
-        case 'house_committee':
-          labelText = 'Select House Committee:';
-          break;
-        case 'mayor':
-          labelText = 'Select City:';
-          break;
-        case 'university_president':
-          labelText = 'Select University:';
-          break;
+        case 'business_leader': labelText = 'Select Company:'; break;
+        case 'governor': labelText = 'Select State:'; break;
+        case 'senior_senator': labelText = 'Select State:'; break;
+        case 'junior_senator': labelText = 'Select State:'; break;
+        case 'senate_committee': labelText = 'Select Senate Committee:'; break;
+        case 'house_committee': labelText = 'Select House Committee:'; break;
+        case 'mayor': labelText = 'Select City:'; break;
+        case 'university_president': labelText = 'Select University:'; break;
       }
       const label = document.createElement('label');
       label.textContent = labelText;
@@ -527,7 +287,6 @@
       dynamicInput.appendChild(select);
       dynamicInput.style.display = 'block';
 
-      // Handle selection from the dropdown
       select.addEventListener('change', () => {
         const value = select.value;
         const field = fieldMap[type];
@@ -539,7 +298,6 @@
           document.getElementById('to_state').value = leader.address_state || leader.state;
           document.getElementById('to_zip').value = leader.zip;
         } else {
-          // Clear fields if no leader is found
           document.getElementById('to_name').value = '';
           document.getElementById('to_address_line1').value = '';
           document.getElementById('to_city').value = '';
@@ -549,41 +307,23 @@
       });
     }
 
-    // Hide the dynamic dropdown
     function hideDynamicInput() {
       const dynamicInput = document.getElementById('dynamicInput');
       dynamicInput.innerHTML = '';
       dynamicInput.style.display = 'none';
     }
 
-    // Fetch the appropriate JSON file
     function fetchData(type) {
       let url = '';
       switch (type) {
-        case 'business_leader':
-          url = 'businessLeaders.json';
-          break;
-        case 'governor':
-          url = 'governors.json';
-          break;
-        case 'senior_senator':
-          url = 'senators.json'; // Assuming existing senators.json is for senior senators
-          break;
-        case 'junior_senator':
-          url = 'juniorSenators.json';
-          break;
-        case 'senate_committee':
-          url = 'committees.json'; // Assuming existing committees.json is for senate committees
-          break;
-        case 'house_committee':
-          url = 'houseCommittees.json';
-          break;
-        case 'mayor':
-          url = 'mayors.json';
-          break;
-        case 'university_president':
-          url = 'universityPresidents.json';
-          break;
+        case 'business_leader': url = 'businessLeaders.json'; break;
+        case 'governor': url = 'governors.json'; break;
+        case 'senior_senator': url = 'senators.json'; break;
+        case 'junior_senator': url = 'juniorSenators.json'; break;
+        case 'senate_committee': url = 'committees.json'; break;
+        case 'house_committee': url = 'houseCommittees.json'; break;
+        case 'mayor': url = 'mayors.json'; break;
+        case 'university_president': url = 'universityPresidents.json'; break;
       }
       if (url) {
         fetch(`${url}?t=${Date.now()}`)
@@ -600,16 +340,13 @@
       }
     }
 
-    // Populate the dropdown with options from the JSON data
     function populateDynamicDropdown(type, data) {
       const select = document.getElementById('dynamicSelect');
       if (!select) return;
       const field = fieldMap[type];
-      // Clear existing options except the default
       while (select.options.length > 1) {
         select.remove(1);
       }
-      // Sort options alphabetically
       const options = data.map(item => item[field]).sort();
       options.forEach(value => {
         const option = document.createElement('option');
@@ -635,14 +372,13 @@
     const contactLink = document.getElementById('contactLink');
     const closeBtns = document.querySelectorAll('.close-btn');
 
-    // Function to show dynamic warning messages
     function showWarning(message) {
       document.getElementById('warningMessage').textContent = message;
       warningModal.style.display = 'flex';
     }
 
-    // Function to validate address using Google Maps Geocoding API
-    function validateAddress() {
+    // Updated validateAddress function with Promise for proper async handling
+    function validateAddress(callback) {
       const addressLine1 = document.getElementById('to_address_line1').value.trim();
       const city = document.getElementById('to_city').value.trim();
       const state = document.getElementById('to_state').value.trim();
@@ -655,21 +391,29 @@
 
       const fullAddress = `${addressLine1}, ${city}, ${state} ${zip}`;
       const geocoder = new google.maps.Geocoder();
+
       geocoder.geocode({ address: fullAddress }, (results, status) => {
+        console.log('Geocoding status:', status); // Debug log
+        console.log('Geocoding results:', results); // Debug log
         if (status === 'OK') {
-          paymentModal.style.display = 'flex';
+          console.log('Valid address:', results[0].formatted_address);
+          callback(true);
         } else {
           showWarning('Invalid address. Please check and try again.');
+          callback(false);
         }
       });
     }
 
-    // Updated payment button event listener
     paymentBtn.addEventListener('click', () => {
       if (checkMessage()) {
         showWarning('Your message contains inappropriate language. Please revise.');
       } else {
-        validateAddress();
+        validateAddress((isValid) => {
+          if (isValid) {
+            paymentModal.style.display = 'flex';
+          }
+        });
       }
     });
 
