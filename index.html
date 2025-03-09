@@ -9,6 +9,10 @@
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Poppins:wght@400;500&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet" />
+  <!-- Google Maps API Script -->
+  <!-- NOTE: Enable the Geocoding API in your Google Cloud Console project. -->
+  <!-- To secure your API key, restrict it to your website's domain in the Google Cloud Console (APIs & Services > Credentials). -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAHg9fkoWcKcue1by5vnqUUtivQLYdQfcM&libraries=places"></script>
   <style>
     body {
       font-family: 'Poppins', sans-serif;
@@ -287,17 +291,17 @@
       <form id="noteForm">
         <div class="form-group">
           <label for="leaderType">Select Leader Type:</label>
-            <select id="leaderType" name="leaderType">
-              <option value="">--Select--</option>
-              <option value="business_leader">Business Leader</option>
-              <option value="governor">Governor</option>
-              <option value="senior_senator">Senior Senator</option>
-              <option value="junior_senator">Junior Senator</option>
-              <option value="senate_committee">Senate Committee</option>
-              <option value="house_committee">House Committee</option>
-              <option value="mayor">Mayor</option>
-              <option value="university_president">University President</option>
-            </select>
+          <select id="leaderType" name="leaderType">
+            <option value="">--Select--</option>
+            <option value="business_leader">Business Leader</option>
+            <option value="governor">Governor</option>
+            <option value="senior_senator">Senior Senator</option>
+            <option value="junior_senator">Junior Senator</option>
+            <option value="senate_committee">Senate Committee</option>
+            <option value="house_committee">House Committee</option>
+            <option value="mayor">Mayor</option>
+            <option value="university_president">University President</option>
+          </select>
         </div>
         <div id="dynamicInput" class="form-group" style="display: none;"></div>
         <div class="form-group">
@@ -426,12 +430,12 @@
     </div>
   </div>
 
-  <!-- Warning Modal -->
+  <!-- Warning Modal (Updated for dynamic messages) -->
   <div id="warningModal" class="warning-modal">
     <div class="warning-modal-content">
       <span class="close-btn">×</span>
-      <h2>Message Warning</h2>
-      <p>Your message contains inappropriate language. Please revise.</p>
+      <h2>Warning</h2>
+      <p id="warningMessage"></p>
     </div>
   </div>
 
@@ -454,294 +458,324 @@
     <p>© 2025 Write The Leaders. All Rights Reserved. | <a href="#" id="contactLink">Contact Us</a></p>
   </footer>
 
-<script src="https://js.stripe.com/v3/"></script>
-<script>
-  // Define field mappings for each leader type
-  const fieldMap = {
-    business_leader: 'company',
-    governor: 'state',
-    senior_senator: 'state',
-    junior_senator: 'state',
-    senate_committee: 'committee',
-    house_committee: 'committee',
-    mayor: 'city_state',
-    university_president: 'university'
-  };
+  <script src="https://js.stripe.com/v3/"></script>
+  <script>
+    // Define field mappings for each leader type
+    const fieldMap = {
+      business_leader: 'company',
+      governor: 'state',
+      senior_senator: 'state',
+      junior_senator: 'state',
+      senate_committee: 'committee',
+      house_committee: 'committee',
+      mayor: 'city_state',
+      university_president: 'university'
+    };
 
-  let currentData = [];
-  let currentType = '';
+    let currentData = [];
+    let currentType = '';
 
-  // Handle leader type selection
-  document.getElementById('leaderType').addEventListener('change', (e) => {
-    const type = e.target.value;
-    if (type) {
-      currentType = type;
-      showDynamicInput(type);
-      fetchData(type);
-    } else {
-      hideDynamicInput();
-    }
-  });
-
-  // Show the dynamic dropdown based on leader type
-  function showDynamicInput(type) {
-    const dynamicInput = document.getElementById('dynamicInput');
-    dynamicInput.innerHTML = '';
-    let labelText = '';
-    switch (type) {
-      case 'business_leader':
-        labelText = 'Select Company:';
-        break;
-      case 'governor':
-        labelText = 'Select State:';
-        break;
-      case 'senior_senator':
-        labelText = 'Select State:';
-        break;
-      case 'junior_senator':
-        labelText = 'Select State:';
-        break;
-      case 'senate_committee':
-        labelText = 'Select Senate Committee:';
-        break;
-      case 'house_committee':
-        labelText = 'Select House Committee:';
-        break;
-      case 'mayor':
-        labelText = 'Select City:';
-        break;
-      case 'university_president':
-        labelText = 'Select University:';
-        break;
-    }
-    const label = document.createElement('label');
-    label.textContent = labelText;
-    const select = document.createElement('select');
-    select.id = 'dynamicSelect';
-    select.innerHTML = '<option value="">--Select--</option>';
-    dynamicInput.appendChild(label);
-    dynamicInput.appendChild(select);
-    dynamicInput.style.display = 'block';
-
-    // Handle selection from the dropdown
-    select.addEventListener('change', () => {
-      const value = select.value;
-      const field = fieldMap[type];
-      const leader = currentData.find(item => item[field] === value);
-      if (leader) {
-        document.getElementById('to_name').value = leader.name;
-        document.getElementById('to_address_line1').value = leader.address_line1;
-        document.getElementById('to_city').value = leader.city;
-        document.getElementById('to_state').value = leader.address_state || leader.state;
-        document.getElementById('to_zip').value = leader.zip;
+    // Handle leader type selection
+    document.getElementById('leaderType').addEventListener('change', (e) => {
+      const type = e.target.value;
+      if (type) {
+        currentType = type;
+        showDynamicInput(type);
+        fetchData(type);
       } else {
-        // Clear fields if no leader is found
-        document.getElementById('to_name').value = '';
-        document.getElementById('to_address_line1').value = '';
-        document.getElementById('to_city').value = '';
-        document.getElementById('to_state').value = '';
-        document.getElementById('to_zip').value = '';
+        hideDynamicInput();
       }
     });
-  }
 
-  // Hide the dynamic dropdown
-  function hideDynamicInput() {
-    const dynamicInput = document.getElementById('dynamicInput');
-    dynamicInput.innerHTML = '';
-    dynamicInput.style.display = 'none';
-  }
+    // Show the dynamic dropdown based on leader type
+    function showDynamicInput(type) {
+      const dynamicInput = document.getElementById('dynamicInput');
+      dynamicInput.innerHTML = '';
+      let labelText = '';
+      switch (type) {
+        case 'business_leader':
+          labelText = 'Select Company:';
+          break;
+        case 'governor':
+          labelText = 'Select State:';
+          break;
+        case 'senior_senator':
+          labelText = 'Select State:';
+          break;
+        case 'junior_senator':
+          labelText = 'Select State:';
+          break;
+        case 'senate_committee':
+          labelText = 'Select Senate Committee:';
+          break;
+        case 'house_committee':
+          labelText = 'Select House Committee:';
+          break;
+        case 'mayor':
+          labelText = 'Select City:';
+          break;
+        case 'university_president':
+          labelText = 'Select University:';
+          break;
+      }
+      const label = document.createElement('label');
+      label.textContent = labelText;
+      const select = document.createElement('select');
+      select.id = 'dynamicSelect';
+      select.innerHTML = '<option value="">--Select--</option>';
+      dynamicInput.appendChild(label);
+      dynamicInput.appendChild(select);
+      dynamicInput.style.display = 'block';
 
-  // Fetch the appropriate JSON file
-  function fetchData(type) {
-    let url = '';
-    switch (type) {
-      case 'business_leader':
-        url = 'businessLeaders.json';
-        break;
-      case 'governor':
-        url = 'governors.json';
-        break;
-      case 'senior_senator':
-        url = 'senators.json'; // Assuming existing senators.json is for senior senators
-        break;
-      case 'junior_senator':
-        url = 'juniorSenators.json';
-        break;
-      case 'senate_committee':
-        url = 'committees.json'; // Assuming existing committees.json is for senate committees
-        break;
-      case 'house_committee':
-        url = 'houseCommittees.json';
-        break;
-      case 'mayor':
-        url = 'mayors.json';
-        break;
-      case 'university_president':
-        url = 'universityPresidents.json';
-        break;
-    }
-    if (url) {
-      fetch(`${url}?t=${Date.now()}`)
-        .then(response => {
-          if (!response.ok) throw new Error('Network response was not ok');
-          return response.json();
-        })
-        .then(data => {
-          currentData = data;
-          console.log(`${type} data loaded:`, currentData);
-          populateDynamicDropdown(type, data);
-        })
-        .catch(error => console.error(`Error loading ${type} data:`, error));
-    }
-  }
-
-  // Populate the dropdown with options from the JSON data
-  function populateDynamicDropdown(type, data) {
-    const select = document.getElementById('dynamicSelect');
-    if (!select) return;
-    const field = fieldMap[type];
-    // Clear existing options except the default
-    while (select.options.length > 1) {
-      select.remove(1);
-    }
-    // Sort options alphabetically
-    const options = data.map(item => item[field]).sort();
-    options.forEach(value => {
-      const option = document.createElement('option');
-      option.value = value;
-      option.textContent = value;
-      select.appendChild(option);
-    });
-  }
-
-  const prohibitedWords = ['curseword1', 'curseword2', 'derogatoryphrase1'];
-
-  function checkMessage() {
-    const message = document.querySelector('#noteForm textarea[name="message"]').value.toLowerCase();
-    return prohibitedWords.some(word => message.includes(word.toLowerCase()));
-  }
-
-  const paymentModal = document.getElementById('paymentModal');
-  const helpModal = document.getElementById('helpModal');
-  const warningModal = document.getElementById('warningModal');
-  const contactModal = document.getElementById('contactModal');
-  const paymentBtn = document.querySelector('.payment-btn');
-  const helpIcon = document.getElementById('helpIcon');
-  const contactLink = document.getElementById('contactLink');
-  const closeBtns = document.querySelectorAll('.close-btn');
-
-  paymentBtn.addEventListener('click', () => {
-    if (checkMessage()) {
-      warningModal.style.display = 'flex';
-    } else {
-      paymentModal.style.display = 'flex';
-    }
-  });
-
-  helpIcon.addEventListener('click', () => {
-    helpModal.style.display = 'flex';
-  });
-
-  contactLink.addEventListener('click', (e) => {
-    e.preventDefault();
-    contactModal.style.display = 'flex';
-  });
-
-  closeBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      btn.parentElement.parentElement.style.display = 'none';
-    });
-  });
-
-  window.addEventListener('click', (e) => {
-    if (e.target === paymentModal) paymentModal.style.display = 'none';
-    if (e.target === helpModal) helpModal.style.display = 'none';
-    if (e.target === warningModal) warningModal.style.display = 'none';
-    if (e.target === contactModal) contactModal.style.display = 'none';
-  });
-
-  document.getElementById('contact-close-btn').addEventListener('click', () => {
-    contactModal.style.display = 'none';
-  });
-
-  const faqQuestions = document.querySelectorAll('.faq-question');
-  faqQuestions.forEach(question => {
-    question.addEventListener('click', () => {
-      const answer = question.nextElementSibling;
-      answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
-    });
-  });
-
-  function updateCounter(textarea) {
-    document.getElementById('charCounter').textContent = `${textarea.value.length}/250`;
-  }
-
-  const stripe = Stripe('pk_test_YOUR_PUBLISHABLE_KEY');
-  const elements = stripe.elements();
-  const card = elements.create('card', {
-    style: {
-      base: {
-        fontFamily: 'Poppins, sans-serif',
-        fontSize: '16px',
-        color: '#333',
-        '::placeholder': { color: '#999' },
-      },
-    },
-  });
-  card.mount('#card-element');
-
-  const paymentForm = document.getElementById('paymentForm');
-  paymentForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const emailInput = paymentForm.querySelector('input[name="email"]');
-    if (!emailInput.checkValidity()) {
-      alert('Please enter a valid email address');
-      return;
-    }
-    const { paymentMethod, error } = await stripe.createPaymentMethod({
-      type: 'card',
-      card: card,
-      billing_details: {
-        name: paymentForm.querySelector('input[name="from_name"]').value,
-        email: emailInput.value,
-      },
-    });
-    if (error) {
-      alert(error.message);
-      return;
-    }
-    const noteForm = document.getElementById('noteForm');
-    const noteData = Object.fromEntries(new FormData(noteForm));
-    const paymentData = Object.fromEntries(new FormData(paymentForm));
-    try {
-      const response = await fetch('/send-note', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ noteData, paymentData, paymentMethodId: paymentMethod.id }),
+      // Handle selection from the dropdown
+      select.addEventListener('change', () => {
+        const value = select.value;
+        const field = fieldMap[type];
+        const leader = currentData.find(item => item[field] === value);
+        if (leader) {
+          document.getElementById('to_name').value = leader.name;
+          document.getElementById('to_address_line1').value = leader.address_line1;
+          document.getElementById('to_city').value = leader.city;
+          document.getElementById('to_state').value = leader.address_state || leader.state;
+          document.getElementById('to_zip').value = leader.zip;
+        } else {
+          // Clear fields if no leader is found
+          document.getElementById('to_name').value = '';
+          document.getElementById('to_address_line1').value = '';
+          document.getElementById('to_city').value = '';
+          document.getElementById('to_state').value = '';
+          document.getElementById('to_zip').value = '';
+        }
       });
-      const result = await response.json();
-      if (result.success) {
-        alert('Postcard sent successfully!');
-        paymentModal.style.display = 'none';
-        noteForm.reset();
-        paymentForm.reset();
-        card.clear();
-        updateCounter(noteForm.querySelector('textarea'));
-      } else {
-        alert('Error: ' + result.error);
-      }
-    } catch (err) {
-      alert('Network error: ' + err.message);
     }
-  });
 
-  document.addEventListener('contextmenu', (e) => {
-    e.preventDefault();
-    alert('Right-click is disabled on this page.');
-  });
+    // Hide the dynamic dropdown
+    function hideDynamicInput() {
+      const dynamicInput = document.getElementById('dynamicInput');
+      dynamicInput.innerHTML = '';
+      dynamicInput.style.display = 'none';
+    }
 
-  console.log('JavaScript loaded successfully');
-</script>
+    // Fetch the appropriate JSON file
+    function fetchData(type) {
+      let url = '';
+      switch (type) {
+        case 'business_leader':
+          url = 'businessLeaders.json';
+          break;
+        case 'governor':
+          url = 'governors.json';
+          break;
+        case 'senior_senator':
+          url = 'senators.json'; // Assuming existing senators.json is for senior senators
+          break;
+        case 'junior_senator':
+          url = 'juniorSenators.json';
+          break;
+        case 'senate_committee':
+          url = 'committees.json'; // Assuming existing committees.json is for senate committees
+          break;
+        case 'house_committee':
+          url = 'houseCommittees.json';
+          break;
+        case 'mayor':
+          url = 'mayors.json';
+          break;
+        case 'university_president':
+          url = 'universityPresidents.json';
+          break;
+      }
+      if (url) {
+        fetch(`${url}?t=${Date.now()}`)
+          .then(response => {
+            if (!response.ok) throw new Error('Network response was not ok');
+            return response.json();
+          })
+          .then(data => {
+            currentData = data;
+            console.log(`${type} data loaded:`, currentData);
+            populateDynamicDropdown(type, data);
+          })
+          .catch(error => console.error(`Error loading ${type} data:`, error));
+      }
+    }
+
+    // Populate the dropdown with options from the JSON data
+    function populateDynamicDropdown(type, data) {
+      const select = document.getElementById('dynamicSelect');
+      if (!select) return;
+      const field = fieldMap[type];
+      // Clear existing options except the default
+      while (select.options.length > 1) {
+        select.remove(1);
+      }
+      // Sort options alphabetically
+      const options = data.map(item => item[field]).sort();
+      options.forEach(value => {
+        const option = document.createElement('option');
+        option.value = value;
+        option.textContent = value;
+        select.appendChild(option);
+      });
+    }
+
+    const prohibitedWords = ['curseword1', 'curseword2', 'derogatoryphrase1'];
+
+    function checkMessage() {
+      const message = document.querySelector('#noteForm textarea[name="message"]').value.toLowerCase();
+      return prohibitedWords.some(word => message.includes(word.toLowerCase()));
+    }
+
+    const paymentModal = document.getElementById('paymentModal');
+    const helpModal = document.getElementById('helpModal');
+    const warningModal = document.getElementById('warningModal');
+    const contactModal = document.getElementById('contactModal');
+    const paymentBtn = document.querySelector('.payment-btn');
+    const helpIcon = document.getElementById('helpIcon');
+    const contactLink = document.getElementById('contactLink');
+    const closeBtns = document.querySelectorAll('.close-btn');
+
+    // Function to show dynamic warning messages
+    function showWarning(message) {
+      document.getElementById('warningMessage').textContent = message;
+      warningModal.style.display = 'flex';
+    }
+
+    // Function to validate address using Google Maps Geocoding API
+    function validateAddress() {
+      const addressLine1 = document.getElementById('to_address_line1').value.trim();
+      const city = document.getElementById('to_city').value.trim();
+      const state = document.getElementById('to_state').value.trim();
+      const zip = document.getElementById('to_zip').value.trim();
+
+      if (!addressLine1 || !city || !state || !zip) {
+        showWarning('Please fill in all address fields.');
+        return;
+      }
+
+      const fullAddress = `${addressLine1}, ${city}, ${state} ${zip}`;
+      const geocoder = new google.maps.Geocoder();
+      geocoder.geocode({ address: fullAddress }, (results, status) => {
+        if (status === 'OK') {
+          paymentModal.style.display = 'flex';
+        } else {
+          showWarning('Invalid address. Please check and try again.');
+        }
+      });
+    }
+
+    // Updated payment button event listener
+    paymentBtn.addEventListener('click', () => {
+      if (checkMessage()) {
+        showWarning('Your message contains inappropriate language. Please revise.');
+      } else {
+        validateAddress();
+      }
+    });
+
+    helpIcon.addEventListener('click', () => {
+      helpModal.style.display = 'flex';
+    });
+
+    contactLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      contactModal.style.display = 'flex';
+    });
+
+    closeBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        btn.parentElement.parentElement.style.display = 'none';
+      });
+    });
+
+    window.addEventListener('click', (e) => {
+      if (e.target === paymentModal) paymentModal.style.display = 'none';
+      if (e.target === helpModal) helpModal.style.display = 'none';
+      if (e.target === warningModal) warningModal.style.display = 'none';
+      if (e.target === contactModal) contactModal.style.display = 'none';
+    });
+
+    document.getElementById('contact-close-btn').addEventListener('click', () => {
+      contactModal.style.display = 'none';
+    });
+
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    faqQuestions.forEach(question => {
+      question.addEventListener('click', () => {
+        const answer = question.nextElementSibling;
+        answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+      });
+    });
+
+    function updateCounter(textarea) {
+      document.getElementById('charCounter').textContent = `${textarea.value.length}/250`;
+    }
+
+    const stripe = Stripe('pk_test_YOUR_PUBLISHABLE_KEY');
+    const elements = stripe.elements();
+    const card = elements.create('card', {
+      style: {
+        base: {
+          fontFamily: 'Poppins, sans-serif',
+          fontSize: '16px',
+          color: '#333',
+          '::placeholder': { color: '#999' },
+        },
+      },
+    });
+    card.mount('#card-element');
+
+    const paymentForm = document.getElementById('paymentForm');
+    paymentForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const emailInput = paymentForm.querySelector('input[name="email"]');
+      if (!emailInput.checkValidity()) {
+        alert('Please enter a valid email address');
+        return;
+      }
+      const { paymentMethod, error } = await stripe.createPaymentMethod({
+        type: 'card',
+        card: card,
+        billing_details: {
+          name: paymentForm.querySelector('input[name="from_name"]').value,
+          email: emailInput.value,
+        },
+      });
+      if (error) {
+        alert(error.message);
+        return;
+      }
+      const noteForm = document.getElementById('noteForm');
+      const noteData = Object.fromEntries(new FormData(noteForm));
+      const paymentData = Object.fromEntries(new FormData(paymentForm));
+      try {
+        const response = await fetch('/send-note', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ noteData, paymentData, paymentMethodId: paymentMethod.id }),
+        });
+        const result = await response.json();
+        if (result.success) {
+          alert('Postcard sent successfully!');
+          paymentModal.style.display = 'none';
+          noteForm.reset();
+          paymentForm.reset();
+          card.clear();
+          updateCounter(noteForm.querySelector('textarea'));
+        } else {
+          alert('Error: ' + result.error);
+        }
+      } catch (err) {
+        alert('Network error: ' + err.message);
+      }
+    });
+
+    document.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+      alert('Right-click is disabled on this page.');
+    });
+
+    console.log('JavaScript loaded successfully');
+  </script>
 </body>
 </html>
