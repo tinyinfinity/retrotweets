@@ -19,30 +19,29 @@
       line-height: 1.6;
     }
     header {
-      background-color: #003049; /* Navy Blue */
+      background-color: #023E8A; /* Deep Azure */
       color: white;
       text-align: center;
       padding: 3rem 1rem 4rem;
       position: relative;
-      clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
     }
     header h1 {
       margin: 0;
       font-size: 3.5rem;
       font-family: 'Bungee Shade', cursive;
-      color: #FDF0D5; /* White */
+      color: #fff; /* White */
     }
     header p {
       margin: 0.5rem 0 0;
       font-size: 1.2rem;
-      color: #FDF0D5; /* White */
+      color: #fff; /* White */
     }
     .help-icon {
       position: absolute;
       top: 10px;
       right: 10px;
       font-size: 1.5rem;
-      color: #669bbc; /* air blue */
+      color: #F8E9A1;
       cursor: pointer;
     }
     .container {
@@ -58,7 +57,7 @@
       margin-bottom: 2rem;
     }
     .note-form h2, .why-section h2, .faq-section h2 {
-      color: #003049; /* Navy Blue */
+      color: #023E8A; /* Deep Azure */
       margin-top: 0;
       font-size: 1.5rem;
       font-weight: 500;
@@ -140,7 +139,7 @@
       border-radius: 0 0 5px 5px;
     }
     button, .support-btn {
-      background-color: #003049; /* Navy Blue */
+      background-color: #023E8A; /* Deep Azure */
       color: white;
       border: none;
       padding: 1rem 2rem;
@@ -182,7 +181,7 @@
       text-align: center;
     }
     .modal-content h2, .help-modal-content h2, .warning-modal-content h2, .contact-modal-content h2 {
-      color: #003049; /* Navy Blue */
+      color: #023E8A; /* Navy Blue */
       font-size: 1.5rem;
       margin-top: 0;
     }
@@ -204,16 +203,16 @@
     footer {
       text-align: center;
       padding: 1rem;
-      background-color: #669bbc; /* Light Blue */
-      color: #FDF0D5; /* White */
+      background-color: #0077B6; /* Evening Blue */
+      color: #fff; /* White */
     }
     footer a {
-      color: #FDF0D5; /* White */
+      color: #fff; /* White */
       text-decoration: none;
       margin: 0 0.5rem;
     }
     footer a:hover {
-      color: #003049; /* Navy Blue */ 
+      color: #F8E9A1; /* Sunset Glow */ 
       text-decoration: underline;
     }
     .contact-modal-content form input[type="text"],
@@ -235,7 +234,7 @@
       width: 100%;
       padding: 10px;
       border: none;
-      background-color: #003049; /* Navy Blue */
+      background-color: #023E8A; /* Navy Blue */
       color: white;
       font-size: 1rem;
       border-radius: 5px;
@@ -278,7 +277,7 @@
 <body>
   <header>
     <h1>Write The Leaders</h1>
-    <p>The easiest way to impact government and business leaders</p>
+    <p>The easiest way to impact government and organizational leaders</p>
     <i class="fas fa-question-circle help-icon" id="helpIcon"></i>
   </header>
 
@@ -288,13 +287,17 @@
       <form id="noteForm">
         <div class="form-group">
           <label for="leaderType">Select Leader Type:</label>
-          <select id="leaderType" name="leaderType">
-            <option value="">--Select--</option>
-            <option value="business">Business Leader</option>
-            <option value="governor">Governor</option>
-            <option value="senator">Senior Senator</option>
-            <option value="committee">Senate Committee</option>
-          </select>
+            <select id="leaderType" name="leaderType">
+              <option value="">--Select--</option>
+              <option value="business_leader">Business Leader</option>
+              <option value="governor">Governor</option>
+              <option value="senior_senator">Senior Senator</option>
+              <option value="junior_senator">Junior Senator</option>
+              <option value="senate_committee">Senate Committee</option>
+              <option value="house_committee">House Committee</option>
+              <option value="mayor">Mayor</option>
+              <option value="university_president">University President</option>
+            </select>
         </div>
         <div id="dynamicInput" class="form-group" style="display: none;"></div>
         <div class="form-group">
@@ -333,7 +336,7 @@
         <div class="why-card">
           <i class="fas fa-envelope"></i>
           <h3>Influence Policy</h3>
-          <p>Send your message directly to government and business leaders</p>
+          <p>Send your message directly to government and organizational leaders</p>
         </div>
         <div class="why-card">
           <i class="fas fa-star"></i>
@@ -352,7 +355,7 @@
       <h2>Frequently Asked Questions</h2>
       <div class="faq-item">
         <div class="faq-question">What is Write The Leaders?</div>
-        <div class="faq-answer">Write The Leaders is a service that allows you to send personalized postcards to government and business leaders. It’s a unique way to connect and make your voice heard.</div>
+        <div class="faq-answer">Write The Leaders is a service that allows you to send personalized postcards to government and organizational leaders. It’s a unique way to connect and make your voice heard.</div>
       </div>
       <div class="faq-item">
         <div class="faq-question">How does the service work?</div>
@@ -451,105 +454,134 @@
     <p>© 2025 Write The Leaders. All Rights Reserved. | <a href="#" id="contactLink">Contact Us</a></p>
   </footer>
 
-  <script src="https://js.stripe.com/v3/"></script>
-  <script>
-    // Define field mappings for each leader type
-    const fieldMap = {
-      business: 'company',
-      governor: 'state',
-      senator: 'state',
-      committee: 'committee'
-    };
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+  // Define field mappings for each leader type
+  const fieldMap = {
+    business_leader: 'company',
+    governor: 'state',
+    senior_senator: 'state',
+    junior_senator: 'state',
+    senate_committee: 'committee',
+    house_committee: 'committee',
+    mayor: 'city_state',
+    university_president: 'university'
+  };
 
-    let currentData = [];
-    let currentType = '';
+  let currentData = [];
+  let currentType = '';
 
-    // Handle leader type selection
-    document.getElementById('leaderType').addEventListener('change', (e) => {
-      const type = e.target.value;
-      if (type) {
-        currentType = type;
-        showDynamicInput(type);
-        fetchData(type);
+  // Handle leader type selection
+  document.getElementById('leaderType').addEventListener('change', (e) => {
+    const type = e.target.value;
+    if (type) {
+      currentType = type;
+      showDynamicInput(type);
+      fetchData(type);
+    } else {
+      hideDynamicInput();
+    }
+  });
+
+  // Show the dynamic dropdown based on leader type
+  function showDynamicInput(type) {
+    const dynamicInput = document.getElementById('dynamicInput');
+    dynamicInput.innerHTML = '';
+    let labelText = '';
+    switch (type) {
+      case 'business_leader':
+        labelText = 'Select Company:';
+        break;
+      case 'governor':
+        labelText = 'Select State:';
+        break;
+      case 'senior_senator':
+        labelText = 'Select State:';
+        break;
+      case 'junior_senator':
+        labelText = 'Select State:';
+        break;
+      case 'senate_committee':
+        labelText = 'Select Senate Committee:';
+        break;
+      case 'house_committee':
+        labelText = 'Select House Committee:';
+        break;
+      case 'mayor':
+        labelText = 'Select City:';
+        break;
+      case 'university_president':
+        labelText = 'Select University:';
+        break;
+    }
+    const label = document.createElement('label');
+    label.textContent = labelText;
+    const select = document.createElement('select');
+    select.id = 'dynamicSelect';
+    select.innerHTML = '<option value="">--Select--</option>';
+    dynamicInput.appendChild(label);
+    dynamicInput.appendChild(select);
+    dynamicInput.style.display = 'block';
+
+    // Handle selection from the dropdown
+    select.addEventListener('change', () => {
+      const value = select.value;
+      const field = fieldMap[type];
+      const leader = currentData.find(item => item[field] === value);
+      if (leader) {
+        document.getElementById('to_name').value = leader.name;
+        document.getElementById('to_address_line1').value = leader.address_line1;
+        document.getElementById('to_city').value = leader.city;
+        document.getElementById('to_state').value = leader.address_state || leader.state;
+        document.getElementById('to_zip').value = leader.zip;
       } else {
-        hideDynamicInput();
+        // Clear fields if no leader is found
+        document.getElementById('to_name').value = '';
+        document.getElementById('to_address_line1').value = '';
+        document.getElementById('to_city').value = '';
+        document.getElementById('to_state').value = '';
+        document.getElementById('to_zip').value = '';
       }
     });
+  }
 
-    // Show the dynamic dropdown based on leader type
-    function showDynamicInput(type) {
-      const dynamicInput = document.getElementById('dynamicInput');
-      dynamicInput.innerHTML = '';
-      let labelText = '';
-      switch (type) {
-        case 'business':
-          labelText = 'Select Company:';
-          break;
-        case 'governor':
-          labelText = 'Select State:';
-          break;
-        case 'senator':
-          labelText = 'Select State:';
-          break;
-        case 'committee':
-          labelText = 'Select Committee:';
-          break;
-      }
-      const label = document.createElement('label');
-      label.textContent = labelText;
-      const select = document.createElement('select');
-      select.id = 'dynamicSelect';
-      select.innerHTML = '<option value="">--Select--</option>';
-      dynamicInput.appendChild(label);
-      dynamicInput.appendChild(select);
-      dynamicInput.style.display = 'block';
+  // Hide the dynamic dropdown
+  function hideDynamicInput() {
+    const dynamicInput = document.getElementById('dynamicInput');
+    dynamicInput.innerHTML = '';
+    dynamicInput.style.display = 'none';
+  }
 
-      // Handle selection from the dropdown
-      select.addEventListener('change', () => {
-        const value = select.value;
-        const field = fieldMap[type];
-        const leader = currentData.find(item => item[field] === value);
-        if (leader) {
-          document.getElementById('to_name').value = leader.name;
-          document.getElementById('to_address_line1').value = leader.address_line1;
-          document.getElementById('to_city').value = leader.city;
-          document.getElementById('to_state').value = leader.address_state || leader.state; // Use address_state if available
-          document.getElementById('to_zip').value = leader.zip;
-        } else {
-          // Clear fields if no leader is found
-          document.getElementById('to_name').value = '';
-          document.getElementById('to_address_line1').value = '';
-          document.getElementById('to_city').value = '';
-          document.getElementById('to_state').value = '';
-          document.getElementById('to_zip').value = '';
-        }
-      });
+  // Fetch the appropriate JSON file
+  function fetchData(type) {
+    let url = '';
+    switch (type) {
+      case 'business_leader':
+        url = 'businessLeaders.json';
+        break;
+      case 'governor':
+        url = 'governors.json';
+        break;
+      case 'senior_senator':
+        url = 'senators.json'; // Assuming existing senators.json is for senior senators
+        break;
+      case 'junior_senator':
+        url = 'juniorSenators.json';
+        break;
+      case 'senate_committee':
+        url = 'committees.json'; // Assuming existing committees.json is for senate committees
+        break;
+      case 'house_committee':
+        url = 'houseCommittees.json';
+        break;
+      case 'mayor':
+        url = 'mayors.json';
+        break;
+      case 'university_president':
+        url = 'universityPresidents.json';
+        break;
     }
-
-    // Hide the dynamic dropdown
-    function hideDynamicInput() {
-      const dynamicInput = document.getElementById('dynamicInput');
-      dynamicInput.innerHTML = '';
-      dynamicInput.style.display = 'none';
-    }
-
-    // Fetch the appropriate JSON file
-    function fetchData(type) {
-      let url = '';
-      switch (type) {
-        case 'business':
-          url = 'businessLeaders.json';
-          break;
-        case 'governor':
-          url = 'governors.json';
-          break;
-        case 'senator':
-          url = 'senators.json';
-          break;
-        case 'committee':
-          url = 'committees.json';
-          break;
-      }
+    if (url) {
       fetch(`${url}?t=${Date.now()}`)
         .then(response => {
           if (!response.ok) throw new Error('Network response was not ok');
@@ -562,153 +594,154 @@
         })
         .catch(error => console.error(`Error loading ${type} data:`, error));
     }
+  }
 
-    // Populate the dropdown with options from the JSON data
-    function populateDynamicDropdown(type, data) {
-      const select = document.getElementById('dynamicSelect');
-      if (!select) return;
-      const field = fieldMap[type];
-      // Clear existing options except the default
-      while (select.options.length > 1) {
-        select.remove(1);
-      }
-      // Sort options alphabetically
-      const options = data.map(item => item[field]).sort();
-      options.forEach(value => {
-        const option = document.createElement('option');
-        option.value = value;
-        option.textContent = value;
-        select.appendChild(option);
-      });
+  // Populate the dropdown with options from the JSON data
+  function populateDynamicDropdown(type, data) {
+    const select = document.getElementById('dynamicSelect');
+    if (!select) return;
+    const field = fieldMap[type];
+    // Clear existing options except the default
+    while (select.options.length > 1) {
+      select.remove(1);
     }
+    // Sort options alphabetically
+    const options = data.map(item => item[field]).sort();
+    options.forEach(value => {
+      const option = document.createElement('option');
+      option.value = value;
+      option.textContent = value;
+      select.appendChild(option);
+    });
+  }
 
-    const prohibitedWords = ['curseword1', 'curseword2', 'derogatoryphrase1'];
+  const prohibitedWords = ['curseword1', 'curseword2', 'derogatoryphrase1'];
 
-    function checkMessage() {
-      const message = document.querySelector('#noteForm textarea[name="message"]').value.toLowerCase();
-      return prohibitedWords.some(word => message.includes(word.toLowerCase()));
+  function checkMessage() {
+    const message = document.querySelector('#noteForm textarea[name="message"]').value.toLowerCase();
+    return prohibitedWords.some(word => message.includes(word.toLowerCase()));
+  }
+
+  const paymentModal = document.getElementById('paymentModal');
+  const helpModal = document.getElementById('helpModal');
+  const warningModal = document.getElementById('warningModal');
+  const contactModal = document.getElementById('contactModal');
+  const paymentBtn = document.querySelector('.payment-btn');
+  const helpIcon = document.getElementById('helpIcon');
+  const contactLink = document.getElementById('contactLink');
+  const closeBtns = document.querySelectorAll('.close-btn');
+
+  paymentBtn.addEventListener('click', () => {
+    if (checkMessage()) {
+      warningModal.style.display = 'flex';
+    } else {
+      paymentModal.style.display = 'flex';
     }
+  });
 
-    const paymentModal = document.getElementById('paymentModal');
-    const helpModal = document.getElementById('helpModal');
-    const warningModal = document.getElementById('warningModal');
-    const contactModal = document.getElementById('contactModal');
-    const paymentBtn = document.querySelector('.payment-btn');
-    const helpIcon = document.getElementById('helpIcon');
-    const contactLink = document.getElementById('contactLink');
-    const closeBtns = document.querySelectorAll('.close-btn');
+  helpIcon.addEventListener('click', () => {
+    helpModal.style.display = 'flex';
+  });
 
-    paymentBtn.addEventListener('click', () => {
-      if (checkMessage()) {
-        warningModal.style.display = 'flex';
-      } else {
-        paymentModal.style.display = 'flex';
-      }
+  contactLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    contactModal.style.display = 'flex';
+  });
+
+  closeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      btn.parentElement.parentElement.style.display = 'none';
     });
+  });
 
-    helpIcon.addEventListener('click', () => {
-      helpModal.style.display = 'flex';
+  window.addEventListener('click', (e) => {
+    if (e.target === paymentModal) paymentModal.style.display = 'none';
+    if (e.target === helpModal) helpModal.style.display = 'none';
+    if (e.target === warningModal) warningModal.style.display = 'none';
+    if (e.target === contactModal) contactModal.style.display = 'none';
+  });
+
+  document.getElementById('contact-close-btn').addEventListener('click', () => {
+    contactModal.style.display = 'none';
+  });
+
+  const faqQuestions = document.querySelectorAll('.faq-question');
+  faqQuestions.forEach(question => {
+    question.addEventListener('click', () => {
+      const answer = question.nextElementSibling;
+      answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
     });
+  });
 
-    contactLink.addEventListener('click', (e) => {
-      e.preventDefault();
-      contactModal.style.display = 'flex';
-    });
+  function updateCounter(textarea) {
+    document.getElementById('charCounter').textContent = `${textarea.value.length}/250`;
+  }
 
-    closeBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        btn.parentElement.parentElement.style.display = 'none';
-      });
-    });
+  const stripe = Stripe('pk_test_YOUR_PUBLISHABLE_KEY');
+  const elements = stripe.elements();
+  const card = elements.create('card', {
+    style: {
+      base: {
+        fontFamily: 'Poppins, sans-serif',
+        fontSize: '16px',
+        color: '#333',
+        '::placeholder': { color: '#999' },
+      },
+    },
+  });
+  card.mount('#card-element');
 
-    window.addEventListener('click', (e) => {
-      if (e.target === paymentModal) paymentModal.style.display = 'none';
-      if (e.target === helpModal) helpModal.style.display = 'none';
-      if (e.target === warningModal) warningModal.style.display = 'none';
-      if (e.target === contactModal) contactModal.style.display = 'none';
-    });
-
-    document.getElementById('contact-close-btn').addEventListener('click', () => {
-      contactModal.style.display = 'none';
-    });
-
-    const faqQuestions = document.querySelectorAll('.faq-question');
-    faqQuestions.forEach(question => {
-      question.addEventListener('click', () => {
-        const answer = question.nextElementSibling;
-        answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
-      });
-    });
-
-    function updateCounter(textarea) {
-      document.getElementById('charCounter').textContent = `${textarea.value.length}/250`;
+  const paymentForm = document.getElementById('paymentForm');
+  paymentForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const emailInput = paymentForm.querySelector('input[name="email"]');
+    if (!emailInput.checkValidity()) {
+      alert('Please enter a valid email address');
+      return;
     }
-
-    const stripe = Stripe('pk_test_YOUR_PUBLISHABLE_KEY');
-    const elements = stripe.elements();
-    const card = elements.create('card', {
-      style: {
-        base: {
-          fontFamily: 'Poppins, sans-serif',
-          fontSize: '16px',
-          color: '#333',
-          '::placeholder': { color: '#999' },
-        },
+    const { paymentMethod, error } = await stripe.createPaymentMethod({
+      type: 'card',
+      card: card,
+      billing_details: {
+        name: paymentForm.querySelector('input[name="from_name"]').value,
+        email: emailInput.value,
       },
     });
-    card.mount('#card-element');
-
-    const paymentForm = document.getElementById('paymentForm');
-    paymentForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const emailInput = paymentForm.querySelector('input[name="email"]');
-      if (!emailInput.checkValidity()) {
-        alert('Please enter a valid email address');
-        return;
-      }
-      const { paymentMethod, error } = await stripe.createPaymentMethod({
-        type: 'card',
-        card: card,
-        billing_details: {
-          name: paymentForm.querySelector('input[name="from_name"]').value,
-          email: emailInput.value,
-        },
+    if (error) {
+      alert(error.message);
+      return;
+    }
+    const noteForm = document.getElementById('noteForm');
+    const noteData = Object.fromEntries(new FormData(noteForm));
+    const paymentData = Object.fromEntries(new FormData(paymentForm));
+    try {
+      const response = await fetch('/send-note', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ noteData, paymentData, paymentMethodId: paymentMethod.id }),
       });
-      if (error) {
-        alert(error.message);
-        return;
+      const result = await response.json();
+      if (result.success) {
+        alert('Postcard sent successfully!');
+        paymentModal.style.display = 'none';
+        noteForm.reset();
+        paymentForm.reset();
+        card.clear();
+        updateCounter(noteForm.querySelector('textarea'));
+      } else {
+        alert('Error: ' + result.error);
       }
-      const noteForm = document.getElementById('noteForm');
-      const noteData = Object.fromEntries(new FormData(noteForm));
-      const paymentData = Object.fromEntries(new FormData(paymentForm));
-      try {
-        const response = await fetch('/send-note', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ noteData, paymentData, paymentMethodId: paymentMethod.id }),
-        });
-        const result = await response.json();
-        if (result.success) {
-          alert('Postcard sent successfully!');
-          paymentModal.style.display = 'none';
-          noteForm.reset();
-          paymentForm.reset();
-          card.clear();
-          updateCounter(noteForm.querySelector('textarea'));
-        } else {
-          alert('Error: ' + result.error);
-        }
-      } catch (err) {
-        alert('Network error: ' + err.message);
-      }
-    });
+    } catch (err) {
+      alert('Network error: ' + err.message);
+    }
+  });
 
-    document.addEventListener('contextmenu', (e) => {
-      e.preventDefault();
-      alert('Right-click is disabled on this page.');
-    });
+  document.addEventListener('contextmenu', (e) => {
+    e.preventDefault();
+    alert('Right-click is disabled on this page.');
+  });
 
-    console.log('JavaScript loaded successfully');
-  </script>
+  console.log('JavaScript loaded successfully');
+</script>
 </body>
 </html>
