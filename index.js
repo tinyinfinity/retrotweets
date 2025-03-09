@@ -19,11 +19,12 @@ app.post('/send-note', async (req, res) => {
   const { noteData, paymentData, paymentMethodId } = req.body;
 
   try {
-    // Create and confirm a payment intent with Stripe
+    // Create and confirm a payment intent with Stripe, restricting to card payments
     const paymentIntent = await stripe.paymentIntents.create({
       amount: 499, // $4.99 in cents
       currency: 'usd',
       payment_method: paymentMethodId,
+      payment_method_types: ['card'], // Restrict to card payments only
       confirmation_method: 'manual',
       confirm: true,
     });
