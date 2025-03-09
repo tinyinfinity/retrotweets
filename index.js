@@ -81,6 +81,7 @@ app.post('/send-note', async (req, res) => {
         from: fromAddress,
         front: '<html style="padding: 1in; font-size: 50;">Write The Leaders Postcard</html>',
         back: `<html style="padding: 1in; font-size: 20;">${escapeHtml(noteData.message)}</html>`,
+        use_type: 'operational', // Add this line
       });
 
       console.log('Postcard created successfully:', postcard);
