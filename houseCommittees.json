@@ -1,0 +1,19 @@
+[
+  {
+    "committee": "House Committee on Appropriations",
+    "name": "House Committee on Appropriations",
+    "address_line1": "Capitol Building",
+    "city": "Washington",
+    "state": "DC",
+    "zip": "20515"
+  },
+  {
+    "committee": "House Committee on Education and Labor",
+    "name": "House Committee on Education and Labor",
+    "address_line1": "Capitol Building",
+    "city": "Washington",
+    "state": "DC",
+    "zip": "20515"
+  }
+  // Add more house committees as needed
+]
