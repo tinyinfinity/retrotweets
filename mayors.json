@@ -1,0 +1,19 @@
+[
+  {
+    "city_state": "New York, NY",
+    "name": "Eric Adams",
+    "address_line1": "City Hall",
+    "city": "New York",
+    "state": "NY",
+    "zip": "10007"
+  },
+  {
+    "city_state": "Los Angeles, CA",
+    "name": "Karen Bass",
+    "address_line1": "200 N Spring St",
+    "city": "Los Angeles",
+    "state": "CA",
+    "zip": "90012"
+  }
+  // Add more major cities as needed
+]
