@@ -282,51 +282,51 @@
   </header>
 
   <div class="container">
-    <section class="note-form">
-      <h2>Compose Your Postcard</h2>
-      <form id="noteForm">
-        <div class="form-group">
-          <label for="leaderType">Select Leader Type:</label>
-            <select id="leaderType" name="leaderType">
-              <option value="">--Select--</option>
-              <option value="business_leader">Business Leader</option>
-              <option value="governor">Governor</option>
-              <option value="senior_senator">Senior Senator</option>
-              <option value="junior_senator">Junior Senator</option>
-              <option value="senate_committee">Senate Committee</option>
-              <option value="house_committee">House Committee</option>
-              <option value="mayor">Mayor</option>
-              <option value="university_president">University President</option>
-            </select>
-        </div>
-        <div id="dynamicInput" class="form-group" style="display: none;"></div>
-        <div class="form-group">
-          <i class="fas fa-feather-alt"></i>
-          <textarea name="message" placeholder="Your message..." maxlength="250" required oninput="updateCounter(this)"></textarea>
-          <span id="charCounter" class="char-counter">0/250</span>
-        </div>
-        <div class="form-group">
-          <i class="fas fa-user"></i>
-          <input type="text" id="to_name" placeholder="Recipient’s Name" required>
-        </div>
-        <div class="form-group">
-          <i class="fas fa-map-marker-alt"></i>
-          <input type="text" id="to_address_line1" placeholder="Address" required>
-        </div>
-        <div class="form-group">
-          <i class="fas fa-city"></i>
-          <input type="text" id="to_city" placeholder="City" required>
-        </div>
-        <div class="form-group">
-          <i class="fas fa-flag"></i>
-          <input type="text" id="to_state" placeholder="State" required>
-        </div>
-        <div class="form-group">
-          <i class="fas fa-mail-bulk"></i>
-          <input type="text" id="to_zip" placeholder="ZIP Code" required>
-        </div>
-      </form>
-    </section>
+  <section class="note-form">
+    <h2>Compose Your Postcard</h2>
+    <form id="noteForm">
+      <div class="form-group">
+        <label for="leaderType">Select Leader Type:</label>
+        <select id="leaderType" name="leaderType">
+          <option value="">--Select--</option>
+          <option value="business_leader">Business Leader</option>
+          <option value="governor">Governor</option>
+          <option value="senior_senator">Senior Senator</option>
+          <option value="junior_senator">Junior Senator</option>
+          <option value="senate_committee">Senate Committee</option>
+          <option value="house_committee">House Committee</option>
+          <option value="mayor">Mayor</option>
+          <option value="university_president">University President</option>
+        </select>
+      </div>
+      <div id="dynamicInput" class="form-group" style="display: none;"></div>
+      <div class="form-group">
+        <i class="fas fa-feather-alt"></i>
+        <textarea name="message" placeholder="Your message..." maxlength="250" required oninput="updateCounter(this)"></textarea>
+        <span id="charCounter" class="char-counter">0/250</span>
+      </div>
+      <div class="form-group">
+        <i class="fas fa-user"></i>
+        <input type="text" id="to_name" name="to_name" placeholder="Recipient’s Name" required>
+      </div>
+      <div class="form-group">
+        <i class="fas fa-map-marker-alt"></i>
+        <input type="text" id="to_address_line1" name="to_address_line1" placeholder="Address" required>
+      </div>
+      <div class="form-group">
+        <i class="fas fa-city"></i>
+        <input type="text" id="to_city" name="to_city" placeholder="City" required>
+      </div>
+      <div class="form-group">
+        <i class="fas fa-flag"></i>
+        <input type="text" id="to_state" name="to_state" placeholder="State" required>
+      </div>
+      <div class="form-group">
+        <i class="fas fa-mail-bulk"></i>
+        <input type="text" id="to_zip" name="to_zip" placeholder="ZIP Code" required>
+      </div>
+    </form>
+  </section>
 
     <button class="payment-btn">Send Postcard <i class="fas fa-paper-plane"></i></button>
 
@@ -529,11 +529,12 @@
       const field = fieldMap[type];
       const leader = currentData.find(item => item[field] === value);
       if (leader) {
-        document.getElementById('to_name').value = leader.name;
-        document.getElementById('to_address_line1').value = leader.address_line1;
-        document.getElementById('to_city').value = leader.city;
-        document.getElementById('to_state').value = leader.address_state || leader.state;
-        document.getElementById('to_zip').value = leader.zip;
+        document.getElementById('to_name').value = leader.name || '';
+        document.getElementById('to_address_line1').value = leader.address_line1 || '';
+        document.getElementById('to_city').value = leader.city || '';
+        document.getElementById('to_state').value = leader.address_state || leader.state || '';
+        document.getElementById('to_zip').value = leader.zip || '';
+        console.log(`Selected ${type}:`, leader);
       } else {
         // Clear fields if no leader is found
         document.getElementById('to_name').value = '';
@@ -541,6 +542,7 @@
         document.getElementById('to_city').value = '';
         document.getElementById('to_state').value = '';
         document.getElementById('to_zip').value = '';
+        console.log('No leader found for value:', value);
       }
     });
   }
@@ -556,40 +558,24 @@
   function fetchData(type) {
     let url = '';
     switch (type) {
-      case 'business_leader':
-        url = 'businessLeaders.json';
-        break;
-      case 'governor':
-        url = 'governors.json';
-        break;
-      case 'senior_senator':
-        url = 'senators.json'; // Assuming existing senators.json is for senior senators
-        break;
-      case 'junior_senator':
-        url = 'juniorSenators.json';
-        break;
-      case 'senate_committee':
-        url = 'committees.json'; // Assuming existing committees.json is for senate committees
-        break;
-      case 'house_committee':
-        url = 'houseCommittees.json';
-        break;
-      case 'mayor':
-        url = 'mayors.json';
-        break;
-      case 'university_president':
-        url = 'universityPresidents.json';
-        break;
+      case 'business_leader': url = 'businessLeaders.json'; break;
+      case 'governor': url = 'governors.json'; break;
+      case 'senior_senator': url = 'senators.json'; break;
+      case 'junior_senator': url = 'juniorSenators.json'; break;
+      case 'senate_committee': url = 'committees.json'; break;
+      case 'house_committee': url = 'houseCommittees.json'; break;
+      case 'mayor': url = 'mayors.json'; break;
+      case 'university_president': url = 'universityPresidents.json'; break;
     }
     if (url) {
       fetch(`${url}?t=${Date.now()}`)
         .then(response => {
-          if (!response.ok) throw new Error('Network response was not ok');
+          if (!response.ok) throw new Error(`Failed to fetch ${url}: ${response.status}`);
           return response.json();
         })
         .then(data => {
           currentData = data;
-          console.log(`${type} data loaded:`, currentData);
+          console.log(`Fetched ${type} data:`, currentData);
           populateDynamicDropdown(type, data);
         })
         .catch(error => console.error(`Error loading ${type} data:`, error));
@@ -599,14 +585,16 @@
   // Populate the dropdown with options from the JSON data
   function populateDynamicDropdown(type, data) {
     const select = document.getElementById('dynamicSelect');
-    if (!select) return;
+    if (!select) {
+      console.error('dynamicSelect not found');
+      return;
+    }
     const field = fieldMap[type];
-    // Clear existing options except the default
     while (select.options.length > 1) {
       select.remove(1);
     }
-    // Sort options alphabetically
-    const options = data.map(item => item[field]).sort();
+    const options = data.map(item => item[field]).filter(Boolean).sort();
+    console.log(`Populating dropdown for ${type} with options:`, options);
     options.forEach(value => {
       const option = document.createElement('option');
       option.value = value;
@@ -618,49 +606,42 @@
   // Add address validation function
   function validateAddress() {
     const addressFields = {
-        to_address_line1: document.getElementById('to_address_line1'),
-        to_city: document.getElementById('to_city'),
-        to_state: document.getElementById('to_state'),
-        to_zip: document.getElementById('to_zip')
+      to_address_line1: document.getElementById('to_address_line1'),
+      to_city: document.getElementById('to_city'),
+      to_state: document.getElementById('to_state'),
+      to_zip: document.getElementById('to_zip')
     };
 
-    // Regular expressions for validation
     const stateRegex = /^[A-Z]{2}$/;
     const zipRegex = /^\d{5}(-\d{4})?$/;
     
-    // Validation checks
     let errors = [];
-
-    // Check if fields are empty
     for (let [fieldName, field] of Object.entries(addressFields)) {
-        if (!field.value.trim()) {
-            errors.push(`${fieldName.replace('to_', '').replace('_', ' ')} is required`);
-            field.style.borderColor = '#B32113';
-        } else {
-            field.style.borderColor = '#ddd';
-        }
+      if (!field.value.trim()) {
+        errors.push(`${fieldName.replace('to_', '').replace('_', ' ')} is required`);
+        field.style.borderColor = '#B32113';
+      } else {
+        field.style.borderColor = '#ddd';
+      }
     }
 
-    // Validate state (2 uppercase letters)
     if (addressFields.to_state.value && !stateRegex.test(addressFields.to_state.value.toUpperCase())) {
-        errors.push('State must be a 2-letter code (e.g., CA)');
-        addressFields.to_state.style.borderColor = '#B32113';
+      errors.push('State must be a 2-letter code (e.g., CA)');
+      addressFields.to_state.style.borderColor = '#B32113';
     }
 
-    // Validate ZIP code
     if (addressFields.to_zip.value && !zipRegex.test(addressFields.to_zip.value)) {
-        errors.push('ZIP code must be 5 digits or 5-4 format (e.g., 12345 or 12345-6789)');
-        addressFields.to_zip.style.borderColor = '#B32113';
+      errors.push('ZIP code must be 5 digits or 5-4 format (e.g., 12345 or 12345-6789)');
+      addressFields.to_zip.style.borderColor = '#B32113';
     }
 
-    // Basic sanitization to prevent XSS
     for (let field of Object.values(addressFields)) {
-        field.value = field.value.replace(/[<>&;]/g, '');
+      field.value = field.value.replace(/[<>&;]/g, '');
     }
 
     if (errors.length > 0) {
-        alert('Please correct the following errors:\n' + errors.join('\n'));
-        return false;
+      alert('Please correct the following errors:\n' + errors.join('\n'));
+      return false;
     }
     return true;
   }
@@ -672,6 +653,7 @@
     return prohibitedWords.some(word => message.includes(word.toLowerCase()));
   }
 
+  // Modal and button references
   const paymentModal = document.getElementById('paymentModal');
   const helpModal = document.getElementById('helpModal');
   const warningModal = document.getElementById('warningModal');
@@ -681,35 +663,72 @@
   const contactLink = document.getElementById('contactLink');
   const closeBtns = document.querySelectorAll('.close-btn');
 
-  paymentBtn.addEventListener('click', () => {
-    // First validate the address
-    if (!validateAddress()) {
-        return;
-    }
-    
-    // Then check message content
-    if (checkMessage()) {
-        warningModal.style.display = 'flex';
+  // Stripe initialization
+  function initializeStripe() {
+    const stripe = Stripe('pk_test_51R0cpQBtQhrXA4feoidJK5jHKJZsUDNuXQexxupQdgiUo7BDCsBVpy6n3mkwoloakvU1TO9cP9RNUcHYyUK2rh8Q009W9vkQaA');
+    const elements = stripe.elements();
+    const card = elements.create('card', {
+      style: {
+        base: {
+          fontFamily: 'Poppins, sans-serif',
+          fontSize: '16px',
+          color: '#333',
+          '::placeholder': { color: '#999' },
+        },
+      },
+    });
+    const cardElement = document.getElementById('card-element');
+    if (cardElement) {
+      card.mount('#card-element');
+      console.log('Stripe card mounted successfully');
     } else {
-        paymentModal.style.display = 'flex';
+      console.error('Card element not found during Stripe initialization');
+    }
+    return { stripe, card };
+  }
+
+  let stripeInstance, cardInstance;
+
+  // Payment button click handler
+  paymentBtn.addEventListener('click', () => {
+    console.log('Payment button clicked');
+    if (!validateAddress()) {
+      console.log('Address validation failed');
+      return;
+    }
+    if (checkMessage()) {
+      console.log('Message contains prohibited words');
+      warningModal.style.display = 'flex';
+    } else {
+      console.log('Showing payment modal');
+      paymentModal.style.display = 'flex';
+      if (!stripeInstance) {
+        const { stripe, card } = initializeStripe();
+        stripeInstance = stripe;
+        cardInstance = card;
+      }
     }
   });
 
+  // Help icon click handler
   helpIcon.addEventListener('click', () => {
     helpModal.style.display = 'flex';
   });
 
+  // Contact link click handler
   contactLink.addEventListener('click', (e) => {
     e.preventDefault();
     contactModal.style.display = 'flex';
   });
 
+  // Close buttons handler
   closeBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       btn.parentElement.parentElement.style.display = 'none';
     });
   });
 
+  // Modal background click handler
   window.addEventListener('click', (e) => {
     if (e.target === paymentModal) paymentModal.style.display = 'none';
     if (e.target === helpModal) helpModal.style.display = 'none';
@@ -717,24 +736,24 @@
     if (e.target === contactModal) contactModal.style.display = 'none';
   });
 
+  // Contact close button handler
   document.getElementById('contact-close-btn').addEventListener('click', () => {
     contactModal.style.display = 'none';
   });
 
-  // Add input event listeners for real-time validation
+  // Real-time input validation
   document.getElementById('to_state').addEventListener('input', function(e) {
     this.value = this.value.toUpperCase().slice(0, 2);
   });
 
   document.getElementById('to_zip').addEventListener('input', function(e) {
-    // Remove any non-digit or non-hyphen characters
     this.value = this.value.replace(/[^0-9-]/g, '');
-    // Limit length to 10 characters (for 5-4 format)
     if (this.value.length > 10) {
-        this.value = this.value.slice(0, 10);
+      this.value = this.value.slice(0, 10);
     }
   });
 
+  // FAQ toggle
   const faqQuestions = document.querySelectorAll('.faq-question');
   faqQuestions.forEach(question => {
     question.addEventListener('click', () => {
@@ -743,35 +762,24 @@
     });
   });
 
+  // Character counter update
   function updateCounter(textarea) {
     document.getElementById('charCounter').textContent = `${textarea.value.length}/250`;
   }
 
-  const stripe = Stripe('pk_test_51R0cpQBtQhrXA4feoidJK5jHKJZsUDNuXQexxupQdgiUo7BDCsBVpy6n3mkwoloakvU1TO9cP9RNUcHYyUK2rh8Q009W9vkQaA');
-  const elements = stripe.elements();
-  const card = elements.create('card', {
-    style: {
-      base: {
-        fontFamily: 'Poppins, sans-serif',
-        fontSize: '16px',
-        color: '#333',
-        '::placeholder': { color: '#999' },
-      },
-    },
-  });
-  card.mount('#card-element');
-
+  // Payment form submission
   const paymentForm = document.getElementById('paymentForm');
   paymentForm.addEventListener('submit', async (e) => {
     e.preventDefault();
+    console.log('Payment form submitted');
     const emailInput = paymentForm.querySelector('input[name="email"]');
     if (!emailInput.checkValidity()) {
       alert('Please enter a valid email address');
       return;
     }
-    const { paymentMethod, error } = await stripe.createPaymentMethod({
+    const { paymentMethod, error } = await stripeInstance.createPaymentMethod({
       type: 'card',
-      card: card,
+      card: cardInstance,
       billing_details: {
         name: paymentForm.querySelector('input[name="from_name"]').value,
         email: emailInput.value,
@@ -784,6 +792,7 @@
     const noteForm = document.getElementById('noteForm');
     const noteData = Object.fromEntries(new FormData(noteForm));
     const paymentData = Object.fromEntries(new FormData(paymentForm));
+    console.log('Submitting to server:', { noteData, paymentData, paymentMethodId: paymentMethod.id });
     try {
       const response = await fetch('/send-note', {
         method: 'POST',
@@ -796,7 +805,7 @@
         paymentModal.style.display = 'none';
         noteForm.reset();
         paymentForm.reset();
-        card.clear();
+        cardInstance.clear();
         updateCounter(noteForm.querySelector('textarea'));
       } else {
         alert('Error: ' + result.error);
@@ -806,6 +815,7 @@
     }
   });
 
+  // Disable right-click
   document.addEventListener('contextmenu', (e) => {
     e.preventDefault();
     alert('Right-click is disabled on this page.');
