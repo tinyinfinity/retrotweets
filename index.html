@@ -383,27 +383,44 @@
       const city = document.getElementById('to_city').value.trim();
       const state = document.getElementById('to_state').value.trim();
       const zip = document.getElementById('to_zip').value.trim();
-
+    
       if (!addressLine1 || !city || !state || !zip) {
         showWarning('Please fill in all address fields.');
+        callback(false);
         return;
       }
-
+    
       const fullAddress = `${addressLine1}, ${city}, ${state} ${zip}`;
       const geocoder = new google.maps.Geocoder();
-
+    
       geocoder.geocode({ address: fullAddress }, (results, status) => {
-        console.log('Geocoding status:', status); // Debug log
-        console.log('Geocoding results:', results); // Debug log
+        console.log('Geocoding status:', status);
+        console.log('Geocoding results:', results);
         if (status === 'OK') {
           console.log('Valid address:', results[0].formatted_address);
           callback(true);
         } else {
+          console.log('Validation failed with status:', status);
           showWarning('Invalid address. Please check and try again.');
           callback(false);
         }
       });
     }
+    
+    paymentBtn.addEventListener('click', () => {
+      if (checkMessage()) {
+        showWarning('Your message contains inappropriate language. Please revise.');
+      } else {
+        validateAddress((isValid) => {
+          if (isValid) {
+            console.log('Address validated, showing payment modal');
+            paymentModal.style.display = 'flex';
+          } else {
+            console.log('Address invalid, payment modal not shown');
+          }
+        });
+      }
+    });
 
     paymentBtn.addEventListener('click', () => {
       if (checkMessage()) {
