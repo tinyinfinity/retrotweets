@@ -1,0 +1,19 @@
+[
+  {
+    "university": "Harvard University",
+    "name": "President of Harvard University",
+    "address_line1": "Massachusetts Hall",
+    "city": "Cambridge",
+    "state": "MA",
+    "zip": "02138"
+  },
+  {
+    "university": "Stanford University",
+    "name": "President of Stanford University",
+    "address_line1": "450 Serra Mall",
+    "city": "Stanford",
+    "state": "CA",
+    "zip": "94305"
+  }
+  // Add more universities as needed
+]
