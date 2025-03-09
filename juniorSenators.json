@@ -1,0 +1,19 @@
+[
+  {
+    "state": "Alabama",
+    "name": "Junior Senator Name",
+    "address_line1": "Senate Office Building",
+    "city": "Washington",
+    "address_state": "DC",
+    "zip": "20510"
+  },
+  {
+    "state": "California",
+    "name": "Junior Senator Name",
+    "address_line1": "Senate Office Building",
+    "city": "Washington",
+    "address_state": "DC",
+    "zip": "20510"
+  }
+  // Add entries for all 50 states
+]
