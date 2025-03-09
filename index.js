@@ -37,10 +37,10 @@ app.post('/send-note', async (req, res) => {
       // Payment successful, send postcard with Lob
       const toAddress = {
         name: noteData.to_name || 'Unknown Recipient',
-        address_line1: noteData.to_address_line1,
-        address_city: noteData.to_city,
-        address_state: noteData.to_state,
-        address_zip: noteData.to_zip,
+        address_line1: noteData.address, // Changed from to_address_line1
+        address_city: noteData.city,     // Changed from to_city
+        address_state: noteData.state,   // Changed from to_state
+        address_zip: noteData.zip        // Changed from to_zip
       };
 
       // Validate required fields
