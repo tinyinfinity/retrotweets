@@ -5,45 +5,45 @@ const Lob = require('lob');
 
 const app = express();
 
-// Initialize Stripe and Lob with your test keys
 const stripe = Stripe('sk_test_51R0cpQBtQhrXA4feAE2o1sSYkve1iTgRBnjtUOgWn2H77kma5CxMzBvib2ms0zwxYCnCfZqi4vPoDcpx6SUr7R2q00K64eMCiN');
 const lob = Lob('test_acee9c86a75e1e48b854cf274cef2dcf085');
 
-// Middleware
 app.use(express.static('public'));
 app.use(bodyParser.json());
 
-// Endpoint to handle postcard sending
 app.post('/send-note', async (req, res) => {
   const { noteData, paymentData, paymentMethodId } = req.body;
 
-  // Log incoming data for debugging
   console.log('Received request body:', req.body);
   console.log('noteData:', noteData);
   console.log('paymentData:', paymentData);
   console.log('paymentMethodId:', paymentMethodId);
 
-  // Validate request body
   if (!noteData || !paymentData || !paymentMethodId) {
     console.error('Missing required fields in request body');
     return res.status(400).json({ success: false, error: 'noteData, paymentData, and paymentMethodId are required' });
   }
 
   try {
-    // Create and confirm Payment Intent with Stripe
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount: 499, // $4.99 in cents
-      currency: 'usd',
-      payment_method: paymentMethodId,
-      payment_method_types: ['card'],
-      confirmation_method: 'manual',
-      confirm: true,
-    });
-
-    console.log('Payment Intent created:', paymentIntent);
+    // Stripe Payment Intent
+    let paymentIntent;
+    try {
+      console.log('Creating Stripe Payment Intent with:', { paymentMethodId });
+      paymentIntent = await stripe.paymentIntents.create({
+        amount: 499,
+        currency: 'usd',
+        payment_method: paymentMethodId,
+        payment_method_types: ['card'],
+        confirmation_method: 'manual',
+        confirm: true,
+      });
+      console.log('Payment Intent created:', paymentIntent);
+    } catch (stripeError) {
+      console.error('Stripe error:', stripeError.message, stripeError.stack);
+      return res.status(500).json({ success: false, error: 'Stripe payment failed: ' + stripeError.message });
+    }
 
     if (paymentIntent.status === 'succeeded') {
-      // Construct recipient (to) address
       const toAddress = {
         name: noteData.to_name || 'Unknown Recipient',
         address_line1: noteData.to_address_line1,
@@ -52,7 +52,6 @@ app.post('/send-note', async (req, res) => {
         address_zip: noteData.to_zip,
       };
 
-      // Construct sender (from) address
       const fromAddress = {
         name: paymentData.from_name || 'Unknown Sender',
         address_line1: paymentData.from_address_line1,
@@ -61,7 +60,9 @@ app.post('/send-note', async (req, res) => {
         address_zip: paymentData.from_zip,
       };
 
-      // Validate required fields for both addresses
+      console.log('toAddress:', toAddress);
+      console.log('fromAddress:', fromAddress);
+
       const requiredFields = ['address_line1', 'address_city', 'address_state', 'address_zip'];
       for (const field of requiredFields) {
         if (!toAddress[field]) {
@@ -74,63 +75,68 @@ app.post('/send-note', async (req, res) => {
         }
       }
 
-      // Create postcard with Lob
-      const postcard = await lob.postcards.create({
-        description: 'Postcard from Write The Leaders',
-        to: toAddress,
-        from: fromAddress,
-        front: 'steam.png', // Replace with your actual URL
-        back: `
-          <html>
-            <style>
-              body {
-                margin: 0;
-                padding: 0;
-                width: 1200px;
-                height: 1800px;
-                font-family: Arial, sans-serif;
-              }
-              .message-container {
-                width: 400px;
-                height: 1800px;
-                padding: 50px;
-                box-sizing: border-box;
-                font-size: 20px;
-                word-wrap: break-word;
-                float: left;
-              }
-              .address-area {
-                width: 400px;
-                height: 600px;
-                position: absolute;
-                bottom: 0;
-                right: 0;
-                background: transparent;
-              }
-            </style>
-            <body>
-              <div class="message-container">${escapeHtml(noteData.message)}</div>
-              <div class="address-area"></div>
-            </body>
-          </html>
-        `,
-        use_type: 'operational',
-      });
+      // Lob Postcard Creation
+      let postcard;
+      try {
+        console.log('Creating Lob postcard with:', { to: toAddress, from: fromAddress });
+        postcard = await lob.postcards.create({
+          description: 'Postcard from Write The Leaders',
+          to: toAddress,
+          from: fromAddress,
+          front: 'https://lob-assets.com/test/your-uploaded-front.jpg', // Replace with a valid URL from Lob Dashboard
+          back: `
+            <html>
+              <style>
+                body {
+                  margin: 0;
+                  padding: 0;
+                  width: 1200px;
+                  height: 1800px;
+                  font-family: Arial, sans-serif;
+                }
+                .message-container {
+                  width: 400px;
+                  height: 1800px;
+                  padding: 50px;
+                  box-sizing: border-box;
+                  font-size: 20px;
+                  word-wrap: break-word;
+                  float: left;
+                }
+                .address-area {
+                  width: 400px;
+                  height: 600px;
+                  position: absolute;
+                  bottom: 0;
+                  right: 0;
+                  background: transparent;
+                }
+              </style>
+              <body>
+                <div class="message-container">${escapeHtml(noteData.message)}</div>
+                <div class="address-area"></div>
+              </body>
+            </html>
+          `,
+          use_type: 'operational',
+        });
+        console.log('Postcard created successfully:', postcard);
+      } catch (lobError) {
+        console.error('Lob error:', lobError.message, lobError.stack);
+        return res.status(500).json({ success: false, error: 'Lob postcard creation failed: ' + lobError.message });
+      }
 
-      console.log('Postcard created successfully:', postcard);
-
-      // Return enhanced JSON response
       res.json({
         success: true,
         postcard: {
           id: postcard.id,
-          to: postcard.to, // Full "to" address object
+          to: postcard.to,
           message: noteData.message,
           expected_delivery_date: postcard.expected_delivery_date,
-          pdf_url: postcard.url // PDF proof link
+          pdf_url: postcard.url
         },
         payment: {
-          amount: paymentIntent.amount / 100, // Convert cents to dollars
+          amount: paymentIntent.amount / 100,
           currency: paymentIntent.currency,
           payment_id: paymentIntent.id
         }
@@ -140,18 +146,16 @@ app.post('/send-note', async (req, res) => {
       res.status(400).json({ success: false, error: 'Payment failed' });
     }
   } catch (error) {
-    console.error('Error in /send-note:', error.message);
-    res.status(500).json({ success: false, error: error.message });
+    console.error('Unexpected error in /send-note:', error.message, error.stack);
+    res.status(500).json({ success: false, error: 'Internal server error: ' + error.message });
   }
 });
 
-// Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
-// Custom escapeHtml function
 function escapeHtml(text) {
   if (!text) return '';
   return text
@@ -159,5 +163,5 @@ function escapeHtml(text) {
     .replace(/</g, '<')
     .replace(/>/g, '>')
     .replace(/"/g, '"')
-    .replace(/'/g, ''); // Fixed: Removed extra quote
+    .replace(/'/g, '');
 }
