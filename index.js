@@ -159,5 +159,5 @@ function escapeHtml(text) {
     .replace(/</g, '<')
     .replace(/>/g, '>')
     .replace(/"/g, '"')
-    .replace(/'/g, '\''); // Fixed: Changed ''') to '\''
+    .replace(/'/g, '\'');
 }
