@@ -79,7 +79,7 @@ app.post('/send-note', async (req, res) => {
         description: 'Postcard from Write The Leaders',
         to: toAddress,
         from: fromAddress,
-        front: 'https://i.redd.it/pq1sq64iq4y61.jpg', // Replace with your actual URL
+        front: 'steam.png', // Replace with your actual URL
         back: `
           <html>
             <style>
