@@ -83,7 +83,7 @@ app.post('/send-note', async (req, res) => {
           description: 'Postcard from Write The Leaders',
           to: toAddress,
           from: fromAddress,
-          front: 'https://lob-assets.com/test/your-uploaded-front.jpg', // Replace with a valid URL from Lob Dashboard
+          front: 'steam.jpg', // Replace with a valid URL from Lob Dashboard
           back: `
             <html>
               <style>
