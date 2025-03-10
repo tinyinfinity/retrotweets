@@ -187,9 +187,6 @@
       font-size: 1.5rem;
       margin-top: 0;
     }
-    #receiptModal[style*="display: flex"] #receiptContent {
-    visibility: visible; /* Ensure content is visible when modal is open */
-    }
     .warning-modal-content {
       background-color: #B32113; /* Red */
       color: white;
@@ -713,11 +710,7 @@
       field.value = field.value.replace(/[<>&;]/g, '');
     }
 
-    if (errors.length > 0) {
-      alert('Please correct the following sender address errors:\n' + errors.join('\n'));
-      return false;
-    }
-    return true;
+    return errors;
   }
 
   const prohibitedWords = ['fuck', 'bitch', 'faggot'];
@@ -861,6 +854,7 @@
     e.preventDefault();
     console.log('Payment form submitted');
 
+    // Clear previous errors
     document.getElementById('paymentErrors').innerHTML = '';
 
     const emailInput = paymentForm.querySelector('input[name="email"]');
@@ -913,6 +907,12 @@
         document.getElementById('receiptDeliveryDate').textContent = result.postcard.expected_delivery_date || 'N/A';
         document.getElementById('receiptPdfLink').href = result.postcard.pdf_url;
         receiptModal.style.display = 'flex';
+
+        // Reset forms
+        noteForm.reset();
+        paymentForm.reset();
+        cardInstance.clear();
+        updateCounter(noteForm.querySelector('textarea'));
       } else {
         document.getElementById('paymentErrors').innerHTML = 'Error: ' + result.error;
       }
@@ -926,46 +926,30 @@
     receiptModal.style.display = 'none';
   });
 
-  document.getElementById('receiptDownloadBtn').addEventListener('click', async () => {
+  document.getElementById('receiptDownloadBtn').addEventListener('click', () => {
     const element = document.getElementById('receiptContent');
-    if (!element) {
-      console.error('receiptContent element not found');
-      alert('Error: Receipt content not found.');
+    console.log('Element height:', element.offsetHeight);
+    console.log('Element width:', element.offsetWidth);
+    if (element.offsetHeight === 0 || element.offsetWidth === 0) {
+      console.error('Element has no dimensions, likely not visible');
+      alert('Cannot generate PDF: content is not visible.');
       return;
     }
-
-    // Ensure modal is visible during rendering
-    receiptModal.style.display = 'flex';
-    receiptModal.style.opacity = '1'; // Prevent any fade effects interfering
-
-    // Log content for debugging
-    console.log('Receipt content to render:', element.innerHTML);
-
     const opt = {
-      margin: 0.5,
+      margin: 1,
       filename: `WriteTheLeaders_Receipt_${new Date().toISOString().split('T')[0]}.pdf`,
       image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { 
-        scale: 2,
-        useCORS: true, // Handle external resources if any
-        logging: true // Enable html2canvas logging
-      },
+      html2canvas: { scale: 2, logging: true }, // Enable logging
       jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
     };
-
-    if (typeof html2pdf !== 'undefined') {
-      try {
-        // Wait for rendering to stabilize
-        await new Promise(resolve => setTimeout(resolve, 500));
-        await html2pdf().set(opt).from(element).save();
-      } catch (err) {
-        console.error('PDF generation error:', err);
-        alert('Failed to generate PDF: ' + err.message);
+    setTimeout(() => { // Add delay
+      if (typeof html2pdf !== 'undefined') {
+        html2pdf().set(opt).from(element).save();
+      } else {
+        console.error('html2pdf.js is not loaded');
+        alert('PDF generation failed. Please ensure html2pdf.js is loaded.');
       }
-    } else {
-      console.error('html2pdf.js is not loaded');
-      alert('PDF generation failed. Please ensure html2pdf.js is loaded.');
-    }
+    }, 500); // 500ms delay
   });
 
   // Disable right-click
