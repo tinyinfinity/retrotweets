@@ -81,11 +81,50 @@ app.post('/send-note', async (req, res) => {
           description: 'Postcard from Write The Leaders',
           to: toAddress,
           from: fromAddress,
-          front: '4x6_postcard.pdf', // Valid test URL
+          front: `
+            <html>
+              <head>
+                <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet">
+              </head>
+              <body style="margin: 0; padding: 0; width: 1200px; height: 1800px; display: flex; justify-content: center; align-items: center; background: #fff;">
+                <h1 style="font-family: 'Bungee Shade', cursive; font-size: 60px; color: #000;">Write The Leaders</h1>
+              </body>
+            </html>
+          `,
           back: `
             <html>
-              <body style="margin: 0; padding: 50px; width: 1200px; height: 1800px; font-family: Arial, sans-serif;">
-                <div style="font-size: 20px;">${escapeHtml(noteData.message)}</div>
+              <head>
+                <style>
+                  body {
+                    margin: 0;
+                    padding: 0;
+                    width: 1200px;
+                    height: 1800px;
+                    font-family: Arial, sans-serif;
+                    background: #fff;
+                  }
+                  .message-container {
+                    width: 480px; /* 40% of 1200px */
+                    height: 1800px;
+                    padding: 50px;
+                    box-sizing: border-box;
+                    font-size: 20px;
+                    word-wrap: break-word;
+                    float: left;
+                  }
+                  .address-area {
+                    width: 400px;
+                    height: 600px;
+                    position: absolute;
+                    bottom: 0;
+                    right: 0;
+                    background: transparent;
+                  }
+                </style>
+              </head>
+              <body>
+                <div class="message-container">${escapeHtml(noteData.message)}</div>
+                <div class="address-area"></div>
               </body>
             </html>
           `,
@@ -114,7 +153,7 @@ app.post('/send-note', async (req, res) => {
       });
     } else {
       console.error('Payment Intent status:', paymentIntent.status);
-      res.status(400).json({ success: false, error: 'Payment failed' });
+      return res.status(400).json({ success: false, error: 'Payment failed' });
     }
   } catch (error) {
     console.error('Unexpected error in /send-note:', error.message, error.stack);
@@ -130,9 +169,9 @@ app.listen(PORT, () => {
 function escapeHtml(text) {
   if (!text) return '';
   return text
-    .replace(/&/g, '&')
-    .replace(/</g, '<')
-    .replace(/>/g, '>')
-    .replace(/"/g, '"')
-    .replace(/'/g, '');
+    .replace(/&/g, '&amp;') // Fixed typo: '&' to '&amp;'
+    .replace(/</g, '&lt;')  // Fixed typo: '<' to '&lt;'
+    .replace(/>/g, '&gt;')  // Fixed typo: '>' to '&gt;'
+    .replace(/"/g, '&quot;') // Fixed typo: '"' to '&quot;'
+    .replace(/'/g, '&#39;'); // Fixed typo: ''' to '&#39;'
 }
