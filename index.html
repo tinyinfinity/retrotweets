@@ -9,6 +9,8 @@
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Poppins:wght@400;500&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet" />
+  <!-- html2pdf.js for receipt download -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <style>
     body {
       font-family: 'Poppins', sans-serif;
@@ -159,7 +161,7 @@
     .support-section {
       text-align: center;
     }
-    .modal, .help-modal, .warning-modal, .contact-modal {
+    .modal, .help-modal, .warning-modal, .contact-modal, #receiptModal {
       display: none;
       position: fixed;
       top: 0;
@@ -170,7 +172,7 @@
       justify-content: center;
       align-items: center;
     }
-    .modal-content, .help-modal-content, .warning-modal-content, .contact-modal-content {
+    .modal-content, .help-modal-content, .warning-modal-content, .contact-modal-content, .receipt-modal-content {
       background-color: white;
       padding: 2rem;
       border-radius: 10px;
@@ -180,7 +182,7 @@
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
       text-align: center;
     }
-    .modal-content h2, .help-modal-content h2, .warning-modal-content h2, .contact-modal-content h2 {
+    .modal-content h2, .help-modal-content h2, .warning-modal-content h2, .contact-modal-content h2, .receipt-modal-content h2 {
       color: #023E8A; /* Navy Blue */
       font-size: 1.5rem;
       margin-top: 0;
@@ -261,6 +263,27 @@
     #contact-close-btn:hover {
       background-color: #ccc;
     }
+    /* Receipt Modal Styles */
+    .receipt-modal-content p {
+      margin: 0.5rem 0;
+      text-align: left;
+    }
+    .receipt-modal-content h3 {
+      color: #023E8A;
+      margin: 1rem 0 0.5rem;
+    }
+    #receiptDownloadBtn, #receiptCloseBtn {
+      background-color: #023E8A;
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 0.5rem;
+    }
+    #receiptDownloadBtn:hover, #receiptCloseBtn:hover {
+      background-color: #B32113;
+    }
     @media (max-width: 600px) {
       header h1 {
         font-size: 2.5rem;
@@ -282,51 +305,51 @@
   </header>
 
   <div class="container">
-  <section class="note-form">
-    <h2>Compose Your Postcard</h2>
-    <form id="noteForm">
-      <div class="form-group">
-        <label for="leaderType">Select Leader Type:</label>
-        <select id="leaderType" name="leaderType">
-          <option value="">--Select--</option>
-          <option value="business_leader">Business Leader</option>
-          <option value="governor">Governor</option>
-          <option value="senior_senator">Senior Senator</option>
-          <option value="junior_senator">Junior Senator</option>
-          <option value="senate_committee">Senate Committee</option>
-          <option value="house_committee">House Committee</option>
-          <option value="mayor">Mayor</option>
-          <option value="university_president">University President</option>
-        </select>
-      </div>
-      <div id="dynamicInput" class="form-group" style="display: none;"></div>
-      <div class="form-group">
-        <i class="fas fa-feather-alt"></i>
-        <textarea name="message" placeholder="Your message..." maxlength="250" required oninput="updateCounter(this)"></textarea>
-        <span id="charCounter" class="char-counter">0/250</span>
-      </div>
-      <div class="form-group">
-        <i class="fas fa-user"></i>
-        <input type="text" id="to_name" name="to_name" placeholder="Recipient’s Name" required>
-      </div>
-      <div class="form-group">
-        <i class="fas fa-map-marker-alt"></i>
-        <input type="text" id="to_address_line1" name="to_address_line1" placeholder="Address" required>
-      </div>
-      <div class="form-group">
-        <i class="fas fa-city"></i>
-        <input type="text" id="to_city" name="to_city" placeholder="City" required>
-      </div>
-      <div class="form-group">
-        <i class="fas fa-flag"></i>
-        <input type="text" id="to_state" name="to_state" placeholder="State" required>
-      </div>
-      <div class="form-group">
-        <i class="fas fa-mail-bulk"></i>
-        <input type="text" id="to_zip" name="to_zip" placeholder="ZIP Code" required>
-      </div>
-    </form>
-  </section>
+    <section class="note-form">
+      <h2>Compose Your Postcard</h2>
+      <form id="noteForm">
+        <div class="form-group">
+          <label for="leaderType">Select Leader Type:</label>
+          <select id="leaderType" name="leaderType">
+            <option value="">--Select--</option>
+            <option value="business_leader">Business Leader</option>
+            <option value="governor">Governor</option>
+            <option value="senior_senator">Senior Senator</option>
+            <option value="junior_senator">Junior Senator</option>
+            <option value="senate_committee">Senate Committee</option>
+            <option value="house_committee">House Committee</option>
+            <option value="mayor">Mayor</option>
+            <option value="university_president">University President</option>
+          </select>
+        </div>
+        <div id="dynamicInput" class="form-group" style="display: none;"></div>
+        <div class="form-group">
+          <i class="fas fa-feather-alt"></i>
+          <textarea name="message" placeholder="Your message..." maxlength="250" required oninput="updateCounter(this)"></textarea>
+          <span id="charCounter" class="char-counter">0/250</span>
+        </div>
+        <div class="form-group">
+          <i class="fas fa-user"></i>
+          <input type="text" id="to_name" name="to_name" placeholder="Recipient’s Name" required>
+        </div>
+        <div class="form-group">
+          <i class="fas fa-map-marker-alt"></i>
+          <input type="text" id="to_address_line1" name="to_address_line1" placeholder="Address" required>
+        </div>
+        <div class="form-group">
+          <i class="fas fa-city"></i>
+          <input type="text" id="to_city" name="to_city" placeholder="City" required>
+        </div>
+        <div class="form-group">
+          <i class="fas fa-flag"></i>
+          <input type="text" id="to_state" name="to_state" placeholder="State" required>
+        </div>
+        <div class="form-group">
+          <i class="fas fa-mail-bulk"></i>
+          <input type="text" id="to_zip" name="to_zip" placeholder="ZIP Code" required>
+        </div>
+      </form>
+    </section>
 
     <button class="payment-btn">Send Postcard <i class="fas fa-paper-plane"></i></button>
 
@@ -371,7 +394,6 @@
       </div>
     </section>
 
-    <!-- Support Section -->
     <section class="support-section">
       <a href="store.html" class="support-btn">Support This Site</a>
     </section>
@@ -405,7 +427,7 @@
         </div>
         <div class="form-group">
           <i class="fas fa-envelope"></i>
-          <input type="email" name="email" placeholder="Your Email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Enter a valid email address">
+          <input type="email" name="email" placeholder="Your Email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}" title="Enter a valid email address">
         </div>
         <div id="card-element" class="form-group"></div>
         <p>Cost: $4.99 per postcard <i class="fas fa-building"></i></p>
@@ -450,6 +472,28 @@
     </div>
   </div>
 
+  <!-- Receipt Modal -->
+  <div id="receiptModal" class="modal">
+    <div class="receipt-modal-content">
+      <span class="close-btn">×</span>
+      <h2>Your Receipt</h2>
+      <div id="receiptContent">
+        <p><strong>Thank You!</strong> Your postcard has been sent successfully.</p>
+        <h3>Payment Details</h3>
+        <p>Amount: <span id="receiptAmount"></span></p>
+        <p>Payment ID: <span id="receiptPaymentId"></span></p>
+        <h3>Postcard Details</h3>
+        <p>Postcard ID: <span id="receiptPostcardId"></span></p>
+        <p>Recipient: <span id="receiptToName"></span></p>
+        <p>Message: <span id="receiptMessage"></span></p>
+        <p>Expected Delivery: <span id="receiptDeliveryDate"></span></p>
+        <p><a id="receiptPdfLink" href="#" target="_blank">View Postcard Proof (PDF)</a></p>
+      </div>
+      <button id="receiptDownloadBtn">Download PDF</button>
+      <button id="receiptCloseBtn">Close</button>
+    </div>
+  </div>
+
   <footer>
     <p>© 2025 Write The Leaders. All Rights Reserved. | <a href="#" id="contactLink">Contact Us</a></p>
   </footer>
@@ -489,30 +533,14 @@
     dynamicInput.innerHTML = '';
     let labelText = '';
     switch (type) {
-      case 'business_leader':
-        labelText = 'Select Company:';
-        break;
-      case 'governor':
-        labelText = 'Select State:';
-        break;
-      case 'senior_senator':
-        labelText = 'Select State:';
-        break;
-      case 'junior_senator':
-        labelText = 'Select State:';
-        break;
-      case 'senate_committee':
-        labelText = 'Select Senate Committee:';
-        break;
-      case 'house_committee':
-        labelText = 'Select House Committee:';
-        break;
-      case 'mayor':
-        labelText = 'Select City:';
-        break;
-      case 'university_president':
-        labelText = 'Select University:';
-        break;
+      case 'business_leader': labelText = 'Select Company:'; break;
+      case 'governor': labelText = 'Select State:'; break;
+      case 'senior_senator': labelText = 'Select State:'; break;
+      case 'junior_senator': labelText = 'Select State:'; break;
+      case 'senate_committee': labelText = 'Select Senate Committee:'; break;
+      case 'house_committee': labelText = 'Select House Committee:'; break;
+      case 'mayor': labelText = 'Select City:'; break;
+      case 'university_president': labelText = 'Select University:'; break;
     }
     const label = document.createElement('label');
     label.textContent = labelText;
@@ -523,7 +551,6 @@
     dynamicInput.appendChild(select);
     dynamicInput.style.display = 'block';
 
-    // Handle selection from the dropdown
     select.addEventListener('change', () => {
       const value = select.value;
       const field = fieldMap[type];
@@ -536,7 +563,6 @@
         document.getElementById('to_zip').value = leader.zip || '';
         console.log(`Selected ${type}:`, leader);
       } else {
-        // Clear fields if no leader is found
         document.getElementById('to_name').value = '';
         document.getElementById('to_address_line1').value = '';
         document.getElementById('to_city').value = '';
@@ -603,7 +629,7 @@
     });
   }
 
-  // Add address validation function
+  // Address validation for recipient
   function validateAddress() {
     const addressFields = {
       to_address_line1: document.getElementById('to_address_line1'),
@@ -646,6 +672,49 @@
     return true;
   }
 
+  // Address validation for sender
+  function validateSenderAddress() {
+    const senderFields = {
+      from_address_line1: document.querySelector('input[name="from_address_line1"]'),
+      from_city: document.querySelector('input[name="from_city"]'),
+      from_state: document.querySelector('input[name="from_state"]'),
+      from_zip: document.querySelector('input[name="from_zip"]')
+    };
+
+    const stateRegex = /^[A-Z]{2}$/;
+    const zipRegex = /^\d{5}(-\d{4})?$/;
+    
+    let errors = [];
+    for (let [fieldName, field] of Object.entries(senderFields)) {
+      if (!field.value.trim()) {
+        errors.push(`${fieldName.replace('from_', '').replace('_', ' ')} is required`);
+        field.style.borderColor = '#B32113';
+      } else {
+        field.style.borderColor = '#ddd';
+      }
+    }
+
+    if (senderFields.from_state.value && !stateRegex.test(senderFields.from_state.value.toUpperCase())) {
+      errors.push('Sender state must be a 2-letter code (e.g., CA)');
+      senderFields.from_state.style.borderColor = '#B32113';
+    }
+
+    if (senderFields.from_zip.value && !zipRegex.test(senderFields.from_zip.value)) {
+      errors.push('Sender ZIP code must be 5 digits or 5-4 format (e.g., 12345 or 12345-6789)');
+      senderFields.from_zip.style.borderColor = '#B32113';
+    }
+
+    for (let field of Object.values(senderFields)) {
+      field.value = field.value.replace(/[<>&;]/g, '');
+    }
+
+    if (errors.length > 0) {
+      alert('Please correct the following sender address errors:\n' + errors.join('\n'));
+      return false;
+    }
+    return true;
+  }
+
   const prohibitedWords = ['fuck', 'bitch', 'faggot'];
 
   function checkMessage() {
@@ -658,6 +727,7 @@
   const helpModal = document.getElementById('helpModal');
   const warningModal = document.getElementById('warningModal');
   const contactModal = document.getElementById('contactModal');
+  const receiptModal = document.getElementById('receiptModal');
   const paymentBtn = document.querySelector('.payment-btn');
   const helpIcon = document.getElementById('helpIcon');
   const contactLink = document.getElementById('contactLink');
@@ -734,6 +804,7 @@
     if (e.target === helpModal) helpModal.style.display = 'none';
     if (e.target === warningModal) warningModal.style.display = 'none';
     if (e.target === contactModal) contactModal.style.display = 'none';
+    if (e.target === receiptModal) receiptModal.style.display = 'none';
   });
 
   // Contact close button handler
@@ -741,12 +812,24 @@
     contactModal.style.display = 'none';
   });
 
-  // Real-time input validation
+  // Real-time input validation for recipient
   document.getElementById('to_state').addEventListener('input', function(e) {
     this.value = this.value.toUpperCase().slice(0, 2);
   });
 
   document.getElementById('to_zip').addEventListener('input', function(e) {
+    this.value = this.value.replace(/[^0-9-]/g, '');
+    if (this.value.length > 10) {
+      this.value = this.value.slice(0, 10);
+    }
+  });
+
+  // Real-time input validation for sender
+  document.querySelector('input[name="from_state"]').addEventListener('input', function(e) {
+    this.value = this.value.toUpperCase().slice(0, 2);
+  });
+
+  document.querySelector('input[name="from_zip"]').addEventListener('input', function(e) {
     this.value = this.value.replace(/[^0-9-]/g, '');
     if (this.value.length > 10) {
       this.value = this.value.slice(0, 10);
@@ -777,6 +860,10 @@
       alert('Please enter a valid email address');
       return;
     }
+    if (!validateSenderAddress()) {
+      console.log('Sender address validation failed');
+      return;
+    }
     const { paymentMethod, error } = await stripeInstance.createPaymentMethod({
       type: 'card',
       card: cardInstance,
@@ -801,8 +888,19 @@
       });
       const result = await response.json();
       if (result.success) {
-        alert('Postcard sent successfully!');
         paymentModal.style.display = 'none';
+        
+        // Populate and show receipt modal
+        document.getElementById('receiptAmount').textContent = `$${result.payment.amount.toFixed(2)} ${result.payment.currency.toUpperCase()}`;
+        document.getElementById('receiptPaymentId').textContent = result.payment.payment_id;
+        document.getElementById('receiptPostcardId').textContent = result.postcard.id;
+        document.getElementById('receiptToName').textContent = result.postcard.to.name;
+        document.getElementById('receiptMessage').textContent = result.postcard.message;
+        document.getElementById('receiptDeliveryDate').textContent = result.postcard.expected_delivery_date || 'N/A';
+        document.getElementById('receiptPdfLink').href = result.postcard.pdf_url;
+        receiptModal.style.display = 'flex';
+
+        // Reset forms
         noteForm.reset();
         paymentForm.reset();
         cardInstance.clear();
@@ -813,6 +911,23 @@
     } catch (err) {
       alert('Network error: ' + err.message);
     }
+  });
+
+  // Receipt modal handlers
+  document.getElementById('receiptCloseBtn').addEventListener('click', () => {
+    receiptModal.style.display = 'none';
+  });
+
+  document.getElementById('receiptDownloadBtn').addEventListener('click', () => {
+    const element = document.getElementById('receiptContent');
+    const opt = {
+      margin: 1,
+      filename: `WriteTheLeaders_Receipt_${new Date().toISOString().split('T')[0]}.pdf`,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+    };
+    html2pdf().set(opt).from(element).save();
   });
 
   // Disable right-click
