@@ -63,7 +63,7 @@ app.post('/send-note', async (req, res) => {
       console.log('fromAddress:', fromAddress);
 
       const requiredFields = ['address_line1', 'address_city', 'address_state', 'address_zip'];
-      const zipRegex = /^\d{5}(-\d{4})?$/; // Validates 5-digit or 5+4 ZIP codes
+      const zipRegex = /^\d{5}(-\d{4})?$/;
 
       for (const field of requiredFields) {
         if (!toAddress[field]) {
@@ -76,20 +76,18 @@ app.post('/send-note', async (req, res) => {
         }
       }
 
-      // Validate ZIP codes
       if (!zipRegex.test(toAddress.address_zip)) {
         console.error('Invalid recipient ZIP code:', toAddress.address_zip);
-        return res.status(400).json({ success: false, error: 'Recipient ZIP code must be 5 digits or 5-4 format (e.g., 12345 or 12345-6789)' });
+        return res.status(400).json({ success: false, error: 'Recipient ZIP code must be 5 digits or 5-4 format' });
       }
       if (!zipRegex.test(fromAddress.address_zip)) {
         console.error('Invalid sender ZIP code:', fromAddress.address_zip);
-        return res.status(400).json({ success: false, error: 'Sender ZIP code must be 5 digits or 5-4 format (e.g., 12345 or 12345-6789)' });
+        return res.status(400).json({ success: false, error: 'Sender ZIP code must be 5 digits or 5-4 format' });
       }
 
       let postcard;
       try {
-        console.log('Creating Lob postcard with:', { to: toAddress, from: fromAddress });
-        postcard = await lob.postcards.create({
+        const postcardPayload = {
           description: 'Postcard from Write The Leaders',
           to: toAddress,
           from: fromAddress,
@@ -98,53 +96,29 @@ app.post('/send-note', async (req, res) => {
               <head>
                 <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet">
               </head>
-              <body style="margin: 0; padding: 0; width: 1200px; height: 1800px; display: flex; justify-content: center; align-items: center; background: #fff;">
-                <h1 style="font-family: 'Bungee Shade', cursive; font-size: 60px; color: #000;">Write The Leaders</h1>
+              <body style="width: 1200px; height: 1800px;">
+                <h1 style="font-family: 'Bungee Shade', cursive; font-size: 60px; text-align: center; margin-top: 900px;">Write The Leaders</h1>
               </body>
             </html>
           `,
           back: `
             <html>
-              <head>
-                <style>
-                  body {
-                    margin: 0;
-                    padding: 0;
-                    width: 1200px;
-                    height: 1800px;
-                    font-family: Arial, sans-serif;
-                    background: #fff;
-                  }
-                  .message-container {
-                    width: 480px; /* 40% of 1200px */
-                    height: 1800px;
-                    padding: 50px;
-                    box-sizing: border-box;
-                    font-size: 20px;
-                    word-wrap: break-word;
-                    float: left;
-                  }
-                  .address-area {
-                    width: 400px;
-                    height: 600px;
-                    position: absolute;
-                    bottom: 0;
-                    right: 0;
-                    background: transparent;
-                  }
-                </style>
-              </head>
-              <body>
-                <div class="message-container">${escapeHtml(noteData.message)}</div>
-                <div class="address-area"></div>
+              <body style="width: 1200px; height: 1800px;">
+                <div style="width: 480px; height: 1800px; padding: 50px; font-family: Arial, sans-serif; font-size: 20px; float: left;">${escapeHtml(noteData.message)}</div>
+                <div style="width: 400px; height: 600px; position: absolute; bottom: 0; right: 0;"></div>
               </body>
             </html>
           `,
           use_type: 'operational',
-        });
+        };
+        console.log('Creating Lob postcard with payload:', postcardPayload);
+        postcard = await lob.postcards.create(postcardPayload);
         console.log('Postcard created successfully:', postcard);
       } catch (lobError) {
         console.error('Lob error:', lobError.message, lobError.stack);
+        if (lobError.response && lobError.response.body) {
+          console.error('Lob API response body:', lobError.response.body);
+        }
         return res.status(500).json({ success: false, error: 'Lob postcard creation failed: ' + lobError.message });
       }
 
@@ -181,9 +155,9 @@ app.listen(PORT, () => {
 function escapeHtml(text) {
   if (!text) return '';
   return text
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#x27;');
+    .replace(/&/g, '&')
+    .replace(/</g, '<')
+    .replace(/>/g, '>')
+    .replace(/"/g, '"')
+    .replace(/'/g, ''');
 }
