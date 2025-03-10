@@ -81,7 +81,7 @@ app.post('/send-note', async (req, res) => {
           description: 'Postcard from Write The Leaders',
           to: toAddress,
           from: fromAddress,
-          front: 'https://s3-us-west-2.amazonaws.com/public.lob.com/assets/templates/4x6_pc_front.pdf', // Valid test URL
+          front: 'https://s3-us-west-2.amazonaws.com/public.lob.com/assets/templates/postcards/4x6_postcard.pdf', // Valid test URL
           back: `
             <html>
               <body style="margin: 0; padding: 50px; width: 1200px; height: 1800px; font-family: Arial, sans-serif;">
