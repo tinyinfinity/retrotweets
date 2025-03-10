@@ -25,7 +25,6 @@ app.post('/send-note', async (req, res) => {
   }
 
   try {
-    // Stripe Payment Intent
     let paymentIntent;
     try {
       console.log('Creating Stripe Payment Intent with:', { paymentMethodId });
@@ -75,7 +74,6 @@ app.post('/send-note', async (req, res) => {
         }
       }
 
-      // Lob Postcard Creation
       let postcard;
       try {
         console.log('Creating Lob postcard with:', { to: toAddress, from: fromAddress });
@@ -83,38 +81,11 @@ app.post('/send-note', async (req, res) => {
           description: 'Postcard from Write The Leaders',
           to: toAddress,
           from: fromAddress,
-          front: 'https://s3-us-west-2.amazonaws.com/public.lob.com/assets/templates/4x6_pc_front.pdf', // Replace with a valid URL from Lob Dashboard
+          front: 'https://s3-us-west-2.amazonaws.com/public.lob.com/assets/templates/4x6_pc_front.pdf', // Valid test URL
           back: `
             <html>
-              <style>
-                body {
-                  margin: 0;
-                  padding: 0;
-                  width: 1200px;
-                  height: 1800px;
-                  font-family: Arial, sans-serif;
-                }
-                .message-container {
-                  width: 400px;
-                  height: 1800px;
-                  padding: 50px;
-                  box-sizing: border-box;
-                  font-size: 20px;
-                  word-wrap: break-word;
-                  float: left;
-                }
-                .address-area {
-                  width: 400px;
-                  height: 600px;
-                  position: absolute;
-                  bottom: 0;
-                  right: 0;
-                  background: transparent;
-                }
-              </style>
-              <body>
-                <div class="message-container">${escapeHtml(noteData.message)}</div>
-                <div class="address-area"></div>
+              <body style="margin: 0; padding: 50px; width: 1200px; height: 1800px; font-family: Arial, sans-serif;">
+                <div style="font-size: 20px;">${escapeHtml(noteData.message)}</div>
               </body>
             </html>
           `,
