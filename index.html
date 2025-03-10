@@ -927,27 +927,49 @@
   });
 
   document.getElementById('receiptDownloadBtn').addEventListener('click', () => {
+    // Hide the help modal to prevent image loading errors
+    const helpModal = document.getElementById('helpModal'); // Adjust ID as per your HTML
+    helpModal.style.display = 'none';
+  
+    // Get the receipt content element
     const element = document.getElementById('receiptContent');
-    console.log('Element height:', element.offsetHeight);
-    console.log('Element width:', element.offsetWidth);
+    
+    // Check if the element is visible
     if (element.offsetHeight === 0 || element.offsetWidth === 0) {
       console.error('Element has no dimensions, likely not visible');
       alert('Cannot generate PDF: content is not visible.');
       return;
     }
+  
+    // PDF generation options
     const opt = {
       margin: 1,
       filename: `WriteTheLeaders_Receipt_${new Date().toISOString().split('T')[0]}.pdf`,
       image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2, logging: true }, // Enable logging
+      html2canvas: { scale: 2, logging: true },
       jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
     };
-    setTimeout(() => { // Add delay
+  
+    // Temporarily override window.onerror to ignore errors during PDF generation
+    const originalOnError = window.onerror;
+    window.onerror = function(message, source, lineno, colno, error) {
+      console.log('Ignoring error during PDF generation:', message);
+      return true; // Prevent default error handling
+    };
+  
+    // Generate PDF with a delay to ensure rendering
+    setTimeout(() => {
       if (typeof html2pdf !== 'undefined') {
-        html2pdf().set(opt).from(element).save();
+        html2pdf().set(opt).from(element).save().then(() => {
+          // Restore original error handler
+          window.onerror = originalOnError;
+          // Optionally, restore help modal visibility if needed
+          // helpModal.style.display = 'flex';
+        });
       } else {
         console.error('html2pdf.js is not loaded');
         alert('PDF generation failed. Please ensure html2pdf.js is loaded.');
+        window.onerror = originalOnError;
       }
     }, 500); // 500ms delay
   });
