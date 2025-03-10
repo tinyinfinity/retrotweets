@@ -153,11 +153,11 @@ app.listen(PORT, () => {
 });
 
 function escapeHtml(text) {
-  if (!text) return '';
+  if (!text) return ''; // Handle null/undefined input
   return text
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&apos;');
+    .replace(/&/g, '&amp;')  // Escape ampersands first
+    .replace(/</g, '&lt;')   // Escape less-than
+    .replace(/>/g, '&gt;')   // Escape greater-than
+    .replace(/"/g, '&quot;') // Escape double quotes
+    .replace(/'/g, '&apos;'); // Escape single quotes (fixed line)
 }
