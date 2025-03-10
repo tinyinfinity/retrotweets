@@ -63,6 +63,8 @@ app.post('/send-note', async (req, res) => {
       console.log('fromAddress:', fromAddress);
 
       const requiredFields = ['address_line1', 'address_city', 'address_state', 'address_zip'];
+      const zipRegex = /^\d{5}(-\d{4})?$/; // Validates 5-digit or 5+4 ZIP codes
+
       for (const field of requiredFields) {
         if (!toAddress[field]) {
           console.error(`Missing required field in toAddress: ${field}`);
@@ -72,6 +74,16 @@ app.post('/send-note', async (req, res) => {
           console.error(`Missing required field in fromAddress: ${field}`);
           return res.status(400).json({ success: false, error: `${field} is required for sender address` });
         }
+      }
+
+      // Validate ZIP codes
+      if (!zipRegex.test(toAddress.address_zip)) {
+        console.error('Invalid recipient ZIP code:', toAddress.address_zip);
+        return res.status(400).json({ success: false, error: 'Recipient ZIP code must be 5 digits or 5-4 format (e.g., 12345 or 12345-6789)' });
+      }
+      if (!zipRegex.test(fromAddress.address_zip)) {
+        console.error('Invalid sender ZIP code:', fromAddress.address_zip);
+        return res.status(400).json({ success: false, error: 'Sender ZIP code must be 5 digits or 5-4 format (e.g., 12345 or 12345-6789)' });
       }
 
       let postcard;
@@ -157,7 +169,7 @@ app.post('/send-note', async (req, res) => {
     }
   } catch (error) {
     console.error('Unexpected error in /send-note:', error.message, error.stack);
-    res.status(500).json({ success: false, error: 'Internal server error: ' + error.message });
+    return res.status(500).json({ success: false, error: 'Internal server error: ' + error.message });
   }
 });
 
@@ -169,9 +181,9 @@ app.listen(PORT, () => {
 function escapeHtml(text) {
   if (!text) return '';
   return text
-    .replace(/&/g, '&amp;') // Fixed typo: '&' to '&amp;'
-    .replace(/</g, '&lt;')  // Fixed typo: '<' to '&lt;'
-    .replace(/>/g, '&gt;')  // Fixed typo: '>' to '&gt;'
-    .replace(/"/g, '&quot;') // Fixed typo: '"' to '&quot;'
-    .replace(/'/g, '&#39;'); // Fixed typo: ''' to '&#39;'
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#x27;');
 }
