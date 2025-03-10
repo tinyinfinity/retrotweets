@@ -405,6 +405,7 @@
       <span class="close-btn">×</span>
       <h2>Send Your Postcard</h2>
       <form id="paymentForm">
+        <div id="paymentErrors" style="color: red; margin-bottom: 1rem;"></div>
         <div class="form-group">
           <i class="fas fa-user"></i>
           <input type="text" name="from_name" placeholder="Your Name" required>
@@ -499,6 +500,7 @@
   </footer>
 
 <script src="https://js.stripe.com/v3/"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script>
   // Define field mappings for each leader type
   const fieldMap = {
@@ -708,11 +710,7 @@
       field.value = field.value.replace(/[<>&;]/g, '');
     }
 
-    if (errors.length > 0) {
-      alert('Please correct the following sender address errors:\n' + errors.join('\n'));
-      return false;
-    }
-    return true;
+    return errors;
   }
 
   const prohibitedWords = ['fuck', 'bitch', 'faggot'];
@@ -855,15 +853,23 @@
   paymentForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     console.log('Payment form submitted');
+
+    // Clear previous errors
+    document.getElementById('paymentErrors').innerHTML = '';
+
     const emailInput = paymentForm.querySelector('input[name="email"]');
     if (!emailInput.checkValidity()) {
-      alert('Please enter a valid email address');
+      document.getElementById('paymentErrors').innerHTML = 'Please enter a valid email address';
       return;
     }
-    if (!validateSenderAddress()) {
+
+    const senderErrors = validateSenderAddress();
+    if (senderErrors.length > 0) {
+      document.getElementById('paymentErrors').innerHTML = senderErrors.join('<br>');
       console.log('Sender address validation failed');
       return;
     }
+
     const { paymentMethod, error } = await stripeInstance.createPaymentMethod({
       type: 'card',
       card: cardInstance,
@@ -873,13 +879,15 @@
       },
     });
     if (error) {
-      alert(error.message);
+      document.getElementById('paymentErrors').innerHTML = error.message;
       return;
     }
+
     const noteForm = document.getElementById('noteForm');
     const noteData = Object.fromEntries(new FormData(noteForm));
     const paymentData = Object.fromEntries(new FormData(paymentForm));
     console.log('Submitting to server:', { noteData, paymentData, paymentMethodId: paymentMethod.id });
+
     try {
       const response = await fetch('/send-note', {
         method: 'POST',
@@ -906,10 +914,10 @@
         cardInstance.clear();
         updateCounter(noteForm.querySelector('textarea'));
       } else {
-        alert('Error: ' + result.error);
+        document.getElementById('paymentErrors').innerHTML = 'Error: ' + result.error;
       }
     } catch (err) {
-      alert('Network error: ' + err.message);
+      document.getElementById('paymentErrors').innerHTML = 'Network error: ' + err.message;
     }
   });
 
@@ -927,7 +935,12 @@
       html2canvas: { scale: 2 },
       jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
     };
-    html2pdf().set(opt).from(element).save();
+    if (typeof html2pdf !== 'undefined') {
+      html2pdf().set(opt).from(element).save();
+    } else {
+      console.error('html2pdf.js is not loaded');
+      alert('PDF generation failed. Please ensure html2pdf.js is loaded.');
+    }
   });
 
   // Disable right-click
