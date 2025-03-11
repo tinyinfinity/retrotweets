@@ -92,27 +92,26 @@ app.post('/send-note', async (req, res) => {
       to: toAddress,
       from: fromAddress,
       front: `
-        <html>
-          <head>
-            <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet">
-          </head>
-          <body style="width: 1200px; height: 1800px; display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0;">
-            <div style="text-align: center;">
-              <h1 style="font-family: 'Bungee Shade', cursive; font-size: 80px; color: #B32113; margin: 20px 0;">
-                Write The Leaders
-              </h1>
-              <img src="https://cdn-icons-png.flaticon.com/512/3050/3050432.png" alt="Pen Icon" style="width: 100px; height: 100px;">
-            </div>
-          </body>
-        </html>
-      `,
-      back: `
-        <html>
-          <body style="width: 1200px; height: 1800px; margin: 0;">
-            <div style="width: 480px; height: 1800px; padding: 100px; font-family: Arial, sans-serif; font-size: 20px; float: left;">${escapeHtml(noteData.message)}</div>
-            <div style="width: 400px; height: 600px; position: absolute; bottom: 0; right: 0;"></div>
-          </body>
-        </html>
+          <html>
+            <head>
+              <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet">
+            </head>
+            <body style="width: 1200px; height: 1800px; display: flex; align-items: center; justify-content: center; background: white;">
+              <div style="text-align: center;">
+                <h1 style="font-family: 'Bungee Shade', cursive; font-size: 120px; color: #B32113; margin-bottom: 20px;">
+                  Write The Leaders
+                </h1>
+                <div style="font-size: 80px;">📬</div>
+              </div>
+            </body>
+          </html>
+        `,
+        back: `
+          <html>
+            <body style="width: 1200px; height: 1800px; padding: 100px; font-family: Arial, sans-serif; font-size: 24px;">
+              <div style="width: 900px; margin: 0 auto; line-height: 1.5; text-align: left;">${escapeHtml(noteData.message)}</div>
+            </body>
+          </html>
       `,
       use_type: 'operational',
     };
