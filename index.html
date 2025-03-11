@@ -512,7 +512,6 @@
   </footer>
 
 <script src="https://js.stripe.com/v3/"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script>
   // Define field mappings for each leader type
   const fieldMap = {
@@ -976,7 +975,7 @@
         console.error('PDF generation failed:', err);
         alert('Failed to generate PDF. Please try again.');
       });
-    }, 1000); // Increased delay to 1 second
+    }, 3000); // Increased delay to 1 second
   });
 
   // Disable right-click
