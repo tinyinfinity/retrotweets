@@ -906,32 +906,27 @@
         body: JSON.stringify({ noteData, paymentData, paymentMethodId: paymentMethod.id }),
       });
       const result = await response.json();
-      console.log('Server response:', result); // Added for debugging
+      console.log('Server response:', result); // Debug server response
       if (result.success) {
         paymentModal.style.display = 'none';
         
-        // Populate receipt with fallback values
-        document.getElementById('receiptAmount').textContent = `$${(result.payment?.amount || 0).toFixed(2)} ${result.payment?.currency?.toUpperCase() || 'USD'}`;
-        document.getElementById('receiptPaymentId').textContent = result.payment?.payment_id || 'N/A';
-        
-        // Postcard Details
+        // Populate receipt modal
+        document.getElementById('receiptAmount').textContent = `$${result.payment.amount.toFixed(2)} ${result.payment.currency.toUpperCase()}`;
+        document.getElementById('receiptPaymentId').textContent = result.payment.payment_id || 'N/A';
         document.getElementById('receiptPostcardId').textContent = result.postcard?.id || 'N/A';
         document.getElementById('receiptToName').textContent = result.postcard?.to?.name || 'N/A';
         document.getElementById('receiptMessage').textContent = result.postcard?.message || 'N/A';
         document.getElementById('receiptDeliveryDate').textContent = result.postcard?.expected_delivery_date || 'N/A';
-        
-        // Handle PDF link
         const pdfLink = document.getElementById('receiptPdfLink');
-        if (result.postcard?.pdf_url) {
-          pdfLink.href = result.postcard.pdf_url;
-          pdfLink.style.display = 'inline';
-          pdfLink.textContent = 'View Postcard Proof (PDF)';
-        } else {
-          pdfLink.href = '#';
-          pdfLink.textContent = 'PDF Unavailable';
-          pdfLink.style.display = 'inline';
-        }
+        pdfLink.href = result.postcard?.pdf_url || '#';
+        pdfLink.textContent = result.postcard?.pdf_url ? 'View Postcard Proof (PDF)' : 'PDF Unavailable';
+        pdfLink.style.display = 'inline'; // Ensure link visibility
+        
+        // Log receipt content for debugging
+        console.log('Receipt content:', document.getElementById('receiptContent').innerHTML);
+        
         receiptModal.style.display = 'flex';
+        
         // Reset forms
         noteForm.reset();
         paymentForm.reset();
@@ -942,6 +937,7 @@
       }
     } catch (err) {
       document.getElementById('paymentErrors').innerHTML = 'Network error: ' + err.message;
+      console.error('Fetch error:', err);
     }
   });
 
@@ -952,30 +948,43 @@
 
   document.getElementById('receiptDownloadBtn').addEventListener('click', () => {
     const helpModal = document.getElementById('helpModal');
-    helpModal.style.display = 'none';
-    const element = document.getElementById('receiptContent');
-    if (element.offsetHeight === 0 || element.offsetWidth === 0) {
-      console.error('Receipt content is not visible');
-      alert('Cannot generate PDF: content is not visible.');
+    helpModal.style.display = 'none'; // Hide help modal to avoid interference
+    
+    const receiptContent = document.getElementById('receiptContent');
+    console.log('Generating PDF from:', receiptContent.innerHTML); // Debug content before PDF
+    
+    if (!receiptContent.innerHTML.trim()) {
+      console.error('Receipt content is empty');
+      alert('Cannot generate PDF: Receipt content is empty.');
       return;
     }
+
     const opt = {
       margin: 1,
       filename: `WriteTheLeaders_Receipt_${new Date().toISOString().split('T')[0]}.pdf`,
       image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2, logging: true, useCORS: true },
+      html2canvas: { scale: 2, logging: true },
       jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
     };
-    // Ensure receipt modal is visible during PDF generation
+
+    // Ensure receipt modal is visible and force a reflow
     receiptModal.style.display = 'flex';
-    setTimeout(() => {
-      html2pdf().set(opt).from(element).save().then(() => {
-        console.log('PDF generated successfully');
-      }).catch(err => {
+    receiptContent.style.display = 'block'; // Ensure content is visible
+    receiptContent.offsetHeight; // Trigger reflow
+    
+    html2pdf()
+      .set(opt)
+      .from(receiptContent)
+      .toPdf()
+      .get('pdf')
+      .then((pdf) => {
+        console.log('PDF object created:', pdf);
+        return pdf.save();
+      })
+      .catch((err) => {
         console.error('PDF generation failed:', err);
-        alert('Failed to generate PDF. Please try again.');
+        alert('Failed to generate PDF. Check console for details.');
       });
-    }, 3000); // Increased delay to 1 second
   });
 
   // Disable right-click
