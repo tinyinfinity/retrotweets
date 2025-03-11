@@ -93,12 +93,18 @@ app.post('/send-note', async (req, res) => {
           from: fromAddress,
           front: `
             <html>
-              <head>
-                <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet">
-              </head>
-              <body style="width: 1200px; height: 1800px;">
-                <h1 style="font-family: 'Bungee Shade', cursive; font-size: 60px; text-align: center; margin-top: 900px;">Write The Leaders</h1>
-              </body>
+                <head>
+                  <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet">
+                </head>
+                <body style="width: 1200px; height: 1800px; display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0;">
+                  <!-- Cute envelope icon -->
+                  <svg width="100" height="100" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom: 20px;">
+                    <path d="M20 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4ZM20 8L12 13L4 8V6L12 11L20 6V8Z" fill="#B32113"/>
+                  </svg>
+                  <h1 style="font-family: 'Bungee Shade', cursive; font-size: 80px; text-align: center; color: #B32113; margin: 0;">
+                    Write The Leaders
+                  </h1>
+                </body>
             </html>
           `,
           back: `
