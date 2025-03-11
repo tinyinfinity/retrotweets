@@ -93,25 +93,23 @@ app.post('/send-note', async (req, res) => {
           from: fromAddress,
           front: `
             <html>
-                <head>
-                  <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet">
-                </head>
-                <body style="width: 1200px; height: 1800px; display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0;">
-                  <!-- Cute envelope icon -->
-                  <svg width="100" height="100" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom: 20px;">
-                    <path d="M20 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4ZM20 8L12 13L4 8V6L12 11L20 6V8Z" fill="#B32113"/>
-                  </svg>
-                  <h1 style="font-family: 'Bungee Shade', cursive; font-size: 80px; text-align: center; color: #B32113; margin: 0;">
+              <head>
+                <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet">
+              </head>
+              <body style="width: 1200px; height: 1800px; display: flex; align-items: center; justify-content: center; background: white;">
+                <div style="text-align: center;">
+                  <h1 style="font-family: 'Bungee Shade', cursive; font-size: 120px; color: #B32113; margin-bottom: 20px;">
                     Write The Leaders
                   </h1>
-                </body>
+                  <div style="font-size: 80px;">📬</div>
+                </div>
+              </body>
             </html>
           `,
           back: `
             <html>
-              <body style="width: 1200px; height: 1800px;">
-                <div style="width: 480px; height: 1800px; padding: 50px; font-family: Arial, sans-serif; font-size: 20px; float: left;">${escapeHtml(noteData.message)}</div>
-                <div style="width: 400px; height: 600px; position: absolute; bottom: 0; right: 0;"></div>
+              <body style="width: 1200px; height: 1800px; padding: 100px; font-family: Arial, sans-serif; font-size: 24px;">
+                <div style="width: 900px; margin: 0 auto; line-height: 1.5; text-align: left;">${escapeHtml(noteData.message)}</div>
               </body>
             </html>
           `,
