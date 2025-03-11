@@ -212,7 +212,7 @@
       margin: 0 0.5rem;
     }
     footer a:hover {
-      color: #F8E9A1; /* Sunset Glow */ 
+      color: #F8E9A1; /* Sunset Glow */
       text-decoration: underline;
     }
     .contact-modal-content form input[type="text"],
@@ -292,6 +292,16 @@
       .container {
         padding: 1rem;
       }
+    }
+    /* New styles to center buttons in receipt modal */
+    .button-container {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .button-container button {
+      margin: 0;
     }
   </style>
 </head>
@@ -488,8 +498,10 @@
         <p>Expected Delivery: <span id="receiptDeliveryDate"></span></p>
         <p><a id="receiptPdfLink" href="#" target="_blank">View Postcard Proof (PDF)</a></p>
       </div>
-      <button id="receiptDownloadBtn">Download PDF</button>
-      <button id="receiptCloseBtn">Close</button>
+      <div class="button-container">
+        <button id="receiptDownloadBtn">Download PDF</button>
+        <button id="receiptCloseBtn">Close</button>
+      </div>
     </div>
   </div>
 
