@@ -214,7 +214,7 @@
       margin: 0 0.5rem;
     }
     footer a:hover {
-      color: #F8E9A1; /* Sunset Glow */ 
+      color: #F8E9A1; /* Sunset Glow */
       text-decoration: underline;
     }
     .contact-modal-content form input[type="text"],
@@ -294,6 +294,16 @@
       .container {
         padding: 1rem;
       }
+    }
+    /* New styles to center buttons in receipt modal */
+    .button-container {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .button-container button {
+      margin: 0;
     }
   </style>
 </head>
@@ -490,8 +500,10 @@
         <p>Expected Delivery: <span id="receiptDeliveryDate"></span></p>
         <p><a id="receiptPdfLink" href="#" target="_blank">View Postcard Proof (PDF)</a></p>
       </div>
-      <button id="receiptDownloadBtn">Download PDF</button>
-      <button id="receiptCloseBtn">Close</button>
+      <div class="button-container">
+        <button id="receiptDownloadBtn">Download PDF</button>
+        <button id="receiptCloseBtn">Close</button>
+      </div>
     </div>
   </div>
 
@@ -895,19 +907,32 @@
         body: JSON.stringify({ noteData, paymentData, paymentMethodId: paymentMethod.id }),
       });
       const result = await response.json();
+      console.log('Server response:', result); // Added for debugging
       if (result.success) {
         paymentModal.style.display = 'none';
         
-        // Populate and show receipt modal
-        document.getElementById('receiptAmount').textContent = `$${result.payment.amount.toFixed(2)} ${result.payment.currency.toUpperCase()}`;
-        document.getElementById('receiptPaymentId').textContent = result.payment.payment_id;
-        document.getElementById('receiptPostcardId').textContent = result.postcard.id;
-        document.getElementById('receiptToName').textContent = result.postcard.to.name;
-        document.getElementById('receiptMessage').textContent = result.postcard.message;
-        document.getElementById('receiptDeliveryDate').textContent = result.postcard.expected_delivery_date || 'N/A';
-        document.getElementById('receiptPdfLink').href = result.postcard.pdf_url;
+        // Populate receipt with fallback values
+        document.getElementById('receiptAmount').textContent = `$${(result.payment?.amount || 0).toFixed(2)} ${result.payment?.currency?.toUpperCase() || 'USD'}`;
+        document.getElementById('receiptPaymentId').textContent = result.payment?.payment_id || 'N/A';
+        
+        // Postcard Details
+        document.getElementById('receiptPostcardId').textContent = result.postcard?.id || 'N/A';
+        document.getElementById('receiptToName').textContent = result.postcard?.to?.name || 'N/A';
+        document.getElementById('receiptMessage').textContent = result.postcard?.message || 'N/A';
+        document.getElementById('receiptDeliveryDate').textContent = result.postcard?.expected_delivery_date || 'N/A';
+        
+        // Handle PDF link
+        const pdfLink = document.getElementById('receiptPdfLink');
+        if (result.postcard?.pdf_url) {
+          pdfLink.href = result.postcard.pdf_url;
+          pdfLink.style.display = 'inline';
+          pdfLink.textContent = 'View Postcard Proof (PDF)';
+        } else {
+          pdfLink.href = '#';
+          pdfLink.textContent = 'PDF Unavailable';
+          pdfLink.style.display = 'inline';
+        }
         receiptModal.style.display = 'flex';
-
         // Reset forms
         noteForm.reset();
         paymentForm.reset();
@@ -927,51 +952,31 @@
   });
 
   document.getElementById('receiptDownloadBtn').addEventListener('click', () => {
-    // Hide the help modal to prevent image loading errors
-    const helpModal = document.getElementById('helpModal'); // Adjust ID as per your HTML
+    const helpModal = document.getElementById('helpModal');
     helpModal.style.display = 'none';
-  
-    // Get the receipt content element
     const element = document.getElementById('receiptContent');
-    
-    // Check if the element is visible
     if (element.offsetHeight === 0 || element.offsetWidth === 0) {
-      console.error('Element has no dimensions, likely not visible');
+      console.error('Receipt content is not visible');
       alert('Cannot generate PDF: content is not visible.');
       return;
     }
-  
-    // PDF generation options
     const opt = {
       margin: 1,
       filename: `WriteTheLeaders_Receipt_${new Date().toISOString().split('T')[0]}.pdf`,
       image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2, logging: true },
+      html2canvas: { scale: 2, logging: true, useCORS: true },
       jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
     };
-  
-    // Temporarily override window.onerror to ignore errors during PDF generation
-    const originalOnError = window.onerror;
-    window.onerror = function(message, source, lineno, colno, error) {
-      console.log('Ignoring error during PDF generation:', message);
-      return true; // Prevent default error handling
-    };
-  
-    // Generate PDF with a delay to ensure rendering
+    // Ensure receipt modal is visible during PDF generation
+    receiptModal.style.display = 'flex';
     setTimeout(() => {
-      if (typeof html2pdf !== 'undefined') {
-        html2pdf().set(opt).from(element).save().then(() => {
-          // Restore original error handler
-          window.onerror = originalOnError;
-          // Optionally, restore help modal visibility if needed
-          // helpModal.style.display = 'flex';
-        });
-      } else {
-        console.error('html2pdf.js is not loaded');
-        alert('PDF generation failed. Please ensure html2pdf.js is loaded.');
-        window.onerror = originalOnError;
-      }
-    }, 500); // 500ms delay
+      html2pdf().set(opt).from(element).save().then(() => {
+        console.log('PDF generated successfully');
+      }).catch(err => {
+        console.error('PDF generation failed:', err);
+        alert('Failed to generate PDF. Please try again.');
+      });
+    }, 1000); // Increased delay to 1 second
   });
 
   // Disable right-click
