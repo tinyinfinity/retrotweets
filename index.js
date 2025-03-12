@@ -5,8 +5,8 @@ const Lob = require('lob');
 
 const app = express();
 
-const stripe = Stripe('sk_test_51R0cpQBtQhrXA4feAE2o1sSYkve1iTgRBnjtUOgWn2H77kma5CxMzBvib2ms0zwxYCnCfZqi4vPoDcpx6SUr7R2q00K64eMCiN');
-const lob = Lob('test_acee9c86a75e1e48b854cf274cef2dcf085');
+const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+const lob = Lob(process.env.LOB_API_KEY);
 
 app.use(express.static('public'));
 app.use(bodyParser.json());
