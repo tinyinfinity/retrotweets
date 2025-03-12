@@ -440,7 +440,7 @@
         </div>
         <div id="card-element" class="form-group"></div>
         <p>Cost: $4.99 per postcard <i class="fas fa-building"></i></p>
-        <button type="submit" id="submitPayment">Send Postcard <i class="fas fa-paper-plane"></i></button>
+        <button type="submit" id="submitPaymentBtn">Send Postcard <i class="fas fa-paper-plane"></i></button>
       </form>
     </div>
   </div>
@@ -860,74 +860,91 @@
   // Payment form submission
   const paymentForm = document.getElementById('paymentForm');
   paymentForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    console.log('Payment form submitted');
-
-    // Clear previous errors
-    document.getElementById('paymentErrors').innerHTML = '';
-
-    const emailInput = paymentForm.querySelector('input[name="email"]');
-    if (!emailInput.checkValidity()) {
-      document.getElementById('paymentErrors').innerHTML = 'Please enter a valid email address';
-      return;
-    }
-
-    const senderErrors = validateSenderAddress();
-    if (senderErrors.length > 0) {
-      document.getElementById('paymentErrors').innerHTML = senderErrors.join('<br>');
-      console.log('Sender address validation failed');
-      return;
-    }
-
-    const { paymentMethod, error } = await stripeInstance.createPaymentMethod({
-      type: 'card',
-      card: cardInstance,
-      billing_details: {
-        name: paymentForm.querySelector('input[name="from_name"]').value,
-        email: emailInput.value,
-      },
-    });
-    if (error) {
-      document.getElementById('paymentErrors').innerHTML = error.message;
-      return;
-    }
-
-    const noteForm = document.getElementById('noteForm');
-    const noteData = Object.fromEntries(new FormData(noteForm));
-    const paymentData = Object.fromEntries(new FormData(paymentForm));
-    console.log('Submitting to server:', { noteData, paymentData, paymentMethodId: paymentMethod.id });
-
-    try {
-      const response = await fetch('/send-note', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ noteData, paymentData, paymentMethodId: paymentMethod.id }),
-      });
-      const result = await response.json();
-      if (result.success) {
-        paymentModal.style.display = 'none';
-        
-        // Populate and show receipt modal
-        document.getElementById('receiptAmount').textContent = `$${result.payment.amount.toFixed(2)} ${result.payment.currency.toUpperCase()}`;
-        document.getElementById('receiptPaymentId').textContent = result.payment.payment_id;
-        document.getElementById('receiptPostcardId').textContent = result.postcard.id;
-        document.getElementById('receiptToName').textContent = result.postcard.to.name;
-        document.getElementById('receiptMessage').textContent = result.postcard.message;
-        document.getElementById('receiptDeliveryDate').textContent = result.postcard.expected_delivery_date || 'N/A';
-        document.getElementById('receiptPdfLink').href = result.postcard.pdf_url;
-        receiptModal.style.display = 'flex';
-
-        // Reset forms
-        noteForm.reset();
-        paymentForm.reset();
-        cardInstance.clear();
-        updateCounter(noteForm.querySelector('textarea'));
-      } else {
-        document.getElementById('paymentErrors').innerHTML = 'Error: ' + result.error;
+      e.preventDefault();
+      console.log('Payment form submitted');
+  
+      // Get reference to submit button
+      const submitBtn = document.getElementById('submitPaymentBtn');
+      
+      // Disable button and show processing
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = 'Processing <i class="fas fa-spinner fa-spin"></i>';
+  
+      // Clear previous errors
+      document.getElementById('paymentErrors').innerHTML = '';
+  
+      const emailInput = paymentForm.querySelector('input[name="email"]');
+      if (!emailInput.checkValidity()) {
+          document.getElementById('paymentErrors').innerHTML = 'Please enter a valid email address';
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = 'Send Postcard <i class="fas fa-paper-plane"></i>';
+          return;
       }
-    } catch (err) {
-      document.getElementById('paymentErrors').innerHTML = 'Network error: ' + err.message;
-    }
+  
+      const senderErrors = validateSenderAddress();
+      if (senderErrors.length > 0) {
+          document.getElementById('paymentErrors').innerHTML = senderErrors.join('<br>');
+          console.log('Sender address validation failed');
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = 'Send Postcard <i class="fas fa-paper-plane"></i>';
+          return;
+      }
+  
+      const { paymentMethod, error } = await stripeInstance.createPaymentMethod({
+          type: 'card',
+          card: cardInstance,
+          billing_details: {
+              name: paymentForm.querySelector('input[name="from_name"]').value,
+              email: emailInput.value,
+          },
+      });
+      if (error) {
+          document.getElementById('paymentErrors').innerHTML = error.message;
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = 'Send Postcard <i class="fas fa-paper-plane"></i>';
+          return;
+      }
+  
+      const noteForm = document.getElementById('noteForm');
+      const noteData = Object.fromEntries(new FormData(noteForm));
+      const paymentData = Object.fromEntries(new FormData(paymentForm));
+      console.log('Submitting to server:', { noteData, paymentData, paymentMethodId: paymentMethod.id });
+  
+      try {
+          const response = await fetch('/send-note', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ noteData, paymentData, paymentMethodId: paymentMethod.id }),
+          });
+          const result = await response.json();
+          if (result.success) {
+              paymentModal.style.display = 'none';
+              
+              // Populate and show receipt modal
+              document.getElementById('receiptAmount').textContent = `$${result.payment.amount.toFixed(2)} ${result.payment.currency.toUpperCase()}`;
+              document.getElementById('receiptPaymentId').textContent = result.payment.payment_id;
+              document.getElementById('receiptPostcardId').textContent = result.postcard.id;
+              document.getElementById('receiptToName').textContent = result.postcard.to.name;
+              document.getElementById('receiptMessage').textContent = result.postcard.message;
+              document.getElementById('receiptDeliveryDate').textContent = result.postcard.expected_delivery_date || 'N/A';
+              document.getElementById('receiptPdfLink').href = result.postcard.pdf_url;
+              receiptModal.style.display = 'flex';
+  
+              // Reset forms
+              noteForm.reset();
+              paymentForm.reset();
+              cardInstance.clear();
+              updateCounter(noteForm.querySelector('textarea'));
+          } else {
+              document.getElementById('paymentErrors').innerHTML = 'Error: ' + result.error;
+              submitBtn.disabled = false;
+              submitBtn.innerHTML = 'Send Postcard <i class="fas fa-paper-plane"></i>';
+          }
+      } catch (err) {
+          document.getElementById('paymentErrors').innerHTML = 'Network error: ' + err.message;
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = 'Send Postcard <i class="fas fa-paper-plane"></i>';
+      }
   });
 
   // Receipt modal handlers
