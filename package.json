@@ -1,0 +1,19 @@
+{
+  "name": "write-the-leaders",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "escape-html": "^1.0.3",
+    "express": "^4.21.2",
+    "lob": "^6.6.3",
+    "stripe": "^17.7.0"
+  },
+  "description": ""
+}
