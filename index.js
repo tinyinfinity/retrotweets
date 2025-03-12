@@ -85,39 +85,69 @@ app.post('/send-note', async (req, res) => {
         return res.status(400).json({ success: false, error: 'Sender ZIP code must be 5 digits or 5-4 format' });
       }
 
-     let postcard;
-  try {
-    const postcardPayload = {
-      description: 'Postcard from Write The Leaders',
-      to: toAddress,
-      from: fromAddress,
-      front: `
-        <html>
-          <head>
-            <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet">
-          </head>
-          <body style="width: 1200px; height: 1800px; display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 0;">
-            <div style="text-align: center;">
-              <h1 style="font-family: 'Bungee Shade', cursive; font-size: 80px; color: #B32113; margin: 20px 0;">
-                Write The Leaders
-              </h1>
-            </div>
-          </body>
-        </html>
-      `,
-      back: `
-        <html>
-          <body style="width: 1200px; height: 1800px; margin: 0;">
-            <div style="width: 480px; height: 1800px; padding: 100px; font-family: Arial, sans-serif; font-size: 20px; float: left;">${escapeHtml(noteData.message)}</div>
-            <div style="width: 400px; height: 600px; position: absolute; bottom: 0; right: 0;"></div>
-          </body>
-        </html>
-      `,
-      use_type: 'operational',
-    };
-    console.log('Creating Lob postcard with payload:', postcardPayload);
-    postcard = await lob.postcards.create(postcardPayload);
-    console.log('Postcard created successfully:', postcard);
+      let postcard;
+      try {
+        const postcardPayload = {
+          description: 'Postcard from Write The Leaders',
+          to: toAddress,
+          from: fromAddress,
+	  front: 'https://www.quiple.xyz/note.png', // Publicly accessible URL
+          back: `
+<html>
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css2?family=Righteous&family=Poppins:wght@400;500&display=swap" rel="stylesheet" />
+<title>Write The Leaders</title>
+<style>
+  *, *:before, *:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
+  body {
+    width: 6.25in;
+    height: 4.25in;
+    margin: 0;
+    padding: 0;
+  }
+
+  #safe-area {
+    position: absolute;
+    width: 2.75in;
+    height: 3.875in;
+    left: 0.1875in;
+    top: 0.1875in;
+    background-color: white;
+  }
+
+  .text {
+    margin: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: black;
+  }
+</style>
+</head>
+
+<body>
+  <div id="safe-area">
+    <!-- All text should appear within the safe area. -->
+    <div class="text">
+      ${escapeHtml(noteData.message)}
+    </div>
+  </div>
+</body>
+
+</html>
+          `,
+          use_type: 'operational',
+        };
+        console.log('Creating Lob postcard with payload:', postcardPayload);
+        postcard = await lob.postcards.create(postcardPayload);
+        console.log('Postcard created successfully:', postcard);
       } catch (lobError) {
         console.error('Lob error:', lobError.message, lobError.stack);
         if (lobError.response && lobError.response.body) {
@@ -157,11 +187,9 @@ app.listen(PORT, () => {
 });
 
 function escapeHtml(text) {
-  if (!text) return ''; // Handle null/undefined input
+  if (!text) return '';
   return text
-    .replace(/&/g, '&amp;')  // Escape ampersands first
-    .replace(/</g, '&lt;')   // Escape less-than
-    .replace(/>/g, '&gt;')   // Escape greater-than
-    .replace(/"/g, '&quot;') // Escape double quotes
-    .replace(/'/g, '&apos;'); // Escape single quotes (fixed line)
+    .replace(/&/g, '&')
+    .replace(/</g, '<')
+    .replace(/>/g, '>');
 }
