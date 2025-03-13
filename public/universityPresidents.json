@@ -14,5 +14,173 @@
     "city": "Stanford",
     "state": "CA",
     "zip": "94305"
+  },
+  {
+    "university": "Yale University",
+    "name": "President of Yale University",
+    "address_line1": "1 Hillhouse Avenue",
+    "city": "New Haven",
+    "state": "CT",
+    "zip": "06511"
+  },
+  {
+    "university": "Princeton University",
+    "name": "President of Princeton University",
+    "address_line1": "1 Nassau Hall",
+    "city": "Princeton",
+    "state": "NJ",
+    "zip": "08544"
+  },
+  {
+    "university": "Columbia University",
+    "name": "President of Columbia University",
+    "address_line1": "202 Low Library, 535 West 116th Street",
+    "city": "New York",
+    "state": "NY",
+    "zip": "10027"
+  },
+  {
+    "university": "University of Pennsylvania",
+    "name": "President of University of Pennsylvania",
+    "address_line1": "1 College Hall",
+    "city": "Philadelphia",
+    "state": "PA",
+    "zip": "19104"
+  },
+  {
+    "university": "Brown University",
+    "name": "President of Brown University",
+    "address_line1": "1 Prospect Street",
+    "city": "Providence",
+    "state": "RI",
+    "zip": "02912"
+  },
+  {
+    "university": "Dartmouth College",
+    "name": "President of Dartmouth College",
+    "address_line1": "1 Wheelock Street",
+    "city": "Hanover",
+    "state": "NH",
+    "zip": "03755"
+  },
+  {
+    "university": "Cornell University",
+    "name": "President of Cornell University",
+    "address_line1": "300 Day Hall",
+    "city": "Ithaca",
+    "state": "NY",
+    "zip": "14853"
+  },
+  {
+    "university": "Northwestern University",
+    "name": "President of Northwestern University",
+    "address_line1": "633 Clark Street",
+    "city": "Evanston",
+    "state": "IL",
+    "zip": "60208"
+  },
+  {
+    "university": "University of Chicago",
+    "name": "President of University of Chicago",
+    "address_line1": "5801 South Ellis Avenue",
+    "city": "Chicago",
+    "state": "IL",
+    "zip": "60637"
+  },
+  {
+    "university": "Duke University",
+    "name": "President of Duke University",
+    "address_line1": "207 Allen Building",
+    "city": "Durham",
+    "state": "NC",
+    "zip": "27708"
+  },
+  {
+    "university": "University of Michigan",
+    "name": "President of University of Michigan",
+    "address_line1": "500 South State Street",
+    "city": "Ann Arbor",
+    "state": "MI",
+    "zip": "48109"
+  },
+  {
+    "university": "University of Southern California",
+    "name": "President of University of Southern California",
+    "address_line1": "3551 Trousdale Parkway",
+    "city": "Los Angeles",
+    "state": "CA",
+    "zip": "90089"
+  },
+  {
+    "university": "University of California, Los Angeles",
+    "name": "President of University of California, Los Angeles",
+    "address_line1": "405 Hilgard Avenue",
+    "city": "Los Angeles",
+    "state": "CA",
+    "zip": "90095"
+  },
+  {
+    "university": "University of California, San Francisco",
+    "name": "President of University of California, San Francisco",
+    "address_line1": "500 Parnassus Avenue",
+    "city": "San Francisco",
+    "state": "CA",
+    "zip": "94143"
+  },
+  {
+    "university": "University of California, San Diego",
+    "name": "President of University of California, San Diego",
+    "address_line1": "9500 Gilman Drive",
+    "city": "La Jolla",
+    "state": "CA",
+    "zip": "92093"
+  },
+  {
+    "university": "University of Illinois at Urbana-Champaign",
+    "name": "President of University of Illinois at Urbana-Champaign",
+    "address_line1": "601 East John Street",
+    "city": "Champaign",
+    "state": "IL",
+    "zip": "61820"
+  },
+  {
+    "university": "New York University",
+    "name": "President of New York University",
+    "address_line1": "70 Washington Square South",
+    "city": "New York",
+    "state": "NY",
+    "zip": "10012"
+  },
+  {
+    "university": "University of Oregon",
+    "name": "President of University of Oregon",
+    "address_line1": "1226 University of Oregon",
+    "city": "Eugene",
+    "state": "OR",
+    "zip": "97403"
+  },
+  {
+    "university": "Oregon State University",
+    "name": "President of Oregon State University",
+    "address_line1": "1500 SW Jefferson Way",
+    "city": "Corvallis",
+    "state": "OR",
+    "zip": "97331"
+  },
+  {
+    "university": "University of Washington",
+    "name": "President of University of Washington",
+    "address_line1": "1410 NE Campus Parkway",
+    "city": "Seattle",
+    "state": "WA",
+    "zip": "98195"
+  },
+  {
+    "university": "Washington State University",
+    "name": "President of Washington State University",
+    "address_line1": "French Administration Building",
+    "city": "Pullman",
+    "state": "WA",
+    "zip": "99164"
   }
 ]
