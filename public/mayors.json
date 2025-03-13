@@ -1,18 +1,138 @@
 [
   {
-    "city_state": "New York, NY",
-    "name": "Eric Adams",
-    "address_line1": "City Hall",
-    "city": "New York",
-    "state": "NY",
-    "zip": "10007"
+  "city_state": "New York, NY",
+  "name": "Eric Adams",
+  "address_line1": "250 Broadway",
+  "city": "New York",
+  "state": "NY",
+  "zip": "10007"
   },
   {
-    "city_state": "Los Angeles, CA",
-    "name": "Karen Bass",
-    "address_line1": "200 N Spring St",
-    "city": "Los Angeles",
-    "state": "CA",
-    "zip": "90012"
+  "city_state": "Los Angeles, CA",
+  "name": "Karen Bass",
+  "address_line1": "200 N Spring St",
+  "city": "Los Angeles",
+  "state": "CA",
+  "zip": "90012"
+  },
+  {
+  "city_state": "Chicago, IL",
+  "name": "Brandon Johnson",
+  "address_line1": "121 N LaSalle St",
+  "city": "Chicago",
+  "state": "IL",
+  "zip": "60602"
+  },
+  {
+  "city_state": "Dallas, TX",
+  "name": "Eric Johnson",
+  "address_line1": "1500 Marilla St",
+  "city": "Dallas",
+  "state": "TX",
+  "zip": "75201"
+  },
+  {
+  "city_state": "Phoenix, AZ",
+  "name": "Kate Gallego",
+  "address_line1": "200 W Washington St",
+  "city": "Phoenix",
+  "state": "AZ",
+  "zip": "85003"
+  },
+  {
+  "city_state": "Boston, MA",
+  "name": "Michelle Wu",
+  "address_line1": "1 City Hall Square",
+  "city": "Boston",
+  "state": "MA",
+  "zip": "02201"
+  },
+  {
+  "city_state": "Houston, TX",
+  "name": "John Whitmire",
+  "address_line1": "901 Bagby St",
+  "city": "Houston",
+  "state": "TX",
+  "zip": "77002"
+  },
+  {
+  "city_state": "Austin, TX",
+  "name": "Kirk Watson",
+  "address_line1": "301 W 2nd St",
+  "city": "Austin",
+  "state": "TX",
+  "zip": "78701"
+  },
+  {
+  "city_state": "San Antonio, TX",
+  "name": "Ron Nirenberg",
+  "address_line1": "114 W Commerce St",
+  "city": "San Antonio",
+  "state": "TX",
+  "zip": "78205"
+  },
+  {
+  "city_state": "San Diego, CA",
+  "name": "Todd Gloria",
+  "address_line1": "202 C St",
+  "city": "San Diego",
+  "state": "CA",
+  "zip": "92101"
+  },
+  {
+  "city_state": "San Francisco, CA",
+  "name": "Daniel Lurie",
+  "address_line1": "1 Dr Carlton B Goodlett Pl",
+  "city": "San Francisco",
+  "state": "CA",
+  "zip": "94102"
+  },
+  {
+  "city_state": "Washington, DC",
+  "name": "Muriel Bowser",
+  "address_line1": "1350 Pennsylvania Ave NW",
+  "city": "Washington",
+  "state": "DC",
+  "zip": "20004"
+  },
+  {
+  "city_state": "Miami, FL",
+  "name": "Francis Suarez",
+  "address_line1": "3500 Pan American Dr",
+  "city": "Miami",
+  "state": "FL",
+  "zip": "33133"
+  },
+  {
+  "city_state": "Orlando, FL",
+  "name": "Buddy Dyer",
+  "address_line1": "400 S Orange Ave",
+  "city": "Orlando",
+  "state": "FL",
+  "zip": "32801"
+  },
+  {
+  "city_state": "Seattle, WA",
+  "name": "Bruce Harrell",
+  "address_line1": "600 4th Ave",
+  "city": "Seattle",
+  "state": "WA",
+  "zip": "98104"
+  },
+  {
+  "city_state": "Portland, OR",
+  "name": "Keith Wilson",
+  "address_line1": "1221 SW 4th Ave",
+  "city": "Portland",
+  "state": "OR",
+  "zip": "97204"
+  },
+  {
+  "city_state": "Charlotte, NC",
+  "name": "Vi Lyles",
+  "address_line1": "600 E 4th St",
+  "city": "Charlotte",
+  "state": "NC",
+  "zip": "28202"
   }
 ]
