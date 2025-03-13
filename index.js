@@ -113,13 +113,17 @@ app.post('/send-note', async (req, res) => {
     padding: 0;
   }
 
-  #safe-area {
+#safe-area {
     position: absolute;
     width: 2.6in;
     height: 3.875in;
     left: 0.1875in;
     top: 0.1875in;
     background-color: white;
+
+    /* Center the content inside the safe-area */
+    display: flex;
+    align-items: center;      /* Vertically centers the content */
   }
 
   .text {
