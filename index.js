@@ -91,7 +91,7 @@ app.post('/send-note', async (req, res) => {
           description: 'Postcard from Write The Leaders',
           to: toAddress,
           from: fromAddress,
-	  front: 'https://www.quiple.xyz/note.png', // Publicly accessible URL
+	  front: 'https://www.quiple.xyz/front.png', // Publicly accessible URL
           back: `
 <html>
 <head>
