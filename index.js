@@ -116,12 +116,10 @@ app.post('/send-note', async (req, res) => {
   #safe-area {
     position: absolute;
     top: 50%;
-    -ms-transform: translateY(-50%);
+    left: 0.1875in;
     transform: translateY(-50%);
     width: 2.6in;
     height: 3.875in;
-    left: 0.1875in;
-    top: 0.1875in;
     background-color: white;
   }
 
