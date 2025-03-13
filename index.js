@@ -124,7 +124,7 @@ app.post('/send-note', async (req, res) => {
 
   .text {
     margin: 10px;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Courier New', Courier, monospace;
     font-weight: 400;
     font-size: 16px;
     color: black;
