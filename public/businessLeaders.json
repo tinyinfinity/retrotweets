@@ -22,5 +22,101 @@
     "city": "Seattle",
     "state": "WA",
     "zip": "98109"
+  },
+  {
+    "company": "Tesla",
+    "name": "Elon Musk",
+    "address_line1": "1 Tesla Road",
+    "city": "Austin",
+    "state": "TX",
+    "zip": "78725"
+  },
+  {
+    "company": "Nvidia",
+    "name": "Jensen Huang",
+    "address_line1": "2788 San Tomas Expressway",
+    "city": "Santa Clara",
+    "state": "CA",
+    "zip": "95051"
+  },
+  {
+    "company": "Netflix",
+    "name": "Ted Sarandos and Greg Peters",
+    "address_line1": "121 Albright Way",
+    "city": "Los Gatos",
+    "state": "CA",
+    "zip": "95032"
+  },
+  {
+    "company": "Disney",
+    "name": "Bob Iger",
+    "address_line1": "500 South Buena Vista Street",
+    "city": "Burbank",
+    "state": "CA",
+    "zip": "91521"
+  },
+  {
+    "company": "Robinhood",
+    "name": "Vlad Tenev",
+    "address_line1": "85 Willow Road",
+    "city": "Menlo Park",
+    "state": "CA",
+    "zip": "94025"
+  },
+  {
+    "company": "Coinbase",
+    "name": "Brian Armstrong",
+    "address_line1": "548 Market Street, #23008",
+    "city": "San Francisco",
+    "state": "CA",
+    "zip": "94104"
+  },
+  {
+    "company": "Oracle",
+    "name": "Safra Catz",
+    "address_line1": "2300 Oracle Way",
+    "city": "Austin",
+    "state": "TX",
+    "zip": "78741"
+  },
+  {
+    "company": "Ford",
+    "name": "Jim Farley",
+    "address_line1": "1 American Road",
+    "city": "Dearborn",
+    "state": "MI",
+    "zip": "48126"
+  },
+  {
+    "company": "GM",
+    "name": "Mary Barra",
+    "address_line1": "300 Renaissance Center",
+    "city": "Detroit",
+    "state": "MI",
+    "zip": "48265"
+  },
+  {
+    "company": "Google",
+    "name": "Sundar Pichai",
+    "address_line1": "1600 Amphitheatre Parkway",
+    "city": "Mountain View",
+    "state": "CA",
+    "zip": "94043"
+  },
+  {
+    "company": "Walmart",
+    "name": "Doug McMillon",
+    "address_line1": "702 SW 8th Street",
+    "city": "Bentonville",
+    "state": "AR",
+    "zip": "72716"
+  },
+  {
+    "company": "Costco",
+    "name": "Craig Jelinek",
+    "address_line1": "999 Lake Drive",
+    "city": "Issaquah",
+    "state": "WA",
+    "zip": "98027"
   }
 ]
