@@ -115,7 +115,7 @@ app.post('/send-note', async (req, res) => {
 
   #safe-area {
     position: absolute;
-    width: 2.75in;
+    width: 2.6in;
     height: 3.875in;
     left: 0.1875in;
     top: 0.1875in;
