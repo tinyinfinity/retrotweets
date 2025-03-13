@@ -1,18 +1,402 @@
 [
   {
     "state": "Alabama",
-    "name": "Junior Senator Name",
-    "address_line1": "Senate Office Building",
+    "name": "Katie Britt",
+    "address_line1": "100 West Troy Street, Suite 302",
+    "city": "Dothan",
+    "address_state": "AL",
+    "zip": "36303"
+  },
+  {
+    "state": "Alaska",
+    "name": "Dan Sullivan",
+    "address_line1": "510 L Street, Suite 750",
+    "city": "Anchorage",
+    "address_state": "AK",
+    "zip": "99501"
+  },
+  {
+    "state": "Arizona",
+    "name": "Mark Kelly",
+    "address_line1": "2201 E Camelback Road, Suite 115",
+    "city": "Phoenix",
+    "address_state": "AZ",
+    "zip": "85016"
+  },
+  {
+    "state": "Arkansas",
+    "name": "Tom Cotton",
+    "address_line1": "326 Russell Senate Office Building",
     "city": "Washington",
     "address_state": "DC",
     "zip": "20510"
   },
   {
     "state": "California",
-    "name": "Junior Senator Name",
+    "name": "Adam Schiff",
+    "address_line1": "11111 Santa Monica Blvd., Suite 915",
+    "city": "Los Angeles",
+    "address_state": "CA",
+    "zip": "90025"
+  },
+  {
+    "state": "Colorado",
+    "name": "John Hickenlooper",
+    "address_line1": "1961 Stout Street, Suite 12-300",
+    "city": "Denver",
+    "address_state": "CO",
+    "zip": "80294"
+  },
+  {
+    "state": "Connecticut",
+    "name": "Chris Murphy",
+    "address_line1": "120 Huyshope Avenue, Suite 401",
+    "city": "Hartford",
+    "address_state": "CT",
+    "zip": "06106"
+  },
+  {
+    "state": "Delaware",
+    "name": "Chris Coons",
+    "address_line1": "500 West Loockerman Street, Suite 450",
+    "city": "Dover",
+    "address_state": "DE",
+    "zip": "19904"
+  },
+  {
+    "state": "Florida",
+    "name": "Rick Scott",
+    "address_line1": "225 East Robinson Street, Suite 410",
+    "city": "Orlando",
+    "address_state": "FL",
+    "zip": "32801"
+  },
+  {
+    "state": "Georgia",
+    "name": "Jon Ossoff",
+    "address_line1": "271 17th Street NW, Suite 2200",
+    "city": "Atlanta",
+    "address_state": "GA",
+    "zip": "30363"
+  },
+  {
+    "state": "Hawaii",
+    "name": "Brian Schatz",
+    "address_line1": "300 Ala Moana Blvd., Room 7-212",
+    "city": "Honolulu",
+    "address_state": "HI",
+    "zip": "96850"
+  },
+  {
+    "state": "Idaho",
+    "name": "Jim Risch",
+    "address_line1": "350 North 9th Street, Suite 302",
+    "city": "Boise",
+    "address_state": "ID",
+    "zip": "83702"
+  },
+  {
+    "state": "Illinois",
+    "name": "Tammy Duckworth",
+    "address_line1": "230 South Dearborn Street, Suite 3900",
+    "city": "Chicago",
+    "address_state": "IL",
+    "zip": "60604"
+  },
+  {
+    "state": "Indiana",
+    "name": "Mike Braun",
+    "address_line1": "115 North Pennsylvania Street, Suite 100",
+    "city": "Indianapolis",
+    "address_state": "IN",
+    "zip": "46204"
+  },
+  {
+    "state": "Iowa",
+    "name": "Joni Ernst",
+    "address_line1": "733 Federal Building, 210 Walnut Street",
+    "city": "Des Moines",
+    "address_state": "IA",
+    "zip": "50309"
+  },
+  {
+    "state": "Kansas",
+    "name": "Roger Marshall",
+    "address_line1": "1001-C North Broadway",
+    "city": "Pittsburg",
+    "address_state": "KS",
+    "zip": "66762"
+  },
+  {
+    "state": "Kentucky",
+    "name": "Rand Paul",
+    "address_line1": "1029 State Street",
+    "city": "Bowling Green",
+    "address_state": "KY",
+    "zip": "42101"
+  },
+  {
+    "state": "Louisiana",
+    "name": "Bill Cassidy",
+    "address_line1": "5555 Hilton Avenue, Suite 100",
+    "city": "Baton Rouge",
+    "address_state": "LA",
+    "zip": "70808"
+  },
+  {
+    "state": "Maine",
+    "name": "Angus King",
+    "address_line1": "4 Gabriel Drive, Suite 1",
+    "city": "Augusta",
+    "address_state": "ME",
+    "zip": "04330"
+  },
+  {
+    "state": "Maryland",
+    "name": "Ben Cardin",
+    "address_line1": "100 South Charles Street, Tower 1, Suite 1710",
+    "city": "Baltimore",
+    "address_state": "MD",
+    "zip": "21201"
+  },
+  {
+    "state": "Massachusetts",
+    "name": "Ed Markey",
+    "address_line1": "975 JFK Federal Building",
+    "city": "Boston",
+    "address_state": "MA",
+    "zip": "02203"
+  },
+  {
+    "state": "Michigan",
+    "name": "Gary Peters",
+    "address_line1": "477 Michigan Avenue, Suite 1860",
+    "city": "Detroit",
+    "address_state": "MI",
+    "zip": "48226"
+  },
+  {
+    "state": "Minnesota",
+    "name": "Tina Smith",
+    "address_line1": "60 Plato Boulevard East, Suite 220",
+    "city": "Saint Paul",
+    "address_state": "MN",
+    "zip": "55107"
+  },
+  {
+    "state": "Mississippi",
+    "name": "Cindy Hyde-Smith",
+    "address_line1": "190 East Capitol Street, Suite 550",
+    "city": "Jackson",
+    "address_state": "MS",
+    "zip": "39201"
+  },
+  {
+    "state": "Missouri",
+    "name": "Josh Hawley",
+    "address_line1": "1123 Wilkes Boulevard, Suite 220",
+    "city": "Columbia",
+    "address_state": "MO",
+    "zip": "65201"
+  },
+  {
+    "state": "Montana",
+    "name": "Steve Daines",
+    "address_line1": "320 Hart Senate Office Building",
+    "city": "Washington",
+    "address_state": "DC",
+    "zip": "20510"
+  },
+  {
+    "state": "Nebraska",
+    "name": "Pete Ricketts",
+    "address_line1": "116 South 9th Street",
+    "city": "Lincoln",
+    "address_state": "NE",
+    "zip": "68508"
+  },
+  {
+    "state": "Nevada",
+    "name": "Catherine Cortez Masto",
+    "address_line1": "333 Las Vegas Boulevard South, Suite 8016",
+    "city": "Las Vegas",
+    "address_state": "NV",
+    "zip": "89101"
+  },
+  {
+    "state": "New Hampshire",
+    "name": "Maggie Hassan",
+    "address_line1": "1200 Elm Street, Suite 2",
+    "city": "Manchester",
+    "address_state": "NH",
+    "zip": "03101"
+  },
+  {
+    "state": "New Jersey",
+    "name": "Andy Kim",
     "address_line1": "Senate Office Building",
     "city": "Washington",
     "address_state": "DC",
     "zip": "20510"
+  },
+  {
+    "state": "New Mexico",
+    "name": "Ben Ray Luján",
+    "address_line1": "110 East Aztec Avenue",
+    "city": "Gallup",
+    "address_state": "NM",
+    "zip": "87301"
+  },
+  {
+    "state": "New York",
+    "name": "Kirsten Gillibrand",
+    "address_line1": "780 Third Avenue, Suite 2601",
+    "city": "New York",
+    "address_state": "NY",
+    "zip": "10017"
+  },
+  {
+    "state": "North Carolina",
+    "name": "Thom Tillis",
+    "address_line1": "310 New Bern Avenue, Suite 122",
+    "city": "Raleigh",
+    "address_state": "NC",
+    "zip": "27601"
+  },
+  {
+    "state": "North Dakota",
+    "name": "Kevin Cramer",
+    "address_line1": "328 Federal Building, 220 East Rosser Avenue",
+    "city": "Bismarck",
+    "address_state": "ND",
+    "zip": "58501"
+  },
+  {
+    "state": "Ohio",
+    "name": "Jim Justice",
+    "address_line1": "Senate Office Building",
+    "city": "Washington",
+    "address_state": "DC",
+    "zip": "20510"
+  },
+  {
+    "state": "Oklahoma",
+    "name": "Markwayne Mullin",
+    "address_line1": "3817 NW Expressway, Suite 520",
+    "city": "Oklahoma City",
+    "address_state": "OK",
+    "zip": "73112"
+  },
+  {
+    "state": "Oregon",
+    "name": "Jeff Merkley",
+    "address_line1": "495 State Street NE, Suite 330",
+    "city": "Salem",
+    "address_state": "OR",
+    "zip": "97301"
+  },
+  {
+    "state": "Pennsylvania",
+    "name": "John Fetterman",
+    "address_line1": "310 Grant Street, Suite 1530",
+    "city": "Pittsburgh",
+    "address_state": "PA",
+    "zip": "15219"
+  },
+  {
+    "state": "Rhode Island",
+    "name": "Sheldon Whitehouse",
+    "address_line1": "170 Westminster Street, Suite 200",
+    "city": "Providence",
+    "address_state": "RI",
+    "zip": "02903"
+  },
+  {
+    "state": "South Carolina",
+    "name": "Tim Scott",
+    "address_line1": "104 South Main Street, Suite 803",
+    "city": "Greenville",
+    "address_state": "SC",
+    "zip": "29601"
+  },
+  {
+    "state": "South Dakota",
+    "name": "Mike Rounds",
+    "address_line1": "320 North Main Avenue, Suite A",
+    "city": "Sioux Falls",
+    "address_state": "SD",
+    "zip": "57104"
+  },
+  {
+    "state": "Tennessee",
+    "name": "Marsha Blackburn",
+    "address_line1": "309 Plus Park Boulevard, Suite 101",
+    "city": "Nashville",
+    "address_state": "TN",
+    "zip": "37217"
+  },
+  {
+    "state": "Texas",
+    "name": "Ted Cruz",
+    "address_line1": "9901 IH-10 West, Suite 950",
+    "city": "San Antonio",
+    "address_state": "TX",
+    "zip": "78230"
+  },
+  {
+    "state": "Utah",
+    "name": "Mitt Romney",
+    "address_line1": "125 South State Street, Suite 8402",
+    "city": "Salt Lake City",
+    "address_state": "UT",
+    "zip": "84138"
+  },
+  {
+    "state": "Vermont",
+    "name": "Peter Welch",
+    "address_line1": "199 Main Street, 4th Floor",
+    "city": "Burlington",
+    "address_state": "VT",
+    "zip": "05401"
+  },
+  {
+    "state": "Virginia",
+    "name": "Tim Kaine",
+    "address_line1": "231 Russell Senate Office Building",
+    "city": "Washington",
+    "address_state": "DC",
+    "zip": "20510"
+  },
+  {
+    "state": "Washington",
+    "name": "Maria Cantwell",
+    "address_line1": "950 Pacific Avenue, Suite 615",
+    "city": "Tacoma",
+    "address_state": "WA",
+    "zip": "98402"
+  },
+  {
+    "state": "West Virginia",
+    "name": "Shelley Moore Capito",
+    "address_line1": "500 Virginia Street East, Suite 950",
+    "city": "Charleston",
+    "address_state": "WV",
+    "zip": "25301"
+  },
+  {
+    "state": "Wisconsin",
+    "name": "Tammy Baldwin",
+    "address_line1": "717 Hart Senate Office Building",
+    "city": "Washington",
+    "address_state": "DC",
+    "zip": "20510"
+  },
+  {
+    "state": "Wyoming",
+    "name": "Cynthia Lummis",
+    "address_line1": "100 East B Street, Suite 3201",
+    "city": "Casper",
+    "address_state": "WY",
+    "zip": "82601"
   }
 ]
