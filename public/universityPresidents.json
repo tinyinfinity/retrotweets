@@ -1,7 +1,7 @@
 [
   {
     "university": "Harvard University",
-    "name": "President of Harvard University",
+    "name": "Alan M. Garber",
     "address_line1": "Massachusetts Hall",
     "city": "Cambridge",
     "state": "MA",
@@ -9,7 +9,7 @@
   },
   {
     "university": "Stanford University",
-    "name": "President of Stanford University",
+    "name": "Jonathan Levin",
     "address_line1": "450 Serra Mall",
     "city": "Stanford",
     "state": "CA",
@@ -17,7 +17,7 @@
   },
   {
     "university": "Yale University",
-    "name": "President of Yale University",
+    "name": "Maurie D. McInnis",
     "address_line1": "1 Hillhouse Avenue",
     "city": "New Haven",
     "state": "CT",
@@ -25,7 +25,7 @@
   },
   {
     "university": "Princeton University",
-    "name": "President of Princeton University",
+    "name": "Christopher L. Eisgruber",
     "address_line1": "1 Nassau Hall",
     "city": "Princeton",
     "state": "NJ",
@@ -33,7 +33,7 @@
   },
   {
     "university": "Columbia University",
-    "name": "President of Columbia University",
+    "name": "Katrina Armstrong",
     "address_line1": "202 Low Library, 535 West 116th Street",
     "city": "New York",
     "state": "NY",
@@ -41,7 +41,7 @@
   },
   {
     "university": "University of Pennsylvania",
-    "name": "President of University of Pennsylvania",
+    "name": "J. Larry Jameson",
     "address_line1": "1 College Hall",
     "city": "Philadelphia",
     "state": "PA",
@@ -49,7 +49,7 @@
   },
   {
     "university": "Brown University",
-    "name": "President of Brown University",
+    "name": "Christina H. Paxson",
     "address_line1": "1 Prospect Street",
     "city": "Providence",
     "state": "RI",
@@ -57,7 +57,7 @@
   },
   {
     "university": "Dartmouth College",
-    "name": "President of Dartmouth College",
+    "name": "Sian Leah Beilock",
     "address_line1": "1 Wheelock Street",
     "city": "Hanover",
     "state": "NH",
@@ -65,7 +65,7 @@
   },
   {
     "university": "Cornell University",
-    "name": "President of Cornell University",
+    "name": "Michael I. Kotlikoff",
     "address_line1": "300 Day Hall",
     "city": "Ithaca",
     "state": "NY",
@@ -73,7 +73,7 @@
   },
   {
     "university": "Northwestern University",
-    "name": "President of Northwestern University",
+    "name": "Michael H. Schill",
     "address_line1": "633 Clark Street",
     "city": "Evanston",
     "state": "IL",
@@ -81,7 +81,7 @@
   },
   {
     "university": "University of Chicago",
-    "name": "President of University of Chicago",
+    "name": "Paul Alivisatos",
     "address_line1": "5801 South Ellis Avenue",
     "city": "Chicago",
     "state": "IL",
@@ -89,7 +89,7 @@
   },
   {
     "university": "Duke University",
-    "name": "President of Duke University",
+    "name": "Vincent E. Price",
     "address_line1": "207 Allen Building",
     "city": "Durham",
     "state": "NC",
@@ -97,7 +97,7 @@
   },
   {
     "university": "University of Michigan",
-    "name": "President of University of Michigan",
+    "name": "Santa J. Ono",
     "address_line1": "500 South State Street",
     "city": "Ann Arbor",
     "state": "MI",
@@ -105,7 +105,7 @@
   },
   {
     "university": "University of Southern California",
-    "name": "President of University of Southern California",
+    "name": "Carol L. Folt",
     "address_line1": "3551 Trousdale Parkway",
     "city": "Los Angeles",
     "state": "CA",
@@ -113,7 +113,7 @@
   },
   {
     "university": "University of California, Los Angeles",
-    "name": "President of University of California, Los Angeles",
+    "name": "Michael V. Drake",
     "address_line1": "405 Hilgard Avenue",
     "city": "Los Angeles",
     "state": "CA",
@@ -121,7 +121,7 @@
   },
   {
     "university": "University of California, San Francisco",
-    "name": "President of University of California, San Francisco",
+    "name": "Michael V. Drake",
     "address_line1": "500 Parnassus Avenue",
     "city": "San Francisco",
     "state": "CA",
@@ -129,7 +129,7 @@
   },
   {
     "university": "University of California, San Diego",
-    "name": "President of University of California, San Diego",
+    "name": "Michael V. Drake",
     "address_line1": "9500 Gilman Drive",
     "city": "La Jolla",
     "state": "CA",
@@ -137,7 +137,7 @@
   },
   {
     "university": "University of Illinois at Urbana-Champaign",
-    "name": "President of University of Illinois at Urbana-Champaign",
+    "name": "Robert J. Jones",
     "address_line1": "601 East John Street",
     "city": "Champaign",
     "state": "IL",
@@ -145,7 +145,7 @@
   },
   {
     "university": "New York University",
-    "name": "President of New York University",
+    "name": "Linda G. Mills",
     "address_line1": "70 Washington Square South",
     "city": "New York",
     "state": "NY",
@@ -153,7 +153,7 @@
   },
   {
     "university": "University of Oregon",
-    "name": "President of University of Oregon",
+    "name": "John Karl Scholz",
     "address_line1": "1226 University of Oregon",
     "city": "Eugene",
     "state": "OR",
@@ -161,7 +161,7 @@
   },
   {
     "university": "Oregon State University",
-    "name": "President of Oregon State University",
+    "name": "Jayathi Y. Murthy",
     "address_line1": "1500 SW Jefferson Way",
     "city": "Corvallis",
     "state": "OR",
@@ -169,7 +169,7 @@
   },
   {
     "university": "University of Washington",
-    "name": "President of University of Washington",
+    "name": "Robert J. Jones",
     "address_line1": "1410 NE Campus Parkway",
     "city": "Seattle",
     "state": "WA",
@@ -177,10 +177,58 @@
   },
   {
     "university": "Washington State University",
-    "name": "President of Washington State University",
+    "name": "Kirk H. Schulz",
     "address_line1": "French Administration Building",
     "city": "Pullman",
     "state": "WA",
     "zip": "99164"
+  },
+  {
+    "university": "Auburn University",
+    "name": "Christopher B. Roberts",
+    "address_line1": "107 Samford Hall",
+    "city": "Auburn",
+    "state": "AL",
+    "zip": "36849"
+  },
+  {
+    "university": "Texas A&M University",
+    "name": "Mark A. Welsh III",
+    "address_line1": "1246 TAMU",
+    "city": "College Station",
+    "state": "TX",
+    "zip": "77843"
+  },
+  {
+    "university": "The Ohio State University",
+    "name": "Walter E. Carter Jr.",
+    "address_line1": "281 W Lane Ave",
+    "city": "Columbus",
+    "state": "OH",
+    "zip": "43210"
+  },
+  {
+    "university": "University of Central Florida",
+    "name": "Alexander N. Cartwright",
+    "address_line1": "4000 Central Florida Blvd",
+    "city": "Orlando",
+    "state": "FL",
+    "zip": "32816"
+  },
+  {
+    "university": "University of Texas at Austin",
+    "name": "Jay Hartzell",
+    "address_line1": "110 Inner Campus Drive",
+    "city": "Austin",
+    "state": "TX",
+    "zip": "78712"
+  },
+  {
+    "university": "Arizona State University",
+    "name": "Michael M. Crow",
+    "address_line1": "300 E University Dr",
+    "city": "Tempe",
+    "state": "AZ",
+    "zip": "85281"
   }
 ]
