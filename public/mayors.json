@@ -8,6 +8,14 @@
   "zip": "10007"
   },
   {
+  "city_state": "Atlanta, GA",
+  "name": "Andre Dickens",
+  "address_line1": "55 Trinity Ave SW",
+  "city": "Atlanta",
+  "state": "GA",
+  "zip": "30303"
+  },
+  {
   "city_state": "Los Angeles, CA",
   "name": "Karen Bass",
   "address_line1": "200 N Spring St",
